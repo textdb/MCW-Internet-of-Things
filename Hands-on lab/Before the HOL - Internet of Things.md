@@ -9,7 +9,7 @@ Before the hands-on lab setup guide
 </div>
 
 <div class="MCWHeader3">
-November 2018
+Mar9
 </div>
 
 Information in this document, including URL and other Internet Web site references, is subject to change without notice. Unless otherwise noted, the example companies, organizations, products, domain names, e-mail addresses, logos, people, places, and events depicted herein are fictitious, and no association with any real company, organization, product, domain name, e-mail address, logo, person, place or event is intended or should be inferred. Complying with all applicable copyright laws is the responsibility of the user. Without limiting the rights under copyright, no part of this document may be reproduced, stored in or introduced into a retrieval system, or transmitted in any form or by any means (electronic, mechanical, photocopying, recording, or otherwise), or for any purpose, without the express written permission of Microsoft Corporation.
@@ -29,13 +29,14 @@ Microsoft and the trademarks listed at <https://www.microsoft.com/en-us/legal/in
 - [Internet of Things before the hands-on lab setup guide](#internet-of-things-before-the-hands-on-lab-setup-guide)
   - [Requirements](#requirements)
   - [Before the hands-on lab](#before-the-hands-on-lab)
-       - [Task 1: Provision a resource group](#task-1-provision-a-resource-group)
-       - [Task 2: Set up a lab virtual machine](#task-2-set-up-a-lab-virtual-machine)
-       - [Task 3: Provision Azure Databricks](#task-3-provision-azure-databricks)
-       - [Task 4: Create Databricks cluster](#task-4-create-databricks-cluster)
-       - [Task 5: Provision Power BI](#task-5-provision-power-bi)
-       - [Task 6: Connect to your Lab VM](#task-6-connect-to-your-lab-vm)
-       - [Task 7: Download Smart Meter Simulator project](#task-8-download-smart-meter-simulator-project)
+    - [Task 1: Provision a resource group](#task-1-provision-a-resource-group)
+    - [Task 2: Setup a lab virtual machine](#task-2-setup-a-lab-virtual-machine)
+    - [Task 3: Provision Azure Databricks](#task-3-provision-azure-databricks)
+    - [Task 4: Create Databricks cluster](#task-4-create-databricks-cluster)
+    - [Task 5: Provision Power BI](#task-5-provision-power-bi)
+    - [Task 6: Connect to your Lab VM](#task-6-connect-to-your-lab-vm)
+    - [Task 7: Download Google Chrome](#task-7-download-google-chrome)
+    - [Task 7: Download Smart Meter Simulator project](#task-7-download-smart-meter-simulator-project)
 
 <!-- /TOC -->
 
@@ -77,6 +78,8 @@ In this task, you will create an Azure resource group for the resources used thr
 ### Task 2: Setup a lab virtual machine
 
 In this task, you will provision a virtual machine running Visual Studio Community 2017 that you will use as your development machine for this hands-on lab.
+
+> Note: Your Azure subscription must have MSDN offers associated with it to provision a new virtual machine with Visual Studio pre-loaded. If your subscription does not meet this requirement, you will need to either create a new VM with the same settings below, but without Visual Studio pre-installed, then install Visual Studio Community 2017 15.6 or later, or install it on your own machine.
 
 1. In the [Azure portal](https://portal.azure.com/), select **+Create a resource**, enter "visual studio community" into the Search the Marketplace box, select **Visual Studio Community 2017 (latest release) on Windows Server 2016 (x64)** from the results, and select **Create**.
 
@@ -230,31 +233,33 @@ In this task, you will create an RDP connection to your lab virtual machine (VM)
 
 11. Close the Server Manager.
 
+### Task 7: Download Google Chrome
+
+Azure Databricks requires Google Chrome or Firefox. By default, the VM only includes Internet Explorer.
+
+1. From your LabVM, open Internet Explorer and browse to <https://www.google.com/chrome/>.
+
+2. Click on the gear icon on the upper-right of your browser, then select **Internet options**.
+
+   ![The gear icon is selected and the Internet options menu item is highlighted.](media/ie-internet-options.png 'Internet Explorer')
+
+3. Select the **Security** tab, select **Trusted sites**, click on **Sites**. In the Trusted sites dialog, type in `https://*.google.com`. You may have "https://www.google.com" in that field already. If so, replace the "www" with a "\*". Click on **Add**, then click **Close**. Apply and save your changes.
+
+![The Trusted sites dialog is displayed with the previously mentioned items highlighted.](media/ie-trusted-sites.png 'Trusted sites')
+
+4. Select **Download Chrome** on the webpage and follow the prompts.
+
 ### Task 7: Download Smart Meter Simulator project
 
 Fabrikam has provided a Smart Meter Simulator that they use to simulate device registration, as well as the generation and transmission of telemetry data. They have asked you to use this as the starting point for integrating their smart meters with Azure.
 
 1. From your LabVM, download the starter project by downloading a .zip copy of the Intelligent vending machines GitHub repo.
 
-2. In a web browser, navigate to the Internet of Things MCW repo: <https://github.com/Microsoft/MCW-Internet-of-Things>.
+2. In your Chrome web browser, navigate to the Internet of Things MCW repo: <https://github.com/Microsoft/MCW-Internet-of-Things>.
 
 3. On the repo page, select **Clone or download**, then select **Download ZIP**.
 
    ![Download .zip containing the Intelligent vending machines repository](media/git-hub-download-repo.png 'Download ZIP')
-
-   > **Note:** If Internet Explorer displays the following message, complete the sub-tasks below: "Your current security settings do not allow this file to be downloaded".
-
-   - Select the Gear icon in the upper right-hand corner of Internet Explorer, then select **Internet options** from the menu.
-
-   ![Internet Explorer internet options](media/internet-options.png 'Internet options')
-
-   - In the Internet Options window, select the **Security** tab. Select the **Trusted sites** zone, then click the **Sites** button to edit the list of trusted sites.
-
-   ![Internet Explorer options: Security tab](media/internet-explorer-security-tab.png 'Security tab')
-
-   - `https://github.com` should automatically be added to the textbox. Click the **Add** button next to the URL to add it to the list of Websites below. Click **Close** when done.
-
-   - Finally, click **OK** to apply the changes and close internet options.
 
 4. Unzip the contents to the folder **C:\SmartMeter**.
 
