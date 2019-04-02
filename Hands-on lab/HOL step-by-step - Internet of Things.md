@@ -9,7 +9,7 @@ Hands-on lab step-by-step
 </div>
 
 <div class="MCWHeader3">
-November 2018
+March 2019
 </div>
 
 Information in this document, including URL and other Internet Web site references, is subject to change without notice. Unless otherwise noted, the example companies, organizations, products, domain names, e-mail addresses, logos, people, places, and events depicted herein are fictitious, and no association with any real company, organization, product, domain name, e-mail address, logo, person, place or event is intended or should be inferred. Complying with all applicable copyright laws is the responsibility of the user. Without limiting the rights under copyright, no part of this document may be reproduced, stored in or introduced into a retrieval system, or transmitted in any form or by any means (electronic, mechanical, photocopying, recording, or otherwise), or for any purpose, without the express written permission of Microsoft Corporation.
@@ -18,7 +18,7 @@ Microsoft may have patents, patent applications, trademarks, copyrights, or othe
 
 The names of manufacturers, products, or URLs are provided for informational purposes only and Microsoft makes no representations and warranties, either expressed, implied, or statutory, regarding these manufacturers or the use of the products with any Microsoft technologies. The inclusion of a manufacturer or product does not imply endorsement of Microsoft of the manufacturer or product. Links may be provided to third party sites. Such sites are not under the control of Microsoft and Microsoft is not responsible for the contents of any linked site or any link contained in a linked site, or any changes or updates to such sites. Microsoft is not responsible for webcasting or any other form of transmission received from any linked site. Microsoft is providing these links to you only as a convenience, and the inclusion of any link does not imply endorsement of Microsoft of the site or the products contained therein.
 
-© 2018 Microsoft Corporation. All rights reserved.
+© 2019 Microsoft Corporation. All rights reserved.
 
 Microsoft and the trademarks listed at <https://www.microsoft.com/en-us/legal/intellectualproperty/Trademarks/Usage/General.aspx> are trademarks of the Microsoft group of companies. All other trademarks are property of their respective owners.
 
@@ -40,15 +40,12 @@ Microsoft and the trademarks listed at <https://www.microsoft.com/en-us/legal/in
     - [Task 1: Create a Stream Analytics job for hot path processing to Power BI](#task-1-create-a-stream-analytics-job-for-hot-path-processing-to-power-bi)
     - [Task 2: Visualize hot data with Power BI](#task-2-visualize-hot-data-with-power-bi)
   - [Exercise 4: Cold path data processing with Azure Databricks](#exercise-4-cold-path-data-processing-with-azure-databricks)
-    - [Task 1: Create a storage account](task-1-create-a-storage-account)
+    - [Task 1: Create a Storage account](#task-1-create-a-storage-account)
     - [Task 2: Create the Stream Analytics job for cold path processing](#task-2-create-the-stream-analytics-job-for-cold-path-processing)
     - [Task 3: Verify CSV files in blob storage](#task-3-verify-csv-files-in-blob-storage)
     - [Task 4: Process with Spark SQL](#task-4-process-with-spark-sql)
-  - [Exercise 5: Reporting device outages with IoT Hub Operations Monitoring](#exercise-5-reporting-device-outages-with-iot-hub-operations-monitoring)
+  - [Exercise 5: Sending commands to the IoT devices](#exercise-5-sending-commands-to-the-iot-devices)
     - [Task 1: Enable verbose connection monitoring on the IoT Hub](#task-1-enable-verbose-connection-monitoring-on-the-iot-hub)
-    - [Task 2: Collect device connection telemetry with the hot path Stream Analytics job](#task-2-collect-device-connection-telemetry-with-the-hot-path-stream-analytics-job)
-    - [Task 3: Test the device outage notifications](#task-3-test-the-device-outage-notifications)
-    - [Task 4: Visualize disconnected devices with Power BI](#task-4-visualize-disconnected-devices-with-power-bi)
   - [After the hands-on lab](#after-the-hands-on-lab)
     - [Task 1: Delete the resource group](#task-1-delete-the-resource-group)
 
@@ -141,7 +138,7 @@ If you want to save this connection string with your project (in case you stop d
 
 1. Return to the `SmartMeterSimulator` solution in Visual Studio on your Lab VM.
 
-2. In the Solution Explorer, double-click `MainForm.cs` to open it. (If the Solution Explorer is not in the upper left corner of your Visual Studio instance, you can find it under the View menu in Visual Studio.)
+2. In the Solution Explorer, expand the SmartMeterSimulator project and double-click `MainForm.cs` to open it. (If the Solution Explorer is not in the upper left corner of your Visual Studio instance, you can find it under the View menu in Visual Studio.)
 
    ![In the Visual Studio Solution Explorer window, SmartMeterSimulator is expanded, and under it, MainForm.cs is highlighted.](media/visual-studio-solution-explorer-mainform-cs.png 'Visual Studio Solution Explorer')
 
@@ -375,93 +372,135 @@ Fabrikam has left you a partially completed sample in the form of the Smart Mete
 
    ```csharp
    class Sensor
-   {
-       private DeviceClient _DeviceClient;
-       private string _IotHubUri { get; set; }
-       public string DeviceId { get; set; }
-       public string DeviceKey { get; set; }
-       public DeviceState State { get; set; }
-       public string StatusWindow { get; set; }
-       public double CurrentTemperature
-       {
-           get
-           {
-               double avgTemperature = 70;
-               Random rand = new Random();
+    {
+        private DeviceClient _DeviceClient;
+        private string _IotHubUri { get; set; }
+        public string DeviceId { get; set; }
+        public string DeviceKey { get; set; }
+        public DeviceState State { get; set; }
+        public string StatusWindow { get; set; }
+        public string ReceivedMessage { get; set; }
+        public double? ReceivedTemperatureSetting { get; set; }
+        public double CurrentTemperature
+        {
+            get
+            {
+                double avgTemperature = 70;
+                Random rand = new Random();
+                double currentTemperature = avgTemperature + rand.Next(-6, 6);
 
-               double currentTemperature = avgTemperature + rand.Next(-6, 6);
+                if (ReceivedTemperatureSetting.HasValue)
+                {
+                    // If we received a cloud-to-device message that sets the temperature, override with the received value.
+                    currentTemperature = ReceivedTemperatureSetting.Value;
+                }
 
-               if(currentTemperature <= 68)
-                   TemperatureIndicator = SensorState.Cold;
-               else if(currentTemperature > 68 && currentTemperature < 72)
-                   TemperatureIndicator = SensorState.Normal;
-               else if(currentTemperature >= 72)
-                   TemperatureIndicator = SensorState.Hot;
+                if(currentTemperature <= 68)
+                    TemperatureIndicator = SensorState.Cold;
+                else if(currentTemperature > 68 && currentTemperature < 72)
+                    TemperatureIndicator = SensorState.Normal;
+                else if(currentTemperature >= 72)
+                    TemperatureIndicator = SensorState.Hot;
 
-               return currentTemperature;
-           }
-       }
+                return currentTemperature;
+            }
+        }
+        public SensorState TemperatureIndicator { get; set; }
 
-       public SensorState TemperatureIndicator { get; set; }
+        public Sensor(string iotHubUri, string deviceId, string deviceKey)
+        {
+            _IotHubUri = iotHubUri;
+            DeviceId = deviceId;
+            DeviceKey = deviceKey;
+            State = DeviceState.Registered;
+        }
+        public void InstallDevice(string statusWindow)
+        {
+            StatusWindow = statusWindow;
+            State = DeviceState.Installed;
+        }
 
-       public Sensor(string iotHubUri, string deviceId, string deviceKey)
-       {
-           _IotHubUri = iotHubUri;
-           DeviceId = deviceId;
-           DeviceKey = deviceKey;
-           State = DeviceState.Registered;
-       }
+        /// <summary>
+        /// Connect a device to the IoT Hub by instantiating a DeviceClient for that Device by Id and Key.
+        /// </summary>
+        public void ConnectDevice()
+        {
+            //TODO: 17. Connect the Device to Iot Hub by creating an instance of DeviceClient
+            _DeviceClient = DeviceClient.Create(_IotHubUri, new DeviceAuthenticationWithRegistrySymmetricKey(DeviceId, DeviceKey));
 
-       public void InstallDevice(string statusWindow)
-       {
-           StatusWindow = statusWindow;
-           State = DeviceState.Installed;
-       }
+            //Set the Device State to Ready
+            State = DeviceState.Ready;
+        }
+        public void DisconnectDevice()
+        {
+            //Delete the local device client
+            _DeviceClient = null;
 
-       /// <summary>
-       /// Connect a device to the IoT Hub by instantiating a DeviceClient for that Device by Id and Key.
-       /// </summary>
-       public void ConnectDevice()
-       {
-           //TODO: 17. Connect the Device to Iot Hub by creating an instance of DeviceClient
-           _DeviceClient = DeviceClient.Create(_IotHubUri, new DeviceAuthenticationWithRegistrySymmetricKey(DeviceId, DeviceKey));
+            //Set the Device State to Activate
+            State = DeviceState.Activated;
+        }
 
-           //Set the Device State to Ready
-           State = DeviceState.Ready;
-       }
+        /// <summary>
+        /// Send a message to the IoT Hub from the Smart Meter device
+        /// </summary>
+        public async void SendMessageAsync()
+        {
+            var telemetryDataPoint = new
+            {
+                id = DeviceId,
+                time = DateTime.UtcNow.ToString("o"),
+                temp = CurrentTemperature
+            };
 
-       public void DisconnectDevice()
-       {
-           //Delete the local device client
-           _DeviceClient = null;
+            //TODO: 18.Serialize the telemetryDataPoint to JSON
+            var messageString = JsonConvert.SerializeObject(telemetryDataPoint);
 
-           //Set the Device State to Activate
-           State = DeviceState.Activated;
-       }
+            //TODO: 19.Encode the JSON string to ASCII as bytes and create new Message with the bytes
+            var message = new Message(Encoding.ASCII.GetBytes(messageString));
 
-       /// <summary>
-       /// Send a message to the IoT Hub from the Smart Meter device
-       /// </summary>
-       public async void SendMessageAsync()
-       {
-           var telemetryDataPoint = new
-           {
-               id = DeviceId,
-               time = DateTime.UtcNow.ToString("o"),
-               temp = CurrentTemperature
-           };
+            //TODO: 20.Send the message to the IoT Hub
+            var sendEventAsync = _DeviceClient?.SendEventAsync(message);
+            if (sendEventAsync != null) await sendEventAsync;
+        }
 
-           //TODO: 18.Serialize the telemetryDataPoint to JSON
-           var messageString = JsonConvert.SerializeObject(telemetryDataPoint);
+        /// <summary>
+        /// Check for new messages sent to this device through IoT Hub.
+        /// </summary>
+        public async void ReceiveMessageAsync()
+        {
+            try
+            {
+                Message receivedMessage = await _DeviceClient?.ReceiveAsync();
+                if (receivedMessage == null)
+                {
+                    ReceivedMessage = null;
+                    return;
+                }
 
-           //TODO: 19.Encode the JSON string to ASCII as bytes and create new Message with the bytes
-           var message = new Message(Encoding.ASCII.GetBytes(messageString));
+                // Set the received message for this sensor to the string value of the message byte array.
+                ReceivedMessage = Encoding.ASCII.GetString(receivedMessage.GetBytes());
+                if(double.TryParse(ReceivedMessage, out var requestedTemperature))
+                {
+                    ReceivedTemperatureSetting = requestedTemperature;
+                }
+                else
+                {
+                    ReceivedTemperatureSetting = null;
+                }
 
-           //TODO: 20.Send the message to the IoT Hub
-           var sendEventAsync = _DeviceClient?.SendEventAsync(message);
-           if (sendEventAsync != null) await sendEventAsync;
-       }
-   }
+                // Send acknowledgement to IoT Hub that the has been successfully processed.
+                // The message can be safely removed from the device queue. If something happened
+                // that prevented the device app from completing the processing of the message,
+                // IoT Hub delivers it again.
+                await _DeviceClient?.CompleteAsync(receivedMessage);
+            }
+            catch (NullReferenceException ex)
+            {
+                // The device client is null, likely due to it being disconnected since this method was called.
+                System.Diagnostics.Debug.WriteLine("The DeviceClient is null. This is likely due to it being disconnected since the ReceiveMessageAsync message was called.");
+            }
+        }
+    }
    ```
 
 3. Save `Sensor.cs`.
@@ -694,7 +733,7 @@ Fabrikam would like to be able to capture all the "cold" data into scalable stor
    - **Storage account name**: Enter smartmetersSUFFIX.
    - **Location**: Select the location you are using for resources in this hands-on lab.
    - **Performance**: Select Standard.
-   - **Account kind**: Select Storage (general purpose v1).
+   - **Account kind**: Select StorageV2 (general purpose v1).
    - **Replication**: Select Locally-redundant storage (LRS).
 
    ![The Create storage account blade is displayed, with the previously mentioned settings entered into the appropriate fields.](media/storage-account-create-new.png 'Create storage account')
@@ -713,6 +752,8 @@ Fabrikam would like to be able to capture all the "cold" data into scalable stor
 6. In the Review tab, select **Create**.
 
 7. Once provisioned, navigate to your storage account, select **Access keys** from the left-hand menu, and copy the key1 Key value into a text editor, such as Notepad, for later use.
+
+   ![The Access Keys blade is displayed and the key1 copy button is highlighted.](media/storage-account-key.png 'Storage account - Keys')
 
 ### Task 2: Create the Stream Analytics job for cold path processing
 
@@ -998,11 +1039,11 @@ In this task, you will create a new Databricks notebook to perform some processi
 
     ![A bar chart is displayed, with devices on the X axis, and average temperations on the Y axis.](media/azure-databricks-notebook-visualizations-bar-chart.png 'Bar chart')
 
-## Exercise 5: Reporting device outages with IoT Hub Operations Monitoring
+## Exercise 5: Sending commands to the IoT devices
 
 Duration: 20 minutes
 
-Fabrikam would like to be alerted when devices disconnect and fail to reconnect after a period. Since they are already using PowerBI to visualize hot data, they would like to see a list of any of these devices in a report.
+Fabrikam would like to send commands to devices from the cloud in order to control their behavior. In this exercise, you will send commands that control the temperature settings of individual devices.
 
 ### Task 1: Enable verbose connection monitoring on the IoT Hub
 
@@ -1010,186 +1051,15 @@ To keep track of device connects and disconnects, we first need to enable verbos
 
 1. In the [Azure Portal](https://portal.azure.com), open the IoT Hub you provisioned earlier, **smartmeter-hub-SUFFIX**.
 
-2. Under Settings in the left-hand menu, select **Operations monitoring**.
+2. Under Monitoring in the left-hand menu, select **Diagnostic settings**.
 
-   ![Under Settings, Operations monitoring is selected.](media/iot-hub-settings-operations-monitoring.png 'Operations monitoring')
+   ![Under Monitoring, Diagnostic settings is selected.](media/iot-hub-monitoring-diagnostic-settings.png 'Diagnostic settings')
 
-3. Select **Verbose** for **Log events when a device connects or disconnects from the IoT Hub**.
+3. Select **Turn on diagnostics**.
 
-   ![In the Monitoring categories section, Verbose is selected under Log events when a device connects or disconnects from the IoT Hub.](./media/iot-hub-operation-monitoring-device-connections-verbose-logging.png 'Monitoring categories section')
+   ![In the Diagnostic settings blade, select Turn on diagnostics.](media/iot-hub-turn-on-diagnostics.png 'Diagnostic settings')
 
 4. Select **Save**.
-
-### Task 2: Collect device connection telemetry with the hot path Stream Analytics job
-
-Now that the device connections are being logged, update your hot path Stream Analytics job (the first one you created) with a new input that ingests device telemetry from Operations Monitoring. Next, create a query that joins all connected and disconnected events with a `DATEDIFF` function that only returns devices with a disconnect event, but no reconnect event within 120 seconds. Output the events to Power BI.
-
-1. In the [Azure Portal](https://portal.azure.com), open the **hot-stream** Stream Analytics job (the first one you created).
-
-2. Stop the job if it is currently running, from the Overview blade, by selecting **Stop**, then **Yes** when prompted.
-
-   ![The Stop button is highlighted on the Stream Analytics job Overview blade.](media/stream-analytics-job-stop.png 'Stop Stream Analytics Job')
-
-3. On the Stream Analytics job blade, select **Inputs** from the left-hand menu, under Job Topology, then select **+Add stream input**, and select **IoT Hub** from the dropdown menu to add an input connected to your IoT Hub.
-
-   ![On the Stream Analytics job blade, Inputs is selected under Job Topology in the left-hand menu, and +Add stream input is highlighted in the Inputs blade, and IoT Hub is highlighted in the drop down menu.](media/stream-analytics-job-inputs-add.png 'Add Stream Analytics job inputs')
-
-4. On the New Input blade, enter the following:
-
-   - **Input alias**: Enter connections.
-   - Choose **Select IoT Hub from your subscriptions**.
-   - **Subscription**: Select the subscription you are using for this hands-on lab.
-   - **IoT Hub**: Select the smartmeter-hub-SUFFIX IoT Hub.
-   - **Endpoint**: Select Operations monitoring.
-   - **Shared access policy name**: Select service.
-   - **Consumer Group**: Leave set to \$Default.
-   - **Event serialization format**: Select JSON.
-   - **Encoding**: Select UTF-8.
-   - **Event compression type**: Leave set to None.
-
-     ![IoT Hub New Input blade is displayed with the values specified above entered into the appropriate fields.](media/stream-analytics-job-inputs-add-iot-hub-input-operations-management.png 'IoT Hub New Input blade')
-
-5. Select **Save**.
-
-6. Next, select **Outputs** from the left-hand menu, under Job Topology, and select **+ Add**, then select **Power BI** from the drop-down menu.
-
-   ![Outputs is highlighted in the left-hand menu, under Job Topology, +Add is selected, and Power BI is highlighted in the drop down menu.](media/stream-analytics-job-outputs-add-power-bi.png 'Add Power BI Output')
-
-7. On the Power BI output blade, enter the following:
-
-   - **Output alias**: Set to powerbi-outage.
-   - Select **Authorize** to authorize the connection to your Power BI account. When prompted in the popup window, enter the account credentials you used to create your Power BI account in Before the Hands-on Lab, Task 1.
-   - **Group Workspace**: Select the default, My Workspace.
-   - **Dataset Name**: Enter deviceoutage.
-   - **Table Name**: Enter deviceoutage.
-
-     ![Power BI blade. Output alias is powerbi-outage, dataset name is deviceoutage, table name is deviceoutage.](media/stream-analytics-job-outputs-add-power-bi-operations-management.png 'Add Power BI Output')
-
-8. Select **Save**.
-
-9. Next, select **Query** from the left-hand menu, under Job Topology.
-
-   ![Under Job Topology, Query is selected.](./media/stream-analytics-job-query.png 'Stream Analytics Query')
-
-10. Replace the hot path query, which selects the averages of the temperatures into the PowerBI output, with queries that perform the following:
-
-    - Select **device disconnection events**.
-    - Select **device connection events**.
-    - Join these two streams together using the Stream Analytics `DATEDIFF` operation on the `LEFT JOIN`, and then filter out any records where there was a match. This gives us devices that had a disconnect event, but no corresponding connect event within 120 seconds. Output to the Service Bus.
-    - Execute the original hot path query.
-
-11. Replace the existing query with the following, and select **Save** in the **command bar** at the top. (Be sure to substitute in your output aliases and input aliases):
-
-    ```sql
-    WITH
-    Disconnected AS (
-    SELECT *
-    FROM connections TIMESTAMP BY [Time]
-    WHERE OperationName = 'deviceDisconnect'
-        AND Category = 'Connections'
-    ),
-    Connected AS (
-    SELECT *
-    FROM connections TIMESTAMP BY [Time]
-    WHERE OperationName = 'deviceConnect'
-        AND Category = 'Connections'
-    )
-
-    SELECT Disconnected.DeviceId, Disconnected.Time
-    INTO [powerbi-outage]
-    FROM Disconnected
-    LEFT JOIN Connected
-        ON DATEDIFF(second, Disconnected, Connected) BETWEEN 0 AND 120
-        AND Connected.deviceId = Disconnected.deviceId
-    WHERE Connected.DeviceId IS NULL;
-
-    SELECT AVG(temp) AS Average, id
-    INTO powerbi
-    FROM temps
-    GROUP BY TumblingWindow(minute, 5), id;
-    ```
-
-12. Select **Save**, and **Yes** when prompted with the confirmation.
-
-    ![Save button on the Query blade is highlighted](./media/stream-analytics-job-query-save.png 'Query Save button')
-
-13. Return to the Overview blade on your Stream Analytics job and select **Start**.
-
-    ![The Start button is highlighted on the Overview blade.](./media/stream-analytics-job-start.png 'Overview blade start button')
-
-14. In the Start job blade, select **Now** (the job will start processing messages from the current point in time onward).
-
-    ![Now is selected on the Start job blade.](./media/stream-analytics-job-start-job.png 'Start job blade')
-
-15. Select **Start**.
-
-16. Allow your Stream Analytics Job a few minutes to start.
-
-### Task 3: Test the device outage notifications
-
-Register and activate a few devices on the Smart Meter Simulator, then connect them. Deactivate them without reconnecting in order for them to show up in the device outage report we will create in the next task.
-
-1. Run the Smart Meter Simulator from Visual Studio.
-
-2. Select **Register**.
-
-   ![Register button](./media/smart-meter-simulator-register.png 'Register button')
-
-3. Select 3 of the windows to highlight them.
-
-   ![In the SmartMeter Simulator, three white windows display.](./media/smart-meter-simulator-window-select.png 'SmartMeter Simulator')
-
-4. Select **Activate**.
-
-   ![Activate button](./media/smart-meter-simulator-activate.png 'Activate button')
-
-5. Select **Connect**.
-
-   ![Connect button](./media/smart-meter-simulator-connect.png 'Connect button')
-
-6. After a few seconds, select **Disconnect**.
-
-   ![Disconnect button](media/smart-meter-simulator-disconnect.png 'Disconnect button')
-
-7. Select **Unregister**.
-
-   ![Unregister button](media/smart-meter-simulator-unregister.png 'Unregister button')
-
-### Task 4: Visualize disconnected devices with Power BI
-
-1. Log on to **Power BI** to see if data is being collected.
-
-2. As done previously, select My Workspace on the left-hand menu, then select the Datasets tab. A new dataset should appear, named **deviceoutage**. (It is starred to indicate it is new) If you do not see the dataset, you may need to connect your devices on the Smart Meter Simulator, then disconnect and unregister them and wait up to 5 minutes.
-
-   ![On the Power BI window, My Workspace is highlighted in the left pane, and the Datasets tab is highlighted in the right pane. Under Name, deviceoutage is highlighted.](./media/power-bi-datasets-deviceoutage.png 'Power BI window')
-
-3. Select the **Create report** icon under actions for the dataset.
-
-   ![Next to deviceoutage, the Create report icon is highlighted.](./media/power-bi-datasets-deviceoutage-create-report.png 'Create report icon')
-
-4. Add a **Table visualization**.
-
-   ![The table icon is highlighted on the Visualizations palette.](./media/power-bi-visualizations-table.png 'Visualizations palette')
-
-5. Select the **deviceid** and **time** fields, which will automatically be added to the table.
-
-   ![In the Fields listing, under deviceoutage, deviceid and time are both selected.](./media/power-bi-visualizations-table-fields.png 'Fields listing')
-
-6. You should see the Device Id of each of the devices you connected, and then disconnected for more than 2 minutes.
-
-   ![DeviceId and Time results display for Device one, Device five, and Device 8.](./media/power-pi-visualizations-table-output.png 'DeviceId and Time results')
-
-7. Save the report as **Disconnected Devices**.
-
-   ![Screenshot of the Save this report option.](./media/power-bi-save-report.png 'Save this report option')
-
-8. Switch to **Reading View**.
-
-   ![Reading View button](./media/power-bi-report-reading-view.png 'Reading View button')
-
-9. Within the report, select the column headers to sort by device or date. You may run a few more tests with the Smart Meter Simulator and periodically refresh the report to see new devices.
-
-   ![This report has two columns: DeviceID, and Time. Data is sorted by time.](./media/power-bi-report-reading-view-column-sorting.png 'Report')
 
 ## After the hands-on lab
 

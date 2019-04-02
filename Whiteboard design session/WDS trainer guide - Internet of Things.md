@@ -9,7 +9,7 @@ Whiteboard design session trainer guide
 </div>
 
 <div class="MCWHeader3">
-November 2018
+March 2019
 </div>
 
 Information in this document, including URL and other Internet Web site references, is subject to change without notice. Unless otherwise noted, the example companies, organizations, products, domain names, e-mail addresses, logos, people, places, and events depicted herein are fictitious, and no association with any real company, organization, product, domain name, e-mail address, logo, person, place or event is intended or should be inferred. Complying with all applicable copyright laws is the responsibility of the user. Without limiting the rights under copyright, no part of this document may be reproduced, stored in or introduced into a retrieval system, or transmitted in any form or by any means (electronic, mechanical, photocopying, recording, or otherwise), or for any purpose, without the express written permission of Microsoft Corporation.
@@ -18,7 +18,7 @@ Microsoft may have patents, patent applications, trademarks, copyrights, or othe
 
 The names of manufacturers, products, or URLs are provided for informational purposes only and Microsoft makes no representations and warranties, either expressed, implied, or statutory, regarding these manufacturers or the use of the products with any Microsoft technologies. The inclusion of a manufacturer or product does not imply endorsement of Microsoft of the manufacturer or product. Links may be provided to third party sites. Such sites are not under the control of Microsoft and Microsoft is not responsible for the contents of any linked site or any link contained in a linked site, or any changes or updates to such sites. Microsoft is not responsible for webcasting or any other form of transmission received from any linked site. Microsoft is providing these links to you only as a convenience, and the inclusion of any link does not imply endorsement of Microsoft of the site or the products contained therein.
 
-© 2018 Microsoft Corporation. All rights reserved.
+© 2019 Microsoft Corporation. All rights reserved.
 
 Microsoft and the trademarks listed at <https://www.microsoft.com/legal/intellectualproperty/Trademarks/Usage/General.aspx> are trademarks of the Microsoft group of companies. All other trademarks are property of their respective owners.
 
@@ -35,7 +35,7 @@ Microsoft and the trademarks listed at <https://www.microsoft.com/legal/intellec
     - [Customer situation](#customer-situation)
     - [Customer needs](#customer-needs)
     - [Customer objections](#customer-objections)
-    - [Infographic for common scenarios](#infographic-for-common-scenarios)
+    - [Infographic of common scenarios](#infographic-of-common-scenarios)
   - [Step 2: Design a proof of concept solution](#step-2-design-a-proof-of-concept-solution)
   - [Step 3: Present the solution](#step-3-present-the-solution)
   - [Wrap-up](#wrap-up)
@@ -43,7 +43,7 @@ Microsoft and the trademarks listed at <https://www.microsoft.com/legal/intellec
 - [Internet of Things whiteboard design session trainer guide](#internet-of-things-whiteboard-design-session-trainer-guide)
   - [Step 1: Review the customer case study](#step-1-review-the-customer-case-study-1)
   - [Step 2: Design a proof of concept solution](#step-2-design-a-proof-of-concept-solution-1)
-  - [Step 3: Present the solution](#step-3-present-the-solution-2)
+  - [Step 3: Present the solution](#step-3-present-the-solution-1)
   - [Wrap-up](#wrap-up-1)
   - [Preferred target audience](#preferred-target-audience)
   - [Preferred solution](#preferred-solution)
@@ -230,7 +230,7 @@ In addition to collecting telemetry, Fabrikam not only seeks to gain competitive
 
 4. We have heard of Azure IoT Suite, does it offer a good starting point for us?
 
-5. We need to know when devices are not transmitting telemetry. Is there a way for us to find out?
+5. Some of our customers require their IoT devices to communicate in a firewall-friendly way without opening up additional incoming or outgoing ports. What options do we have to accomplish this?
 
 ### Infographic of common scenarios
 
@@ -570,9 +570,20 @@ _Cloud to device communication_
 
    ![Screenshot of the Azure IoT Suite workflow. At a very high level, the solution includes the following: Web App, Document DB (Device Registry), Web Job, Azure Storage Blob, Event Hubs, Azure Stream Analytics, an IoT Hub, and Simulated Device.](./media/azure-iot-suite-solution.png 'Azure IoT Suite solution')
 
-5. We need to know when devices are not transmitting telemetry. Is there a way for us to find out?
+5. Some of our customers require their IoT devices to communicate in a firewall-friendly way without opening up additional incoming or outgoing ports. What options do we have to accomplish this?
+   
+   It is common for companies to install their IoT devices behind a firewall within private, isolated networks. Oftentimes, the firewalls that are installed on the edge of the network are configured to block incoming communications, including the type used to send commands to the devices over the internet. Since one of the solution requirements is to enable cloud-to-device communication, we need a secure, firewall-friendly way to communicate between these isolated networks and the public internet. Azure IoT Hub Device Streams allow us to use the outbound connection that is already established for the devices to communicate with IoT Hub, and enable that connection to also receive inbound connections from the cloud to these devices. In this way, IoT Hub acts as a proxy between the devices and external services that are otherwise blocked from direct communications through the firewall. With Device Streams, only the outbound port 443 is used. You do not need to open any inbound ports on the device or its network. To ensure secure communication between devices and services, or applications, IoT Hub Device Streams enforces authentication by requiring the devices and services communicating with them to authenticate using their IoT Hub credentials. All traffic sent over a device stream is always encrypted using TLS, regardless of whether the application sending communication encrypts its messages. Another benefit to using Device Streams is that the streams are fully compatible with the TCP/IP stack. This makes it easy to integrate into proprietary device applications or off-the-shelf TCP/IP applications such as SSH/RDP, web, file transfer, etc.
 
-   A good indicator that a device is not transmitting telemetry is that it has disconnected but not reconnected after a period of time. To detect this behavior, turn on verbose connection monitoring within the IoT Hub Operations Monitoring settings. Stream Analytics can use Operations Monitoring as an endpoint when selecting IoT Hub as an input source. Next, create a query that joins all connected and disconnected events with a `DATEDIFF` function that only returns devices with a disconnect event, but no reconnect event within the specified period of time, such as 180 seconds. There are many options for outputting that information, such as sending directly to Power BI for visualization, or sending the data to a Service Bus queue for further processing and alerting mechanisms.
+   The Device Stream workflow is as follows:
+
+   - The device and external service both authenticate with IoT Hub. IoT Hub then provides both the device and service with an authentication token to a streaming endpoint.
+   - The device and service create WebSocket clients using the authentication token. Reliability and ordering of messages on par with TCP. All communications encrypted over WebSocket's TLS channel.
+   - The service initially connects to the device by name, not IP.
+   - The device can decide whether to accept the connection.
+   - The service is notified of the result of device accepting the stream and proceeds to create its own WebSocket client to the streaming endpoint. Similarly, it receives the streaming endpoint URL and authentication information from IoT Hub.
+   - This workflow happens transparently, reducing or eliminating additional code on both the device and service side.
+
+   ![Diagram showing communication between devices and services using Device Streams.](media/iot-hub-device-streams.png 'Device Streams')
 
 ## Customer quote (to be read back to the attendees at the end)
 
