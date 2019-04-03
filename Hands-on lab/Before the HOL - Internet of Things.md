@@ -50,6 +50,7 @@ Microsoft and the trademarks listed at <https://www.microsoft.com/en-us/legal/in
   - Visual Studio Community 2017 15.6 or later
   - Azure SDK 2.9 or later (Included with Visual Studio 2017)
 - A running Azure Databricks cluster.
+- A work email address that has Power BI enabled, allowing you to create a Power BI account if one does not exist.
 
 ## Before the hands-on lab
 
