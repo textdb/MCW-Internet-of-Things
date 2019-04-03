@@ -221,6 +221,9 @@ namespace SmartMeterSimulator
                     sensor.State = DeviceState.Ready;
                     break;
             }
+
+            //Check for any cloud-to-device messages sent through IoT Hub:
+            sensor.ReceiveMessageAsync();
             
             //Update the Device
             if(!stopQueue)
@@ -276,6 +279,15 @@ namespace SmartMeterSimulator
                     }
                     //Pass sensor data to container
                     button.Tag = sensor;
+
+                    //Display any received messages:
+                    if (!string.IsNullOrWhiteSpace(sensor.ReceivedMessage))
+                    {
+                        var item1 = new ListViewItem(new[] { sensor.DeviceId, $"Message: {sensor.ReceivedMessage}", DateTime.UtcNow.ToString("s") });
+                        item1.BackColor = Color.Yellow;
+                        lvSensorData.Items.Add(item1);
+                        sensor.ReceivedMessage = null;
+                    }
 
                     //Loop
                     if(!stopQueue)
