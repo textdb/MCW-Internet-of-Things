@@ -45,7 +45,9 @@ Microsoft and the trademarks listed at <https://www.microsoft.com/en-us/legal/in
     - [Task 3: Verify CSV files in blob storage](#task-3-verify-csv-files-in-blob-storage)
     - [Task 4: Process with Spark SQL](#task-4-process-with-spark-sql)
   - [Exercise 5: Sending commands to the IoT devices](#exercise-5-sending-commands-to-the-iot-devices)
-    - [Task 1: Enable verbose connection monitoring on the IoT Hub](#task-1-enable-verbose-connection-monitoring-on-the-iot-hub)
+    - [Task 1: Add your IoT Hub connection string to the CloudToDevice console app](#task-1-add-your-iot-hub-connection-string-to-the-cloudtodevice-console-app)
+    - [Task 2: Run the device simulator](#task-2-run-the-device-simulator)
+    - [Task 3: Run the console app and send cloud-to-device messages](#task-3-run-the-console-app-and-send-cloud-to-device-messages)
   - [After the hands-on lab](#after-the-hands-on-lab)
     - [Task 1: Delete the resource group](#task-1-delete-the-resource-group)
 
@@ -138,7 +140,7 @@ If you want to save this connection string with your project (in case you stop d
 
 1. Return to the `SmartMeterSimulator` solution in Visual Studio on your Lab VM.
 
-2. In the Solution Explorer, expand the SmartMeterSimulator project and double-click `MainForm.cs` to open it. (If the Solution Explorer is not in the upper left corner of your Visual Studio instance, you can find it under the View menu in Visual Studio.)
+2. In the Solution Explorer, expand the SmartMeterSimulator project and double-click `MainForm.cs` to open it. (If the Solution Explorer is not in the upper-right corner of your Visual Studio instance, you can find it under the View menu in Visual Studio.)
 
    ![In the Visual Studio Solution Explorer window, SmartMeterSimulator is expanded, and under it, MainForm.cs is highlighted.](media/visual-studio-solution-explorer-mainform-cs.png 'Visual Studio Solution Explorer')
 
@@ -366,7 +368,7 @@ Fabrikam has left you a partially completed sample in the form of the Smart Mete
 
 ### Task 2: Implement the communication of telemetry with IoT Hub
 
-1. Open `Sensor.cs` from the Solution Explorer, and complete the `TODO` items indicated within the code that are responsible for transmitting telemetry data to the IoT Hub.
+1. Open `Sensor.cs` from the Solution Explorer, and complete the `TODO` items indicated within the code that are responsible for transmitting telemetry data to the IoT Hub, as well as receiving data from IoT Hub.
 
 2. The following code shows the completed result:
 
@@ -477,7 +479,7 @@ Fabrikam has left you a partially completed sample in the form of the Smart Mete
                     return;
                 }
 
-                // Set the received message for this sensor to the string value of the message byte array.
+                //TODO: 21.Set the received message for this sensor to the string value of the message byte array
                 ReceivedMessage = Encoding.ASCII.GetString(receivedMessage.GetBytes());
                 if(double.TryParse(ReceivedMessage, out var requestedTemperature))
                 {
@@ -492,6 +494,8 @@ Fabrikam has left you a partially completed sample in the form of the Smart Mete
                 // The message can be safely removed from the device queue. If something happened
                 // that prevented the device app from completing the processing of the message,
                 // IoT Hub delivers it again.
+
+                //TODO: 22.Send acknowledgement to IoT hub that the message was processed
                 await _DeviceClient?.CompleteAsync(receivedMessage);
             }
             catch (NullReferenceException ex)
@@ -1045,21 +1049,79 @@ Duration: 20 minutes
 
 Fabrikam would like to send commands to devices from the cloud in order to control their behavior. In this exercise, you will send commands that control the temperature settings of individual devices.
 
-### Task 1: Enable verbose connection monitoring on the IoT Hub
+### Task 1: Add your IoT Hub connection string to the CloudToDevice console app
 
-To keep track of device connects and disconnects, we first need to enable verbose connection monitoring.
+This console app is configured to connect to IoT Hub using the same connection string you use in the SmartMeterSimulator app. Messages are sent from the console app to IoT Hub, specifying a device by its ID, for example `Device1`. IoT Hub then transmits that message to the device when it is connected. This is called a "cloud-to-device" message, as the console app in our case is not directly connecting to the device and sending it the message. All messages flow through IoT Hub where the connections and device state are managed.
 
-1. In the [Azure Portal](https://portal.azure.com), open the IoT Hub you provisioned earlier, **smartmeter-hub-SUFFIX**.
+1.  Return to the `SmartMeterSimulator` solution in Visual Studio on your Lab VM.
 
-2. Under Monitoring in the left-hand menu, select **Diagnostic settings**.
+2.  In the Solution Explorer, expand the CloudToDevice project and double-click `Program.cs` to open it. (If the Solution Explorer is not in the upper-right corner of your Visual Studio instance, you can find it under the View menu in Visual Studio.)
 
-   ![Under Monitoring, Diagnostic settings is selected.](media/iot-hub-monitoring-diagnostic-settings.png 'Diagnostic settings')
+    ![In the Visual Studio Solution Explorer window, CloudToDevice is expanded, and under it, Program.cs is highlighted.](media/visual-studio-solution-explorer-program-cs.png 'Visual Studio Solution Explorer')
 
-3. Select **Turn on diagnostics**.
+3.  Replace `YOUR-CONNECTION-STRING` on line 15 with your IoT Hub connection string. This is the same string you added to the Main form in the SmartMeterSimulator earlier. The line you need to update looks like this:
 
-   ![In the Diagnostic settings blade, select Turn on diagnostics.](media/iot-hub-turn-on-diagnostics.png 'Diagnostic settings')
+    ```csharp
+    static string connectionString = "YOUR-CONNECTION-STRING";
+    ```
 
-4. Select **Save**.
+    After updating, your Program.cs file should look similar to the following:
+
+    ![The Program.cs file has been updated with the code change.](media/visual-studio-program-cs.png 'Program.cs')
+
+4.  Save the file.
+
+### Task 2: Run the device simulator
+
+In this task, you will register, activate, and connect all devices. You will then leave the simulator running so that you can launch the console app and start sending cloud-to-device messages.
+
+1.  Within the `SmartMeterSimulator` Visual Studio solution, right-click the **SmartMeterSimulator** project, select **Debug**, then select **Start new instance** to run the device simulator.
+
+    ![Screenshot displays the debug context menu after right-clicking the SmartMeterSimulator project in Visual Studio.](media/visual-studio-debug-simulator.png 'Debug simulator')
+
+2.  Select **Register** on the Smart Meter Simulator dialog, which should cause the windows within the building to change from black to gray.
+
+    ![In addition to the IoT Hub Connection String, the Smart Meter Simulator has two buildings with 10 windows. The color of the windows indicating the status of the devices. Currently, all windows are gray.](media/smart-meter-simulator-register.png 'Fabrikam Smart Meter Simulator')
+
+3.  Select **all** of the windows. Each represents a device for which you want to simulate device installation. The selected windows should turn yellow.
+
+    ![The Smart Meter Simulator now has all yellow windows.](media/smart-meter-simulator-window-select-all.png 'Fabrikam Smart Meter Simulator')
+
+4.  Select **Activate** to simulate changing the device status from disabled to enabled in the IoT Hub Registry. The selected windows should turn green.
+
+    ![On the Smart Meter Simulator, the Activate button is highlighted, and all the windows have now turned to green.](media/smart-meter-simulator-activate-all.png 'Fabrikam Smart Meter Simulator')
+
+5.  Select **Connect**. Within a few moments, you should begin to see activity as the windows change color indicating the smart meters are transmitting telemetry. The grid on the left will list each telemetry message transmitted and the simulated temperature value.
+
+    ![On the Smart Meter Simulator, the Connect button is highlighted, the windows have turned different colors to signify the temperature.](media/smart-meter-simulator-connect-all.png 'Fabrikam Smart Meter Simulator')
+
+6.  Hover over one of the windows. You will see a dialog display information about the associated device, including the Device ID (in this case, `Device1`), Device Key, Temperature, and Indicator. The legend on the bottom shows the indicator displayed for each temperature range. The Device ID is important when sending cloud-to-device messages, as this is how we will target a specific device when we remotely set the desired temperature. Keep the Device ID values in mind when sending the messages in the next task.
+
+    ![A dialog containing device information is displayed after hovering over a window.](media/smart-meter-simulator-device-info.png 'Fabrikam Smart Meter Simulator')
+
+7.  Allow the smart meter to continue to run.
+
+### Task 3: Run the console app and send cloud-to-device messages
+
+In this task, you will run the console app to send desired temperature settings to specific devices and observe the simulated device receiving and reacting to the message.
+
+1.  Within the `SmartMeterSimulator` Visual Studio solution, right-click the **CloudToDevice** project, select **Debug**, then select **Start new instance** to run the console app.
+
+2.  In the console window, enter a device number when prompted. Accepted values are 0-9, since there are 10 devices whose IDs begin with 0. You can hover over the windows in the Smart Meter Simulator to view the Device IDs. When you enter a number, such as `5`, then a message will be sent to `Device5`.
+
+    ![The value of 1 is entered when prompted for the device number in the console window.](media/console-device-number.png 'Console App')
+
+3.  Now enter a temperature value between 65 and 85 degrees (F) when prompted. If you set a value above 72 degrees, the window will turn red. If the value is set between 68 and 72 degrees, it will turn green. Values below 68 degrees will turn the window blue. Once you set a value, the device will remain at that value until you set a new value, rather than randomly changing.
+
+    ![A value of 75 has been entered for the temperature. A new log entry in the Smart Meter Simulator appears in yellow showing the message value of 75 sent to Device1.](media/console-temperature.png 'Console App and Smart Meter Simulator')
+
+    If you run the Smart Meter Simulator side-by-side with the console app, you can observe the message logged by the Smart Meter Simulator within seconds. This message appears with a yellow background and displays the temperature request value sent to the device. In our case, we sent a request of 75 degrees to Device1. The console app indicates that it is sending the temperature request to the indicated device.
+
+4.  Hover over the device to which you sent the message. You will see that its temperature is set to the value you requested through the console app.
+
+    ![Device1 is hovered over and the dialog appears showing the temperature set to the requested temperature.](media/smart-meter-simulator-set-temp.png 'Fabrikam Smart Meter Simulator')
+
+5.  In the console window, you can enter `Y` to send another message. Experiment with setting the temperature on other devices and observe the results.
 
 ## After the hands-on lab
 
