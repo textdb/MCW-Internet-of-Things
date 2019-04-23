@@ -36,7 +36,7 @@ Microsoft and the trademarks listed at <https://www.microsoft.com/en-us/legal/in
     - [Task 5: Provision Power BI](#task-5-provision-power-bi)
     - [Task 6: Connect to your Lab VM](#task-6-connect-to-your-lab-vm)
     - [Task 7: Download Google Chrome](#task-7-download-google-chrome)
-    - [Task 7: Download Smart Meter Simulator project](#task-7-download-smart-meter-simulator-project)
+    - [Task 8: Download Smart Meter Simulator project](#task-8-download-smart-meter-simulator-project)
 
 <!-- /TOC -->
 
@@ -80,7 +80,7 @@ In this task, you will create an Azure resource group for the resources used thr
 
 In this task, you will provision a virtual machine running Visual Studio Community 2017 that you will use as your development machine for this hands-on lab.
 
-> Note: Your Azure subscription must have MSDN offers associated with it to provision a new virtual machine with Visual Studio pre-loaded. If your subscription does not meet this requirement, you will need to either create a new VM with the same settings below, but without Visual Studio pre-installed, then install Visual Studio Community 2017 15.6 or later, or install it on your own machine.
+> **Note**: Your Azure subscription must have MSDN offers associated with it to provision a new virtual machine with Visual Studio pre-loaded. If your subscription does not meet this requirement, you will need to either create a new VM with the same settings below, but without Visual Studio pre-installed, then install Visual Studio Community 2017 15.6 or later, or install it on your own machine.
 
 > **Optional**: If you already have Visual Studio 2017 or greater installed on your machine, you may skip this step.
 
@@ -214,7 +214,7 @@ In this task, you will create an RDP connection to your lab virtual machine (VM)
 
 6. Enter the following credentials when prompted:
 
-   - **User name**: demouser
+   - **Username**: demouser
 
    - **Password**: Password.1!!
 
@@ -252,7 +252,7 @@ Azure Databricks requires Google Chrome or Firefox. By default, the VM only incl
 
 4. Select **Download Chrome** on the webpage and follow the prompts.
 
-### Task 7: Download Smart Meter Simulator project
+### Task 8: Download Smart Meter Simulator project
 
 Fabrikam has provided a Smart Meter Simulator that they use to simulate device registration, as well as the generation and transmission of telemetry data. They have asked you to use this as the starting point for integrating their smart meters with Azure.
 
@@ -268,7 +268,7 @@ Fabrikam has provided a Smart Meter Simulator that they use to simulate device r
 
 5. Navigate to the `SmartMeterSimulator.sln` file within the `Hands-on lab\lab-files\starter-project` folder and open it with Visual Studio 2017.
 
-6. Sign in to Visual Studio or create an account, if prompted.
+6. Sign into Visual Studio or create an account, if prompted.
 
 7. If the Security Warning for SmartMeterSimulator window appears, uncheck _Ask me for every project in this solution_, and select **OK**.
 
