@@ -979,7 +979,7 @@ In this task, you will create a new Databricks notebook to perform some processi
     print(df.dtypes)
     ```
 
-    > In some rare cases, you may receive an error that the `dbfs:/mnt/smartmeters///*.csv` path is incorrect. If this happens, change the path in the cell to the following: `dbfs:/mnt/smartmeters/*/*/*/*/*.csv`
+    > **Note**: In some rare cases, you may receive an error that the `dbfs:/mnt/smartmeters///*.csv` path is incorrect. If this happens, change the path in the cell to the following: `dbfs:/mnt/smartmeters/*/*/*/*/*.csv`
 
 18. The cell above also outputs the value of the `df.dtypes` property, which is a list of the data types of the columns added to the Dataframe, similar to the following:
 
@@ -1008,7 +1008,7 @@ In this task, you will create a new Databricks notebook to perform some processi
 
     ![Output from executing a SQL statement a Databricks notebook cell using the %sql magic command.](media/azure-databricks-notebook-sql-magic-command.png 'SQL magic command')
 
-23. Now, execute the same command in a new cell, this time using Spark SQL so you can save the summary data into a Dataframe. Copy and execute the following code into a new cell.
+23. Now, execute the same command in a new cell, this time using Spark SQL so you can save the summary data into a Dataframe. Copy and execute the following code into a new cell:
 
     ```python
     # Query the table to create a Dataframe containing the summary
@@ -1018,7 +1018,7 @@ In this task, you will create a new Databricks notebook to perform some processi
     summary.write.mode("overwrite").saveAsTable("DeviceSummary")
     ```
 
-24. Next, query from this summary table by executing the following query in a new cell.
+24. Next, query from this summary table by executing the following query in a new cell:
 
     ```sql
     %sql
