@@ -9,7 +9,7 @@ Hands-on lab step-by-step
 </div>
 
 <div class="MCWHeader3">
-March 2019
+June 2019
 </div>
 
 Information in this document, including URL and other Internet Web site references, is subject to change without notice. Unless otherwise noted, the example companies, organizations, products, domain names, e-mail addresses, logos, people, places, and events depicted herein are fictitious, and no association with any real company, organization, product, domain name, e-mail address, logo, person, place or event is intended or should be inferred. Complying with all applicable copyright laws is the responsibility of the user. Without limiting the rights under copyright, no part of this document may be reproduced, stored in or introduced into a retrieval system, or transmitted in any form or by any means (electronic, mechanical, photocopying, recording, or otherwise), or for any purpose, without the express written permission of Microsoft Corporation.
@@ -364,6 +364,8 @@ Fabrikam has left you a partially completed sample in the form of the Smart Mete
    }
    ```
 
+   >NOTE:  Be sure you only replace the DeviceManager class and not any other code in the file
+
 5. Save `DeviceManager.cs`.
 
 ### Task 2: Implement the communication of telemetry with IoT Hub
@@ -507,18 +509,20 @@ Fabrikam has left you a partially completed sample in the form of the Smart Mete
     }
    ```
 
+>NOTE:  Be sure you only replace the Sensor class and not any other code in the file
+
 3. Save `Sensor.cs`.
 
 ### Task 3: Verify device registration and telemetry
 
 In this task, you will build and run the Smart Meter Simulator project.
 
-1. In Visual Studio select Build from the Visual Studio menu, then select Build Solution.
+1. In Visual Studio select **Build** from the Visual Studio menu, then select **Build Solution**.
 
    > **Note**: If you receive the following error after building the solution, complete the steps that follow: `Couldn't process file MainForm.resx due to its being in the Internet or Restricted zone or having the mark of the web on the file. Remove the mark of the web if you want to process these files.`
 
    - Open Windows Explorer and navigate to the starter project folder: `C:\SmartMeter\Hands-on lab\lab-files\starter-project\SmartMeterSimulator\`.
-   - Right-click on the `MainForm.resx` file, then select Properties.
+   - Right-click on the `MainForm.resx` file, then select **Properties**.
    - Check the **Unblock** checkbox on the bottom of the General tab, then click Apply then OK.
 
    ![Right-click MainForm.resx, go to Properties, then check the box next to Unblock](media/unblock-file.png 'Unblock file')
@@ -577,8 +581,8 @@ Fabrikam would like to visualize the "hot" data showing the average temperature 
    - **Subscription**: Select the subscription you are using for this hands-on lab.
    - **Resource group**: Choose Use existing and select the hands-on-lab-SUFFIX resource group.
    - **Location**: Select the location you are using for resources in this hands-on lab.
-   - **Hosting environment**: Select Cloud.
-   - **Streaming units**: Change the value to 1 by sliding the slider all the way left.
+   - **Hosting environment**: Select **Cloud**.
+   - **Streaming units**: Change the value to **1** by sliding the slider all the way left.
 
      ![The New Stream Analytics Job blade is displayed, with the previously mentioned settings entered into the appropriate fields.](media/stream-analytics-job-create.png 'New Stream Analytics Job blade')
 
@@ -597,11 +601,11 @@ Fabrikam would like to visualize the "hot" data showing the average temperature 
    - **Subscription**: Select the subscription you are using for this hands-on lab.
    - **IoT Hub**: Select the smartmeter-hub-SUFFIX IoT Hub.
    - **Endpoint**: Select Messaging.
-   - **Shared access policy name**: Select service.
-   - **Consumer Group**: Leave set to \$Default.
-   - **Event serialization format**: Select JSON.
-   - **Encoding**: Select UTF-8.
-   - **Event compression type**: Leave set to None.
+   - **Shared access policy name**: Select **service**.
+   - **Consumer Group**: Leave set to **\$Default**.
+   - **Event serialization format**: Select **JSON**.
+   - **Encoding**: Select **UTF-8**.
+   - **Event compression type**: Leave set to **None**.
 
      ![IoT Hub New Input blade is displayed with the values specified above entered into the appropriate fields.](media/stream-analytics-job-inputs-add-iot-hub-input.png 'IoT Hub New Input blade')
 
@@ -613,17 +617,17 @@ Fabrikam would like to visualize the "hot" data showing the average temperature 
 
 9. On the Power BI output blade, enter the following:
 
-   - **Output alias**: Set to powerbi.
-
-   - Select **Authorize** to authorize the connection to your Power BI account. When prompted in the popup window, enter the account credentials you used to create your Power BI account in [Before the hands-on lab setup guide, Task 1](./Before%20the%20HOL%20-%20Internet%20of%20Things.md).
-
-     ![Power BI new output blade. Output alias is selected and contains powerbi. Authorize button is highlighted.](media/stream-analytics-job-outputs-add-power-bi-authorize.png 'Power BI new output blade')
+   - **Output alias**: Set to **powerbi**.
 
    - For the remaining Power BI settings, enter the following:
 
      - **Group Workspace**: Select the default, My Workspace.
      - **Dataset Name**: Enter avgtemps.
      - **Table Name**: Enter avgtemps.
+
+     - Select **Authorize** to authorize the connection to your Power BI account. When prompted in the popup window, enter the account credentials you used to create your Power BI account in [Before the hands-on lab setup guide, Task 1](./Before%20the%20HOL%20-%20Internet%20of%20Things.md).
+
+     ![Power BI new output blade. Output alias is selected and contains powerbi. Authorize button is highlighted.](media/stream-analytics-job-outputs-add-power-bi-authorize.png 'Power BI new output blade')
 
 10. Select **Save**.
 
@@ -726,7 +730,7 @@ Fabrikam would like to be able to capture all the "cold" data into scalable stor
 
 ### Task 1: Create a Storage account
 
-1. In the [Azure portal](https://portal.azure.com), select **+ Create a resource**, enter "storage account" into the Search the Marketplace box, select **Storage account - blob, file, table, queue** from the results, and select **Create**.
+1. In the [Azure portal](https://portal.azure.com), select **+ Create a resource**, enter "storage account" into the Search the Marketplace box, select **Storage account** from the results, and select **Create**.
 
    ![In the Azure portal, +Create a resource is highlighted in the navigation pane, "storage account" is entered into the Search the Marketplace box, and Storage account - blob, file, table, queue is highlighted in the results.](media/create-resource-storage-account.png 'Create Storage account')
 
@@ -737,7 +741,7 @@ Fabrikam would like to be able to capture all the "cold" data into scalable stor
    - **Storage account name**: Enter smartmetersSUFFIX.
    - **Location**: Select the location you are using for resources in this hands-on lab.
    - **Performance**: Select Standard.
-   - **Account kind**: Select StorageV2 (general purpose v1).
+   - **Account kind**: Select StorageV2 (general purpose v2).
    - **Replication**: Select Locally-redundant storage (LRS).
 
    ![The Create storage account blade is displayed, with the previously mentioned settings entered into the appropriate fields.](media/storage-account-create-new.png 'Create storage account')
@@ -746,8 +750,8 @@ Fabrikam would like to be able to capture all the "cold" data into scalable stor
 
 4. In the Advanced tab, select the following:
 
-   - **Secure transfer required**: Select Disabled.
-   - **Virtual network**: Select None.
+   - **Secure transfer required**: Select **Disabled**.
+   - **Virtual network**: Select **All networks**.
 
    ![The Create storage account blade is displayed with options under the Advanced tab.](media/storage-account-create-new-advanced.png 'Create storage account - Advanced')
 
@@ -773,8 +777,8 @@ To capture all metrics for the cold path, set up another Stream Analytics job th
    - **Subscription**: Select the subscription you are using for this hands-on lab.
    - **Resource group**: Select the hands-on-lab-SUFFIX resource group.
    - **Location**: Select the location you are using for resources in this hands-on lab.
-   - **Hosting environment**: Select Cloud.
-   - **Streaming units**: Drag the slider all the way to the left to select 1 streaming unit.
+   - **Hosting environment**: Select **Cloud**.
+   - **Streaming units**: Drag the slider all the way to the left to select **1** streaming unit.
 
      ![The New Stream Analytics Job blade is displayed, with the previously mentioned settings entered into the appropriate fields.](media/stream-analytics-job-create-cold-stream.png 'New Stream Analytics Job blade')
 
@@ -792,12 +796,12 @@ To capture all metrics for the cold path, set up another Stream Analytics job th
    - Choose **Select IoT Hub from your subscriptions**.
    - **Subscription**: Select the subscription you are using for this hands-on lab.
    - **IoT Hub**: Select the smartmeter-hub-SUFFIX IoT Hub.
-   - **Endpoint**: Select Messaging.
-   - **Shared access policy name**: Select service.
-   - **Consumer Group**: Leave set to \$Default.
-   - **Event serialization format**: Select JSON.
-   - **Encoding**: Select UTF-8.
-   - **Event compression type**: Leave set to None.
+   - **Endpoint**: Select **Messaging**.
+   - **Shared access policy name**: Select **service**.
+   - **Consumer Group**: Leave set to **\$Default**.
+   - **Event serialization format**: Select **JSON**.
+   - **Encoding**: Select **UTF-8**.
+   - **Event compression type**: Leave set to **None**.
 
      ![IoT Hub New Input blade is displayed with the values specified above entered into the appropriate fields.](media/stream-analytics-job-inputs-add-iot-hub-input-cold-stream.png 'IoT Hub New Input blade')
 
@@ -813,13 +817,13 @@ To capture all metrics for the cold path, set up another Stream Analytics job th
    - Choose **Select blob storage from your subscriptions**.
    - **Subscription**: Select the subscription you are using for this hands-on lab.
    - **Storage account**: Select the smartmetersSUFFIX storage account you created in the previous task.
-   - **Container**: Choose Create new and enter smartmeters.
-   - **Path pattern**: Enter smartmeters/{date}/{time}.
-   - **Date format**: Select YYYY-DD-MM.
-   - **Time format**: Select HH.
-   - **Event serialization format**: Select CSV.
-   - **Delimiter**: Select comma (,).
-   - **Encoding**: Select UTF-8.
+   - **Container**: Choose Create new and enter **smartmeters**.
+   - **Path pattern**: Enter **smartmeters/{date}/{time}**.
+   - **Date format**: Select **YYYY-DD-MM**.
+   - **Time format**: Select **HH**.
+   - **Event serialization format**: Select **CSV**.
+   - **Delimiter**: Select **comma (,)**.
+   - **Encoding**: Select **UTF-8**.
 
      ![Blob storage New output blade is displayed, with the values mentioned above entered into the appropriate fields.](media/stream-analytics-job-outputs-blob-storage-new.png 'Add Blob storage Output')
 
@@ -896,23 +900,15 @@ In this task, you will create a new Databricks notebook to perform some processi
 
    ![On the Azure Databricks Service blade, the Launch Workspace button is highlighted.](media/azure-databricks-launch-workspace.png 'Launch Azure Databricks Workspace')
 
-2. On the Azure Databricks landing page, create a new notebook by selecting **Notebook** under New.
-
-   ![Notebook is highlighted under New on the Azure Databricks landing page.](media/azure-databricks-new-notebook.png 'New Databricks Notebook')
+2. On the Azure Databricks landing page, create a new notebook by selecting **New Notebook** under **Common Tasks**.
 
 3. In the Create Notebook dialog, enter **smartmeters** as the name, and select **Python** as the language, then select **Create**.
 
    ![In the Create Notebook dialog, smartmeters is entered as the Name, and Python is selected in the Language drop down.](media/azure-databricks-create-notebook-dialog.png 'Create Notebook dialog')
 
-4. On the notebook page, attach the notebook to your cluster by selecting Detached, and then selecting your cluster under Attach to.
+>NOTE If your cluster is stopped, you can select the down arrow next to your attached cluster name, and select Start Cluster from the menu, then select Confirm when prompted.
 
-   ![In the notebook page, Detached is expanded, and the iot-cluster is highlighted under Attach to.](media/azure-databricks-notebook-attach.png 'Attach notebook to cluster')
-
-5. If your cluster is stopped, you can select the down arrow next to your attached cluster name, and select Start Cluster from the menu, then select Confirm when prompted.
-
-   ![The iot-cluster is attached and its menu is expanded, with Start Cluster highlighted](media/azure-databricks-notebook-start-cluster.png 'Start cluster')
-
-6. In the first cell of your Databricks notebook (referred to as a paragraph in notebook jargon), enter the following **Python code** that creates widgets in the notebook for entering your Azure storage account name and key.
+4. In the first cell of your Databricks notebook (referred to as a paragraph in notebook jargon), enter the following **Python code** that creates widgets in the notebook for entering your Azure storage account name and key.
 
    ```python
    # Create widgets for storage account name and key
@@ -920,27 +916,27 @@ In this task, you will create a new Databricks notebook to perform some processi
    dbutils.widgets.text("accountKey", "", "Account Key")
    ```
 
-7. Now, select the Run button on the right side of the cell, and select **Run cell**.
+5. Now, select the Run button on the right side of the cell, and select **Run cell**.
 
    ![A cell in a Databricks Notebook is displayed, and the Run menu is visible with Run Cell highlighted in the menu.](media/azure-databricks-notebook-run-cell.png 'Datebricks Notebook run cell')
 
-8. When the cell finishes executing, you will see the Account Key and Account Name widgets appear at the top of the notebook, just below the toolbar.
+6. When the cell finishes executing, you will see the Account Key and Account Name widgets appear at the top of the notebook, just below the toolbar.
 
    ![In the Databricks notebook, Account Key and Account Name widgets are highlighted.](media/azure-databricks-notebook-widgets.png 'Databricks Notebooks widgets')
 
-9. You will also notice a message at the bottom of the cell indicating that the cell execution completed, and the amount of time it took.
+7. You will also notice a message at the bottom of the cell indicating that the cell execution completed, and the amount of time it took.
 
    ![A message is displayed at the bottom of the cell indicating how long the command took to execute.](media/azure-databricks-cell-execution-time.png 'Cell execution time')
 
-10. Enter your Azure Storage account key into the Account Key widget text box, and your Azure storage account name into the Account Name widget text box. These values can be obtained from the Access keys blade in your storage account.
+8. Enter your Azure Storage account key into the Account Key widget text box, and your Azure storage account name into the Account Name widget text box. These values can be obtained from the Access keys blade in your storage account.
 
     ![The Account Key and Account Name widgets are populated with values from the Azure storage account.](media/azure-databricks-notebook-widgets-populated.png 'Databricks Notebooks widgets')
 
-11. At the bottom of the first cell, select the + button to insert a new cell below it.
+9. At the bottom of the first cell, select the + button to insert a new cell below it.
 
     ![The Insert new cell button is highlighted at the bottom of the Databricks cell.](media/azure-databricks-insert-new-cell.png 'Insert new cell')
 
-12. In the new cell, paste the following code that will assign the values you entered into the widgets you created above into variables that will be used throughout the notebook.
+10. In the new cell, paste the following code that will assign the values you entered into the widgets you created above into variables that will be used throughout the notebook.
 
     ```python
     # Get values entered into widgets
@@ -948,9 +944,9 @@ In this task, you will create a new Databricks notebook to perform some processi
     accountKey = dbutils.widgets.get("accountKey")
     ```
 
-13. Run the cell.
+11. Run the cell.
 
-14. Insert a new cell into the notebook, and paste the following code to mount your blob storage account into Databricks File System (DBFS), then run the cell.
+12. Insert a new cell into the notebook, and paste the following code to mount your blob storage account into Databricks File System (DBFS), then run the cell.
 
     ```python
     # Mount the blob storage account at /mnt/smartmeters. This assumes your container name is smartmeters, and you have a folder named smartmeters within that container, as specified in the exercises above.
@@ -962,16 +958,16 @@ In this task, you will create a new Databricks notebook to perform some processi
 
     > **Note**: Mounting Azure Blob storage directly to DBFS allows you to access files as if they were on the local file system.
 
-15. Once your blob storage account is mounted, you can access them with Databricks Utilities, `dbutils.fs` commands. Insert a new cell, and paste the code below to see how `dbutils.fs.ls` can be used to list the files and folders directly below the smartmeters folder.
+13. Once your blob storage account is mounted, you can access them with Databricks Utilities, `dbutils.fs` commands. Insert a new cell, and paste the code below to see how `dbutils.fs.ls` can be used to list the files and folders directly below the smartmeters folder.
 
     ```python
     # Inspect the file structure
     display(dbutils.fs.ls("/mnt/smartmeters/"))
     ```
 
-16. Run the cell.
+14. Run the cell.
 
-17. You know from inspecting the files in the storage container that the files are contained within a folder structure resembling, `smartmeters/YYYY-MM-DD/HH`. You can use wildcards to obfuscate the date and hour folders, as well as the file names, and access all the files in all the folders. Insert another cell into the notebook, paste the following code, and run the cell to load the data from the files in blob storage into a Databricks Dataframe.
+15. You know from inspecting the files in the storage container that the files are contained within a folder structure resembling, `smartmeters/YYYY-MM-DD/HH`. You can use wildcards to obfuscate the date and hour folders, as well as the file names, and access all the files in all the folders. Insert another cell into the notebook, paste the following code, and run the cell to load the data from the files in blob storage into a Databricks Dataframe.
 
     ```python
     # Create a Dataframe containing data from all the files in blob storage, regardless of the folder they are located within.
@@ -981,34 +977,34 @@ In this task, you will create a new Databricks notebook to perform some processi
 
     > **Note**: In some rare cases, you may receive an error that the `dbfs:/mnt/smartmeters///*.csv` path is incorrect. If this happens, change the path in the cell to the following: `dbfs:/mnt/smartmeters/*/*/*/*/*.csv`
 
-18. The cell above also outputs the value of the `df.dtypes` property, which is a list of the data types of the columns added to the Dataframe, similar to the following:
+16. The cell above also outputs the value of the `df.dtypes` property, which is a list of the data types of the columns added to the Dataframe, similar to the following:
 
     ![Output from the df.dtypes property is displayed.](media/azure-databricks-df-dtypes-output.png 'Output from Dataframe dtypes')
 
-19. Insert another cell, and run the following code to view the first 10 records contained in the Dataframe.
+17. Insert another cell, and run the following code to view the first 10 records contained in the Dataframe.
 
     ```python
     df.show(10)
     ```
 
-20. Now, you can save the Dataframe to a global table in Databricks. This will make the table accessible to all users and clusters in your Databricks workspace. Insert a new cell, and run the following code.
+18. Now, you can save the Dataframe to a global table in Databricks. This will make the table accessible to all users and clusters in your Databricks workspace. Insert a new cell, and run the following code.
 
     ```python
     df.write.mode("overwrite").saveAsTable("SmartMeters")
     ```
 
-21. Now, you will use the `%sql` magic command to change the language of the next cell to SQL from the notebook's default language, Python, then execute a SQL command to aggregate the SmartMeter data by average temperature. Paste the following code into a new cell, and run the cell.
+19. Now, you will use the `%sql` magic command to change the language of the next cell to SQL from the notebook's default language, Python, then execute a SQL command to aggregate the SmartMeter data by average temperature. Paste the following code into a new cell, and run the cell.
 
     ```sql
     %sql
     SELECT id, COUNT(*) AS count, AVG(temp) AS averageTemp FROM SmartMeters GROUP BY id ORDER BY id
     ```
 
-22. The output from the SQL command should resemble the following table:
+20. The output from the SQL command should resemble the following table:
 
     ![Output from executing a SQL statement a Databricks notebook cell using the %sql magic command.](media/azure-databricks-notebook-sql-magic-command.png 'SQL magic command')
 
-23. Now, execute the same command in a new cell, this time using Spark SQL so you can save the summary data into a Dataframe. Copy and execute the following code into a new cell:
+21. Now, execute the same command in a new cell, this time using Spark SQL so you can save the summary data into a Dataframe. Copy and execute the following code into a new cell:
 
     ```python
     # Query the table to create a Dataframe containing the summary
@@ -1018,24 +1014,24 @@ In this task, you will create a new Databricks notebook to perform some processi
     summary.write.mode("overwrite").saveAsTable("DeviceSummary")
     ```
 
-24. Next, query from this summary table by executing the following query in a new cell:
+22. Next, query from this summary table by executing the following query in a new cell:
 
     ```sql
     %sql
     SELECT * FROM DeviceSummary
     ```
 
-25. Below the results table, button provide access to change the visualization for tabular output. Select the **chart** button, and then select **Plot Options**.
+23. Below the results table, button provide access to change the visualization for tabular output. Select the **Bar** button, and then select **Plot Options**.
 
     ![Buttons for displaying tablular results in different formats in Databricks](media/azure-databricks-notebook-visualizations.png 'Visualization options')
 
-26. In the Customize Plot dialog, set the following:
+24. In the Customize Plot dialog, ensure the following are set:
 
-    - **Keys**: Add id.
-    - **Values**: Add averageTemp.
-    - **Aggregation**: Select AVG.
+    - **Keys**: **id**.
+    - **Values**: **averageTemp**.
+    - **Aggregation**: Select **AVG**.
     - Select **Grouped** as the chart type.
-    - **Display type**: Select Bar chart.
+    - **Display type**: Select **Bar chart**.
 
       ![Plot customization options dialog in Azure databricks, with id in the Keys field, averageTemp in the Values field, Aggregation set to AVG, and the chart set to a grouped bar chart.](media/azure-databricks-notebook-customize-plot.png)
 
