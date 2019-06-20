@@ -738,11 +738,11 @@ Fabrikam would like to be able to capture all the "cold" data into scalable stor
 
    - **Subscription**: Select the subscription you are using for this hands-on lab.
    - **Resource group**: Choose Use existing and select the hands-on-lab-SUFFIX resource group.
-   - **Storage account name**: Enter smartmetersSUFFIX.
+   - **Storage account name**: Enter **smartmetersSUFFIX**.
    - **Location**: Select the location you are using for resources in this hands-on lab.
-   - **Performance**: Select Standard.
-   - **Account kind**: Select StorageV2 (general purpose v2).
-   - **Replication**: Select Locally-redundant storage (LRS).
+   - **Performance**: Select **Standard**.
+   - **Account kind**: Select **StorageV2 (general purpose v2)**.
+   - **Replication**: Select **Locally-redundant storage (LRS)**.
 
    ![The Create storage account blade is displayed, with the previously mentioned settings entered into the appropriate fields.](media/storage-account-create-new.png 'Create storage account')
 
