@@ -85,8 +85,8 @@ Other alternatives for processing of the ingested telemetry would be to use an H
 - Microsoft Azure subscription must be pay-as-you-go or MSDN
   - Trial subscriptions will not work
 - A virtual machine configured with:
-  - Visual Studio Community 2017 15.6 or later
-  - Azure SDK 2.9 or later (Included with Visual Studio 2017)
+  - Visual Studio Community 2019 or later
+  - Azure SDK 2.9 or later (Included with Visual Studio)
 - A running Azure Databricks cluster (see [Before the hands-on lab](#before-the-hands-on-lab))
 
 ## Exercise 1: IoT Hub provisioning
