@@ -1,4 +1,4 @@
-![](https://github.com/Microsoft/MCW-Template-Cloud-Workshop/raw/master/Media/ms-cloud-workshop.png 'Microsoft Cloud Workshops')
+![Microsoft Cloud Workshops](https://github.com/Microsoft/MCW-Template-Cloud-Workshop/raw/master/Media/ms-cloud-workshop.png 'Microsoft Cloud Workshops')
 
 <div class="MCWHeader1">
 Internet of Things
@@ -132,7 +132,7 @@ In this task, you will create an Azure Databricks workspace.
 
 2. On the Azure Databricks Service blade, enter the following:
 
-   - **Workspace name**: Enter iot-db-workspace-SUFFIX.
+   - **Workspace name**: Enter iot-db-workspace-SUFFIX
 
    - **Subscription**: Select the subscription you are using for this hands-on lab.
 
@@ -140,7 +140,7 @@ In this task, you will create an Azure Databricks workspace.
 
    - **Location**: Select the location you are using for resources in this hands-on lab.
 
-   - **Pricing tier**: Select **Standard**.
+   - **Pricing tier**: Select **Standard**
 
      ![The Azure Databricks Service blade is displayed, with the values specified above entered into the appropriate fields.](media/azure-databricks-create-workspace.png 'Create Azure Databricks workspace')
 
