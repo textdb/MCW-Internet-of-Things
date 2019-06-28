@@ -168,7 +168,7 @@ In this task, you will create an Azure Databricks cluster within the workspace y
 
 5. After a few minutes, your cluster will display as running.
 
-   ![The iot-cluster-SUFFIX cluster is displayed under Interactive Clusters, and ](media/azure-databricks-interactive-clusters.png 'Databricks Interactive clusters')
+   ![The iot-cluster-SUFFIX cluster is displayed under Interactive Clusters, and the state shows running.](media/azure-databricks-interactive-clusters.png 'Databricks Interactive clusters')
 
 ### Task 5: Provision Power BI
 
