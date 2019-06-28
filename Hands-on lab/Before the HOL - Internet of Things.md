@@ -1,4 +1,4 @@
-![](https://github.com/Microsoft/MCW-Template-Cloud-Workshop/raw/master/Media/ms-cloud-workshop.png 'Microsoft Cloud Workshops')
+![Microsoft Cloud Workshops](https://github.com/Microsoft/MCW-Template-Cloud-Workshop/raw/master/Media/ms-cloud-workshop.png 'Microsoft Cloud Workshops')
 
 <div class="MCWHeader1">
 Internet of Things
@@ -9,7 +9,7 @@ Before the hands-on lab setup guide
 </div>
 
 <div class="MCWHeader3">
-March 2019
+June 2019
 </div>
 
 Information in this document, including URL and other Internet Web site references, is subject to change without notice. Unless otherwise noted, the example companies, organizations, products, domain names, e-mail addresses, logos, people, places, and events depicted herein are fictitious, and no association with any real company, organization, product, domain name, e-mail address, logo, person, place or event is intended or should be inferred. Complying with all applicable copyright laws is the responsibility of the user. Without limiting the rights under copyright, no part of this document may be reproduced, stored in or introduced into a retrieval system, or transmitted in any form or by any means (electronic, mechanical, photocopying, recording, or otherwise), or for any purpose, without the express written permission of Microsoft Corporation.
@@ -47,8 +47,8 @@ Microsoft and the trademarks listed at <https://www.microsoft.com/en-us/legal/in
 - Microsoft Azure subscription must be pay-as-you-go or MSDN.
   - Trial subscriptions will not work.
 - A virtual machine configured with:
-  - Visual Studio Community 2017 15.6 or later
-  - Azure SDK 2.9 or later (Included with Visual Studio 2017)
+  - Visual Studio Community 2019 or later
+  - Azure SDK 2.9 or later (Included with Visual Studio)
 - A running Azure Databricks cluster.
 - A work email address that has Power BI enabled, allowing you to create a Power BI account if one does not exist.
 
@@ -78,15 +78,15 @@ In this task, you will create an Azure resource group for the resources used thr
 
 ### Task 2: Setup a lab virtual machine
 
-In this task, you will provision a virtual machine running Visual Studio Community 2017 that you will use as your development machine for this hands-on lab.
+In this task, you will provision a virtual machine running Visual Studio Community 2019 that you will use as your development machine for this hands-on lab.
 
-> **Note**: Your Azure subscription must have MSDN offers associated with it to provision a new virtual machine with Visual Studio pre-loaded. If your subscription does not meet this requirement, you will need to either create a new VM with the same settings below, but without Visual Studio pre-installed, then install Visual Studio Community 2017 15.6 or later, or install it on your own machine.
+> **Note**: Your Azure subscription must have MSDN offers associated with it to provision a new virtual machine with Visual Studio pre-loaded. If your subscription does not meet this requirement, you will need to either create a new VM with the same settings below, but without Visual Studio pre-installed, then install Visual Studio Community 2019, or install it on your own machine.
 
-> **Optional**: If you already have Visual Studio 2017 or greater installed on your machine, you may skip this step.
+> **Optional**: If you already have Visual Studio 2019 or greater installed on your machine, you may skip this step.
 
-1. In the [Azure portal](https://portal.azure.com/), select **+Create a resource**, enter "visual studio community" into the Search the Marketplace box, select **Visual Studio Community 2017 (latest release) on Windows Server 2016 (x64)** from the results, and select **Create**.
+1. In the [Azure portal](https://portal.azure.com/), select **+Create a resource**, enter "visual studio community" into the Search the Marketplace box, select **Visual Studio Community 2019 (latest) on Windows Server 2016 (x64)** from the results, and select **Create**.
 
-   ![+Create a resource is selected in the Azure navigation pane, and "visual studio community" is entered into the Search the Marketplace box. Visual Studio Community 2017 (latest release) on Windows Server 2016 (x64) is selected in the results.](./media/create-resource-visual-studio-on-windows-server-2016.png 'Create Windows Server 2016 with Visual Studio Community 2017')
+   ![+Create a resource is selected in the Azure navigation pane, and "visual studio community" is entered into the Search the Marketplace box. Visual Studio Community 2019 (latest) on Windows Server 2016 (x64) is selected in the results.](./media/create-resource-visual-studio-on-windows-server-2016.png 'Create Windows Server 2016 with Visual Studio Community 2019')
 
 2. Set the following configuration on the Basics tab:
 
@@ -98,17 +98,17 @@ In this task, you will provision a virtual machine running Visual Studio Communi
 
    - **Region**: Select the same region you selected for the resource group.
 
-   - **Availability options**: Select No infrastructure redundancy required.
+   - **Availability options**: Select **No infrastructure redundancy required**.
 
    - **Image**: The Visual Studio Community image you selected in the previous step should be listed here.
 
-   - **Size**: Select a Standard D2 v3 size if it is not already selected.
+   - **Size**: Select a **Standard D2 v3** size if it is not already selected.
 
-   - **Username**: Enter demouser
+   - **Username**: Enter **demouser**
 
-   - **Password**: Enter Password.1!!
+   - **Password**: Enter **Password.1!!**
 
-   - **Public inbound ports**: Select Allow selected ports.
+   - **Public inbound ports**: Select **Allow selected ports**.
 
    - **Selected inbound ports**: Select **RDP (3389)** from the drop down.
 
@@ -132,7 +132,7 @@ In this task, you will create an Azure Databricks workspace.
 
 2. On the Azure Databricks Service blade, enter the following:
 
-   - **Workspace name**: Enter iot-db-workspace-SUFFIX.
+   - **Workspace name**: Enter iot-db-workspace-SUFFIX
 
    - **Subscription**: Select the subscription you are using for this hands-on lab.
 
@@ -140,7 +140,7 @@ In this task, you will create an Azure Databricks workspace.
 
    - **Location**: Select the location you are using for resources in this hands-on lab.
 
-   - **Pricing tier**: Select Standard.
+   - **Pricing tier**: Select **Standard**
 
      ![The Azure Databricks Service blade is displayed, with the values specified above entered into the appropriate fields.](media/azure-databricks-create-workspace.png 'Create Azure Databricks workspace')
 
@@ -168,7 +168,7 @@ In this task, you will create an Azure Databricks cluster within the workspace y
 
 5. After a few minutes, your cluster will display as running.
 
-   ![The iot-cluster-SUFFIX cluster is displayed under Interactive Clusters, and ](media/azure-databricks-interactive-clusters.png 'Databricks Interactive clusters')
+   ![The iot-cluster-SUFFIX cluster is displayed under Interactive Clusters, and the state shows running.](media/azure-databricks-interactive-clusters.png 'Databricks Interactive clusters')
 
 ### Task 5: Provision Power BI
 
@@ -200,7 +200,7 @@ In this task, you will create an RDP connection to your lab virtual machine (VM)
 
    ![The list of resources in the hands-on-lab-SUFFIX resource group are displayed, and LabVM is highlighted.](./media/resource-group-resources-labvm.png 'LabVM in resource group list')
 
-3. On your Lab VM blade, select Connect from the top menu.
+3. On your Lab VM blade, select **Connect** from the top menu.
 
    ![The LabVM blade is displayed, with the Connect button highlighted in the top menu.](./media/connect-labvm.png 'Connect to LabVM')
 
@@ -266,7 +266,7 @@ Fabrikam has provided a Smart Meter Simulator that they use to simulate device r
 
 4. Unzip the contents to the folder **C:\SmartMeter**.
 
-5. Navigate to the `SmartMeterSimulator.sln` file within the `Hands-on lab\lab-files\starter-project` folder and open it with Visual Studio 2017.
+5. Navigate to the `SmartMeterSimulator.sln` file within the `Hands-on lab\lab-files\starter-project` folder and open it with Visual Studio 2019.
 
 6. Sign into Visual Studio or create an account, if prompted.
 

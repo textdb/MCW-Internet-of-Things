@@ -37,7 +37,7 @@ At the end of this hands-on lab, you will be better able to build an IoT solutio
 - Azure Stream Analytics
 - IoT Hub
 - Power BI Desktop
-- Visual Studio 2017
+- Visual Studio
 
 ## Azure solution
 
