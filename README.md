@@ -4,8 +4,8 @@ Fabrikam provides services and smart meters for enterprise energy (electrical po
 
 ## Target audience
 
-- Application developer
-- IoT
+- Application Developer
+- IoT Developer
 
 ## Abstract
 
