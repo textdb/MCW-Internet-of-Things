@@ -9,7 +9,7 @@ Before the hands-on lab setup guide
 </div>
 
 <div class="MCWHeader3">
-June 2019
+September 2019
 </div>
 
 Information in this document, including URL and other Internet Web site references, is subject to change without notice. Unless otherwise noted, the example companies, organizations, products, domain names, e-mail addresses, logos, people, places, and events depicted herein are fictitious, and no association with any real company, organization, product, domain name, e-mail address, logo, person, place or event is intended or should be inferred. Complying with all applicable copyright laws is the responsibility of the user. Without limiting the rights under copyright, no part of this document may be reproduced, stored in or introduced into a retrieval system, or transmitted in any form or by any means (electronic, mechanical, photocopying, recording, or otherwise), or for any purpose, without the express written permission of Microsoft Corporation.
@@ -242,11 +242,11 @@ Azure Databricks requires Google Chrome or Firefox. By default, the VM only incl
 
 1. From your LabVM, open Internet Explorer and browse to <https://www.google.com/chrome/>.
 
-2. Click on the gear icon on the upper-right of your browser, then select **Internet options**.
+2. Select the gear icon on the upper-right of your browser, then choose **Internet options**.
 
    ![The gear icon is selected and the Internet options menu item is highlighted.](media/ie-internet-options.png 'Internet Explorer')
 
-3. Select the **Security** tab, select **Trusted sites**, click on **Sites**. In the Trusted sites dialog, type in `https://*.google.com`. You may have "https://www.google.com" in that field already. If so, replace the "www" with a "\*". Click on **Add**, then click **Close**. Apply and save your changes.
+3. Select the **Security** tab, select **Trusted sites**, the choose **Sites**. In the Trusted sites dialog, type in `https://*.google.com`. You may have "https://www.google.com" in that field already. If so, replace the "www" with a "\*". Select **Add**, then **Close**. Apply and save your changes.
 
 ![The Trusted sites dialog is displayed with the previously mentioned items highlighted.](media/ie-trusted-sites.png 'Trusted sites')
 

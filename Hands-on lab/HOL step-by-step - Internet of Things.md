@@ -9,7 +9,7 @@ Hands-on lab step-by-step
 </div>
 
 <div class="MCWHeader3">
-June 2019
+September 2019
 </div>
 
 Information in this document, including URL and other Internet Web site references, is subject to change without notice. Unless otherwise noted, the example companies, organizations, products, domain names, e-mail addresses, logos, people, places, and events depicted herein are fictitious, and no association with any real company, organization, product, domain name, e-mail address, logo, person, place or event is intended or should be inferred. Complying with all applicable copyright laws is the responsibility of the user. Without limiting the rights under copyright, no part of this document may be reproduced, stored in or introduced into a retrieval system, or transmitted in any form or by any means (electronic, mechanical, photocopying, recording, or otherwise), or for any purpose, without the express written permission of Microsoft Corporation.
@@ -168,7 +168,7 @@ Fabrikam has left you a partially completed sample in the form of the Smart Mete
 
 1. In Visual Studio on your Lab VM, use Solution Explorer to open the file `DeviceManager.cs`.
 
-2. From the Visual Studio **View** menu, click **Task List**.
+2. From the Visual Studio **View** menu, choose **Task List**.
 
    ![On the Visual Studio View menu, Task List is selected.](media/visual-studio-view-menu-task-list.png 'Visual Studio View menu')
 
@@ -523,7 +523,7 @@ In this task, you will build and run the Smart Meter Simulator project.
 
    - Open Windows Explorer and navigate to the starter project folder: `C:\SmartMeter\Hands-on lab\lab-files\starter-project\SmartMeterSimulator\`.
    - Right-click on the `MainForm.resx` file, then select **Properties**.
-   - Check the **Unblock** checkbox on the bottom of the General tab, then click Apply then OK.
+   - Check the **Unblock** checkbox on the bottom of the General tab, then select Apply then OK.
 
    ![Right-click MainForm.resx, go to Properties, then check the box next to Unblock](media/unblock-file.png 'Unblock file')
 
@@ -950,6 +950,7 @@ In this task, you will create a new Databricks notebook to perform some processi
 
     ```python
     # Mount the blob storage account at /mnt/smartmeters. This assumes your container name is smartmeters, and you have a folder named smartmeters within that container, as specified in the exercises above.
+    if not any(mount.mountPoint == '/mnt/smartmeters' for mount in dbutils.fs.mounts()): 
     dbutils.fs.mount(
       source = "wasbs://smartmeters@" + accountName + ".blob.core.windows.net/smartmeters",
       mount_point = "/mnt/smartmeters",
