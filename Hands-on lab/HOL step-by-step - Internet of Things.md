@@ -168,7 +168,7 @@ Fabrikam has left you a partially completed sample in the form of the Smart Mete
 
 1. In Visual Studio on your Lab VM, use Solution Explorer to open the file `DeviceManager.cs`.
 
-2. From the Visual Studio **View** menu, click **Task List**.
+2. From the Visual Studio **View** menu, choose **Task List**.
 
    ![On the Visual Studio View menu, Task List is selected.](media/visual-studio-view-menu-task-list.png 'Visual Studio View menu')
 
@@ -523,7 +523,7 @@ In this task, you will build and run the Smart Meter Simulator project.
 
    - Open Windows Explorer and navigate to the starter project folder: `C:\SmartMeter\Hands-on lab\lab-files\starter-project\SmartMeterSimulator\`.
    - Right-click on the `MainForm.resx` file, then select **Properties**.
-   - Check the **Unblock** checkbox on the bottom of the General tab, then click Apply then OK.
+   - Check the **Unblock** checkbox on the bottom of the General tab, then select Apply then OK.
 
    ![Right-click MainForm.resx, go to Properties, then check the box next to Unblock](media/unblock-file.png 'Unblock file')
 
