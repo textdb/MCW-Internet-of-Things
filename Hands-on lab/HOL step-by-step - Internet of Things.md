@@ -9,7 +9,7 @@ Hands-on lab step-by-step
 </div>
 
 <div class="MCWHeader3">
-September 2019
+December 2019
 </div>
 
 Information in this document, including URL and other Internet Web site references, is subject to change without notice. Unless otherwise noted, the example companies, organizations, products, domain names, e-mail addresses, logos, people, places, and events depicted herein are fictitious, and no association with any real company, organization, product, domain name, e-mail address, logo, person, place or event is intended or should be inferred. Complying with all applicable copyright laws is the responsibility of the user. Without limiting the rights under copyright, no part of this document may be reproduced, stored in or introduced into a retrieval system, or transmitted in any form or by any means (electronic, mechanical, photocopying, recording, or otherwise), or for any purpose, without the express written permission of Microsoft Corporation.
@@ -96,11 +96,13 @@ In your architecture design session with Fabrikam, it was agreed that you would 
 
 In these steps, you will provision an instance of IoT Hub.
 
-1. In your browser, navigate to the [Azure portal](https://portal.azure.com), select **+Create a resource** in the navigation pane, enter "iot" into the Search the Marketplace box, select **IoT Hub** from the results, and select **Create**.
+1. In your browser, navigate to the [Azure portal](https://portal.azure.com), select **+Create a resource** in the navigation pane, enter "iot" into the Search the Marketplace box.
+ 
+2. Select **IoT Hub** from the results, and then select **Create**.
 
    ![+Create a resource is highlighted in the navigation page of the Azure portal, and "iot" is entered into the Search the Marketplace box. IoT Hub is highlighted in the search results.](./media/create-resource-iot-hub.png 'Create an IoT Hub')
 
-2. On the IoT Hub blade Basics tab, enter the following:
+3. On the IoT Hub blade Basics tab, enter the following:
 
    - **Subscription**: Select the subscription you are using for this hands-on lab.
 
@@ -118,19 +120,19 @@ In these steps, you will provision an instance of IoT Hub.
 
    - Select **Create** on the Review + create blade.
 
-3. When the IoT Hub deployment is completed, you will receive a notification in the Azure portal. Select **Go to resource** in the notification.
+4. When the IoT Hub deployment is completed, you will receive a notification in the Azure portal. Select **Go to resource** in the notification.
 
    ![Screenshot of the Deployment succeeded message, with the Go to resource button highlighted.](./media/iot-hub-deployment-succeeded.png 'Deployment succeeded message')
 
-4. From the IoT Hub's Overview blade, select **Shared access policies** under Settings on the left-hand menu.
+5. From the IoT Hub's Overview blade, select **Shared access policies** under Settings on the left-hand menu.
 
    ![Screenshot of the Overview blade, settings section. Under Settings, Shared access policies is highlighted.](./media/iot-hub-shared-access-policies.png 'Overview blade, settings section')
 
-5. Select **iothubowner** policy.
+6. Select **iothubowner** policy.
 
    ![The Azure portal is shown with the iothubowner selected.](./media/iot-hub-shared-access-policies-iothubowner.png 'IoT Hub Owner shared access policy')
 
-6. In the **iothubowner** blade, select the Copy button to the right of the **Connection string - primary key** field. You will be pasting the connection string value into a TextBox's Text property value in the next task.
+7. In the **iothubowner** blade, select the Copy button to the right of the **Connection string - primary key** field. You will be pasting the connection string value into a TextBox's Text property value in the next task.
 
    ![Screenshot of the iothubowner blade. The connection string - primary key field is highlighted.](./media/iot-hub-shared-access-policies-iothubowner-blade.png 'iothubowner blade')
 
@@ -142,21 +144,27 @@ If you want to save this connection string with your project (in case you stop d
 
 2. In the Solution Explorer, expand the SmartMeterSimulator project and double-click `MainForm.cs` to open it. (If the Solution Explorer is not in the upper-right corner of your Visual Studio instance, you can find it under the View menu in Visual Studio.)
 
+> NOTE:  If the form does not display, it is due to the `TODO` tasks in the code.  You can remove them in the following steps or simply add the following code to the `MainForm.Designer.cs` on line 260
+
+```csharp
+this.txtIotHubCnString.Text = "YOUR CONNECTION STRING";
+```
+
    ![In the Visual Studio Solution Explorer window, SmartMeterSimulator is expanded, and under it, MainForm.cs is highlighted.](media/visual-studio-solution-explorer-mainform-cs.png 'Visual Studio Solution Explorer')
 
-3. In the Windows Forms designer surface, click the **IoT Hub Connection String TextBox** to select it.
+1. In the Windows Forms designer surface, select the **IoT Hub Connection String TextBox** to select it.
 
    ![The Windows Form designer surface is opened to the MainForm.cs tab. The IoT Hub Connection String is highlighted, but is empty.](./media/smart-meter-simulator-iot-hub-connection-string.png 'Windows Form designer surface')
 
-4. In the Properties panel, scroll until you see the **Text** property. Paste your IoT Hub connection string value copied in step 6 of the previous task into the value for the Text property. (If the properties window is not visible below the Solution Explorer, right-click the TextBox, and select **Properties**.)
+2. In the Properties panel, scroll until you see the **Text** property. Paste your IoT Hub connection string value copied in step 6 of the previous task into the value for the Text property. (If the properties window is not visible below the Solution Explorer, right-click the TextBox, and select **Properties**.)
 
    ![In the Properties panel, the Text property is highlighted, and is set to HostName=smartmeter-hub.](./media/smart-meter-simulator-iot-hub-connection-string-text-property.png 'Solution Explorer')
 
-5. Your connection string should now be present every time you run the Smart Meter Simulator.
+3. Your connection string should now be present every time you run the Smart Meter Simulator.
 
    ![The Windows Form designer surface is opened to the MainForm.cs tab. The IoT Hub Connection String now displays.](./media/smart-meter-simulator-iot-hub-connection-string-populated.png 'IoT Hub Connection String dialog')
 
-6. Save `MainForm.cs`.
+4. Save `MainForm.cs`.
 
 ## Exercise 2: Completing the Smart Meter Simulator
 
@@ -509,7 +517,7 @@ Fabrikam has left you a partially completed sample in the form of the Smart Mete
     }
    ```
 
->**Note**:  Be sure you only replace the Sensor class and not any other code in the file
+> **Note**:  Be sure you only replace the Sensor class and not any other code in the file.
 
 3. Save `Sensor.cs`.
 
@@ -615,29 +623,30 @@ Fabrikam would like to visualize the "hot" data showing the average temperature 
 
    ![Outputs is highlighted in the left-hand menu, under Job Topology, +Add is selected, and Power BI is highlighted in the drop down menu.](media/stream-analytics-job-outputs-add-power-bi.png 'Add Power BI Output')
 
-9. On the Power BI output blade, enter the following:
+9. In the **Power BI** blade, select **Authorize** to authorize the connection to your Power BI account. When prompted in the popup window, enter the account credentials you used to create your Power BI account in [Before the hands-on lab setup guide, Task 1](./Before%20the%20HOL%20-%20Internet%20of%20Things.md).
 
-   - **Output alias**: Set to **powerbi**.
+10. Once authorized, enter the following:
 
-   - For the remaining Power BI settings, enter the following:
+- **Output alias**: Set to **powerbi**.
 
-     - **Group Workspace**: Select the default, My Workspace.
-     - **Dataset Name**: Enter avgtemps.
-     - **Table Name**: Enter avgtemps.
+- For the remaining Power BI settings, enter the following:
 
-     - Select **Authorize** to authorize the connection to your Power BI account. When prompted in the popup window, enter the account credentials you used to create your Power BI account in [Before the hands-on lab setup guide, Task 1](./Before%20the%20HOL%20-%20Internet%20of%20Things.md).
+  - **Group Workspace**: Select the default, My Workspace.
+  - **Dataset Name**: Enter avgtemps.
+  - **Table Name**: Enter avgtemps.
+  - **Authentication mode**: Enter **User token**.
 
-     ![Power BI new output blade. Output alias is selected and contains powerbi. Authorize button is highlighted.](media/stream-analytics-job-outputs-add-power-bi-authorize.png 'Power BI new output blade')
+    ![Power BI new output blade. Output alias is selected and contains powerbi. Authorize button is highlighted.](media/stream-analytics-job-outputs-add-power-bi-authorize.png 'Power BI new output blade')
 
-10. Select **Save**.
+11. Select **Save**.
 
     ![Power BI blade. Output alias is powerbi, dataset name is avgtemps, table name is avgtemps.](media/stream-analytics-job-outputs-add-power-bi-save.png 'Add Power BI Output')
 
-11. Next, select **Query** from the left-hand menu, under Job Topology.
+12. Next, select **Query** from the left-hand menu, under Job Topology.
 
     ![Under Job Topology, Query is selected.](./media/stream-analytics-job-query.png 'Stream Analytics Query')
 
-12. In the query text box, paste the following query.
+13. In the query text box, paste the following query.
 
     ```sql
     SELECT AVG(temp) AS Average, id
@@ -646,23 +655,23 @@ Fabrikam would like to visualize the "hot" data showing the average temperature 
     GROUP BY TumblingWindow(minute, 5), id
     ```
 
-13. Select **Save**, and **Yes** when prompted with the confirmation.
+14. Select **Save query**.
 
     ![Save button on the Query blade is highlighted](./media/stream-analytics-job-query-save.png 'Query Save button')
 
-14. Return to the Overview blade on your Stream Analytics job and select **Start**.
+15. Return to the Overview blade on your Stream Analytics job and select **Start**.
 
     ![The Start button is highlighted on the Overview blade.](./media/stream-analytics-job-start.png 'Overview blade start button')
 
-15. In the Start job blade, select **Now** (the job will start processing messages from the current point in time onward).
+16. In the Start job blade, select **Now** (the job will start processing messages from the current point in time onward).
 
     ![Now is selected on the Start job blade.](./media/stream-analytics-job-start-job.png 'Start job blade')
 
-16. Select **Start**.
+17. Select **Start**.
 
-17. Allow your Stream Analytics Job a few minutes to start.
+18. Allow your Stream Analytics Job a few minutes to start.
 
-18. Once the Stream Analytics Job has successfully started, verify that you are showing a non-zero amount of **Input Events** on the **Monitoring** chart on the overview blade. You may need to reconnect your devices on the Smart Meter Simulator and let it run for a while to see the events.
+19. Once the Stream Analytics Job has successfully started, verify that you are showing a non-zero amount of **Input Events** on the **Monitoring** chart on the overview blade. You may need to reconnect your devices on the Smart Meter Simulator and let it run for a while to see the events.
 
     ![The Stream Analytics job monitoring chart is diplayed with a non-zero amount of input events highlighted.](media/stream-analytics-job-monitoring-input-events.png 'Monitoring chart for Stream Analytics job')
 
@@ -690,11 +699,11 @@ Fabrikam would like to visualize the "hot" data showing the average temperature 
 
    ![Under Fields, an arrow points from the average field under avgtemps, to the same id field now located in the Visualizations listing, under Value.](./media/power-bi-visualizations-stacked-column-chart-value.png 'Visualizations and Fields')
 
-7. Now, set the Value to **Max of average**, by clicking the down arrow next to **average**, and select **Maximum**.
+7. Now, set the Value to **Max of average**, by selecting the down arrow next to **average**, and select **Maximum**.
 
    ![On the Value drop-down list, Maximum is highlighted.](./media/power-bi-visualizations-stacked-column-chart-value-maximum.png 'Value drop-down list')
 
-8. Repeat steps 5-8, this time adding a Stacked Column Chart for **Min of average**. (You may need to click on any area of white space on the report designer surface to deselect the Max of average by id chart visualization.)
+8. Repeat steps 5-8, this time adding a Stacked Column Chart for **Min of average**. (You may need to select on any area of white space on the report designer surface to deselect the Max of average by id chart visualization.)
 
    ![Min of average is added under Value.](./media/power-bi-visualizations-stacked-column-chart-value-minimum.png 'Min of average')
 
@@ -743,23 +752,29 @@ Fabrikam would like to be able to capture all the "cold" data into scalable stor
    - **Performance**: Select **Standard**.
    - **Account kind**: Select **StorageV2 (general purpose v2)**.
    - **Replication**: Select **Locally-redundant storage (LRS)**.
+   - **Access tier (default)**: Select **Hot**
 
    ![The Create storage account blade is displayed, with the previously mentioned settings entered into the appropriate fields.](media/storage-account-create-new.png 'Create storage account')
 
-3. Select **Next: Advanced >**.
+3. Select **Next: Networking >**.
 
-4. In the Advanced tab, select the following:
+4. Select **Next: Advanced >**.
+
+   - **Connectivity method**: Select **Public endpoint (all networks)**.
+
+![The Create storage account blade is displayed with options under the Networking tab.](media/storage-account-create-new-networking.png 'Create storage account - Networking')
+
+5. In the Advanced tab, select the following:
 
    - **Secure transfer required**: Select **Disabled**.
-   - **Virtual network**: Select **All networks**.
-
+   
    ![The Create storage account blade is displayed with options under the Advanced tab.](media/storage-account-create-new-advanced.png 'Create storage account - Advanced')
 
-5. Select **Review + create**.
+6. Select **Review + create**.
 
-6. In the Review tab, select **Create**.
+7. In the Review tab, select **Create**.
 
-7. Once provisioned, navigate to your storage account, select **Access keys** from the left-hand menu, and copy the key1 Key value into a text editor, such as Notepad, for later use.
+8. Once provisioned, navigate to your storage account, select **Access keys** from the left-hand menu, and copy the key1 Key value into a text editor, such as Notepad, for later use.
 
    ![The Access Keys blade is displayed and the key1 copy button is highlighted.](media/storage-account-key.png 'Storage account - Keys')
 
@@ -807,7 +822,7 @@ To capture all metrics for the cold path, set up another Stream Analytics job th
 
 7. Select **Save**.
 
-8. Next, select **Outputs** from the left-hand menu, under Job Topology, and select **+ Add**, then select **Blob storage** from the drop-down menu.
+8. Next, select **Outputs** from the left-hand menu, under Job Topology, and select **+ Add**, then select **Blob storage/Data Lake Storage Gen2** from the drop-down menu.
 
    ![Outputs is highlighted in the left-hand menu, under Job Topology, +Add is selected, and Blob storage is highlighted in the drop down menu.](media/stream-analytics-job-outputs-add-blob-storage.png 'Add Blob storage Output')
 
@@ -844,9 +859,9 @@ To capture all metrics for the cold path, set up another Stream Analytics job th
           iothub
     ```
 
-13. Select **Save**, and **Yes** when prompted with the confirmation.
+13. Select **Save query**, and **Yes** when prompted with the confirmation.
 
-    ![Save button on the Query blade is highlighted](./media/stream-analytics-job-query-save.png 'Query Save button')
+    ![Save button on the Query blade is highlighted](./media/stream-analytics-job-query-save-2.png 'Query Save button')
 
 14. Return to the Overview blade on your Stream Analytics job and select **Start**.
 
@@ -882,11 +897,11 @@ In this task, we are going to verify that the CSV file is being written to blob 
 
 4. Allow Cloud Explorer about 30 seconds to load your subscription resources.
 
-5. Expand your Azure account, then expand **Storage Accounts**, expand the smartmetersSUFFIX storage account, then right-click the smartmeters container, and select **Open**. It may take a few moments to load your storage accounts.
+5. Expand your Azure subscription, then expand **Storage Accounts**, expand the **smartmetersSUFFIX** storage account, then expand the **Blob containers** node, then right-click the **smartmeters** container, and select **Open**. It may take a few moments to load your storage accounts.
 
    ![Storage accounts is expanded in the Visual Studio Cloud Explorer, with the smartmetersSUFFIX account is expanded, and the Open menu item highlighted for the smartmeters container.](media/visual-studio-cloud-explorer-storage-accounts.png 'Cloud Explorer Storage Accounts')
 
-6. Verify files are being written to Blob storage (the files should be located underneath the smartmeters container).
+6. Verify files are being written to Blob storage (the files should be located underneath the **smartmeters** container).
 
    ![Files are listed in the blob storage account, as written by the cold path route in IoT Hub Messaging.](media/smart-meters-cold-path-files.png 'Smart meters files in blob storage')
 
@@ -906,7 +921,7 @@ In this task, you will create a new Databricks notebook to perform some processi
 
    ![In the Create Notebook dialog, smartmeters is entered as the Name, and Python is selected in the Language drop down.](media/azure-databricks-create-notebook-dialog.png 'Create Notebook dialog')
 
->**Note**: If your cluster is stopped, you can select the down arrow next to your attached cluster name, and select Start Cluster from the menu, then select Confirm when prompted.
+> **Note**: If your cluster is stopped, you can select the down arrow next to your attached cluster name, and select Start Cluster from the menu, then select Confirm when prompted.
 
 4. In the first cell of your Databricks notebook (referred to as a paragraph in notebook jargon), enter the following **Python code** that creates widgets in the notebook for entering your Azure storage account name and key.
 
@@ -916,27 +931,29 @@ In this task, you will create a new Databricks notebook to perform some processi
    dbutils.widgets.text("accountKey", "", "Account Key")
    ```
 
-5. Now, select the Run button on the right side of the cell, and select **Run cell**.
+> **Note**:  Make sure to be aware of any indents\tabs. Python  treats indents\tabs with specific syntactical meaning.
+
+1. Now, select the Run button on the right side of the cell, and select **Run cell**.
 
    ![A cell in a Databricks Notebook is displayed, and the Run menu is visible with Run Cell highlighted in the menu.](media/azure-databricks-notebook-run-cell.png 'Datebricks Notebook run cell')
 
-6. When the cell finishes executing, you will see the Account Key and Account Name widgets appear at the top of the notebook, just below the toolbar.
+2. When the cell finishes executing, you will see the Account Key and Account Name widgets appear at the top of the notebook, just below the toolbar.
 
    ![In the Databricks notebook, Account Key and Account Name widgets are highlighted.](media/azure-databricks-notebook-widgets.png 'Databricks Notebooks widgets')
 
-7. You will also notice a message at the bottom of the cell indicating that the cell execution completed, and the amount of time it took.
+3. You will also notice a message at the bottom of the cell indicating that the cell execution completed, and the amount of time it took.
 
    ![A message is displayed at the bottom of the cell indicating how long the command took to execute.](media/azure-databricks-cell-execution-time.png 'Cell execution time')
 
-8. Enter your Azure Storage account key into the Account Key widget text box, and your Azure storage account name into the Account Name widget text box. These values can be obtained from the Access keys blade in your storage account.
+4. Enter your Azure Storage account key into the Account Key widget text box, and your Azure storage account name into the Account Name widget text box. These values can be obtained from the Access keys blade in your storage account.
 
     ![The Account Key and Account Name widgets are populated with values from the Azure storage account.](media/azure-databricks-notebook-widgets-populated.png 'Databricks Notebooks widgets')
 
-9. At the bottom of the first cell, select the + button to insert a new cell below it.
+5. At the bottom of the first cell, select the + button to insert a new cell below it.
 
     ![The Insert new cell button is highlighted at the bottom of the Databricks cell.](media/azure-databricks-insert-new-cell.png 'Insert new cell')
 
-10. In the new cell, paste the following code that will assign the values you entered into the widgets you created above into variables that will be used throughout the notebook.
+6. In the new cell, paste the following code that will assign the values you entered into the widgets you created above into variables that will be used throughout the notebook.
 
     ```python
     # Get values entered into widgets
@@ -944,31 +961,31 @@ In this task, you will create a new Databricks notebook to perform some processi
     accountKey = dbutils.widgets.get("accountKey")
     ```
 
-11. Run the cell.
+7. Run the cell.
 
-12. Insert a new cell into the notebook, and paste the following code to mount your blob storage account into Databricks File System (DBFS), then run the cell.
+8. Insert a new cell into the notebook, and paste the following code to mount your blob storage account into Databricks File System (DBFS), then run the cell.
 
     ```python
     # Mount the blob storage account at /mnt/smartmeters. This assumes your container name is smartmeters, and you have a folder named smartmeters within that container, as specified in the exercises above.
     if not any(mount.mountPoint == '/mnt/smartmeters' for mount in dbutils.fs.mounts()): 
-    dbutils.fs.mount(
+      dbutils.fs.mount(
       source = "wasbs://smartmeters@" + accountName + ".blob.core.windows.net/smartmeters",
       mount_point = "/mnt/smartmeters",
       extra_configs = {"fs.azure.account.key." + accountName + ".blob.core.windows.net": accountKey})
     ```
 
-    > **Note**: Mounting Azure Blob storage directly to DBFS allows you to access files as if they were on the local file system.
+    > **Note**: Mounting Azure Blob storage directly to DBFS allows you to access files as if they were on the local file system. Once your blob storage account is mounted, you can access them with Databricks Utilities, `dbutils.fs` commands. 
 
-13. Once your blob storage account is mounted, you can access them with Databricks Utilities, `dbutils.fs` commands. Insert a new cell, and paste the code below to see how `dbutils.fs.ls` can be used to list the files and folders directly below the smartmeters folder.
+9. Insert a new cell, and paste the code below to see how `dbutils.fs.ls` can be used to list the files and folders directly below the smartmeters folder.
 
     ```python
     # Inspect the file structure
     display(dbutils.fs.ls("/mnt/smartmeters/"))
     ```
 
-14. Run the cell.
+10. Run the cell.
 
-15. You know from inspecting the files in the storage container that the files are contained within a folder structure resembling, `smartmeters/YYYY-MM-DD/HH`. You can use wildcards to obfuscate the date and hour folders, as well as the file names, and access all the files in all the folders. Insert another cell into the notebook, paste the following code, and run the cell to load the data from the files in blob storage into a Databricks Dataframe.
+11. You know from inspecting the files in the storage container that the files are contained within a folder structure resembling, `smartmeters/YYYY-MM-DD/HH`. You can use wildcards to obfuscate the date and hour folders, as well as the file names, and access all the files in all the folders. Insert another cell into the notebook, paste the following code, and run the cell to load the data from the files in blob storage into a Databricks Dataframe.
 
     ```python
     # Create a Dataframe containing data from all the files in blob storage, regardless of the folder they are located within.
@@ -978,34 +995,34 @@ In this task, you will create a new Databricks notebook to perform some processi
 
     > **Note**: In some rare cases, you may receive an error that the `dbfs:/mnt/smartmeters///*.csv` path is incorrect. If this happens, change the path in the cell to the following: `dbfs:/mnt/smartmeters/*/*/*/*/*.csv`
 
-16. The cell above also outputs the value of the `df.dtypes` property, which is a list of the data types of the columns added to the Dataframe, similar to the following:
+12. The cell above also outputs the value of the `df.dtypes` property, which is a list of the data types of the columns added to the Dataframe, similar to the following:
 
     ![Output from the df.dtypes property is displayed.](media/azure-databricks-df-dtypes-output.png 'Output from Dataframe dtypes')
 
-17. Insert another cell, and run the following code to view the first 10 records contained in the Dataframe.
+13. Insert another cell, and run the following code to view the first 10 records contained in the Dataframe.
 
     ```python
     df.show(10)
     ```
 
-18. Now, you can save the Dataframe to a global table in Databricks. This will make the table accessible to all users and clusters in your Databricks workspace. Insert a new cell, and run the following code.
+14. Now, you can save the Dataframe to a global table in Databricks. This will make the table accessible to all users and clusters in your Databricks workspace. Insert a new cell, and run the following code.
 
     ```python
     df.write.mode("overwrite").saveAsTable("SmartMeters")
     ```
 
-19. Now, you will use the `%sql` magic command to change the language of the next cell to SQL from the notebook's default language, Python, then execute a SQL command to aggregate the SmartMeter data by average temperature. Paste the following code into a new cell, and run the cell.
+15. Now, you will use the `%sql` magic command to change the language of the next cell to SQL from the notebook's default language, Python, then execute a SQL command to aggregate the SmartMeter data by average temperature. Paste the following code into a new cell, and run the cell.
 
     ```sql
     %sql
     SELECT id, COUNT(*) AS count, AVG(temp) AS averageTemp FROM SmartMeters GROUP BY id ORDER BY id
     ```
 
-20. The output from the SQL command should resemble the following table:
+16. The output from the SQL command should resemble the following table:
 
     ![Output from executing a SQL statement a Databricks notebook cell using the %sql magic command.](media/azure-databricks-notebook-sql-magic-command.png 'SQL magic command')
 
-21. Now, execute the same command in a new cell, this time using Spark SQL so you can save the summary data into a Dataframe. Copy and execute the following code into a new cell:
+17. Now, execute the same command in a new cell, this time using Spark SQL so you can save the summary data into a Dataframe. Copy and execute the following code into a new cell:
 
     ```python
     # Query the table to create a Dataframe containing the summary
@@ -1015,18 +1032,18 @@ In this task, you will create a new Databricks notebook to perform some processi
     summary.write.mode("overwrite").saveAsTable("DeviceSummary")
     ```
 
-22. Next, query from this summary table by executing the following query in a new cell:
+18. Next, query from this summary table by executing the following query in a new cell:
 
     ```sql
     %sql
     SELECT * FROM DeviceSummary
     ```
 
-23. Below the results table, button provide access to change the visualization for tabular output. Select the **Bar** button, and then select **Plot Options**.
+19. **Below** the results table, notice the area to change the visualization for tabular output. Select the **Bar** button, and then select **Plot Options**.
 
     ![Buttons for displaying tablular results in different formats in Databricks](media/azure-databricks-notebook-visualizations.png 'Visualization options')
 
-24. In the Customize Plot dialog, ensure the following are set:
+20. In the Customize Plot dialog, ensure the following are set:
 
     - **Keys**: **id**.
     - **Values**: **averageTemp**.
@@ -1036,9 +1053,9 @@ In this task, you will create a new Databricks notebook to perform some processi
 
       ![Plot customization options dialog in Azure databricks, with id in the Keys field, averageTemp in the Values field, Aggregation set to AVG, and the chart set to a grouped bar chart.](media/azure-databricks-notebook-customize-plot.png)
 
-27. Select **Apply**.
+21. Select **Apply**.
 
-28. Observe the results graphed as a column chart, where each column represents a device's average temperature.
+22. Observe the results graphed as a column chart, where each column represents a device's average temperature.
 
     ![A bar chart is displayed, with devices on the X axis, and average temperations on the Y axis.](media/azure-databricks-notebook-visualizations-bar-chart.png 'Bar chart')
 
@@ -1052,13 +1069,13 @@ Fabrikam would like to send commands to devices from the cloud in order to contr
 
 This console app is configured to connect to IoT Hub using the same connection string you use in the SmartMeterSimulator app. Messages are sent from the console app to IoT Hub, specifying a device by its ID, for example `Device1`. IoT Hub then transmits that message to the device when it is connected. This is called a "cloud-to-device" message, as the console app in our case is not directly connecting to the device and sending it the message. All messages flow through IoT Hub where the connections and device state are managed.
 
-1.  Return to the `SmartMeterSimulator` solution in Visual Studio on your Lab VM.
+1. Return to the `SmartMeterSimulator` solution in Visual Studio on your Lab VM.
 
-2.  In the Solution Explorer, expand the CloudToDevice project and double-click `Program.cs` to open it. (If the Solution Explorer is not in the upper-right corner of your Visual Studio instance, you can find it under the View menu in Visual Studio.)
+2. In the Solution Explorer, expand the CloudToDevice project and double-click `Program.cs` to open it. (If the Solution Explorer is not in the upper-right corner of your Visual Studio instance, you can find it under the View menu in Visual Studio.)
 
     ![In the Visual Studio Solution Explorer window, CloudToDevice is expanded, and under it, Program.cs is highlighted.](media/visual-studio-solution-explorer-program-cs.png 'Visual Studio Solution Explorer')
 
-3.  Replace `YOUR-CONNECTION-STRING` on line 15 with your IoT Hub connection string. This is the same string you added to the Main form in the SmartMeterSimulator earlier. The line you need to update looks like this:
+3. Replace `YOUR-CONNECTION-STRING` on line 15 with your IoT Hub connection string. This is the same string you added to the Main form in the SmartMeterSimulator earlier. The line you need to update looks like this:
 
     ```csharp
     static string connectionString = "YOUR-CONNECTION-STRING";
@@ -1068,59 +1085,59 @@ This console app is configured to connect to IoT Hub using the same connection s
 
     ![The Program.cs file has been updated with the code change.](media/visual-studio-program-cs.png 'Program.cs')
 
-4.  Save the file.
+4. Save the file.
 
 ### Task 2: Run the device simulator
 
 In this task, you will register, activate, and connect all devices. You will then leave the simulator running so that you can launch the console app and start sending cloud-to-device messages.
 
-1.  Within the `SmartMeterSimulator` Visual Studio solution, right-click the **SmartMeterSimulator** project, select **Debug**, then select **Start new instance** to run the device simulator.
+1. Within the `SmartMeterSimulator` Visual Studio solution, right-click the **SmartMeterSimulator** project, select **Debug**, then select **Start new instance** to run the device simulator.
 
     ![Screenshot displays the debug context menu after right-clicking the SmartMeterSimulator project in Visual Studio.](media/visual-studio-debug-simulator.png 'Debug simulator')
 
-2.  Select **Register** on the Smart Meter Simulator dialog, which should cause the windows within the building to change from black to gray.
+2. Select **Register** on the Smart Meter Simulator dialog, which should cause the windows within the building to change from black to gray.
 
     ![In addition to the IoT Hub Connection String, the Smart Meter Simulator has two buildings with 10 windows. The color of the windows indicating the status of the devices. Currently, all windows are gray.](media/smart-meter-simulator-register.png 'Fabrikam Smart Meter Simulator')
 
-3.  Select **all** of the windows. Each represents a device for which you want to simulate device installation. The selected windows should turn yellow.
+3. Select **all** of the windows. Each represents a device for which you want to simulate device installation. The selected windows should turn yellow.
 
     ![The Smart Meter Simulator now has all yellow windows.](media/smart-meter-simulator-window-select-all.png 'Fabrikam Smart Meter Simulator')
 
-4.  Select **Activate** to simulate changing the device status from disabled to enabled in the IoT Hub Registry. The selected windows should turn green.
+4. Select **Activate** to simulate changing the device status from disabled to enabled in the IoT Hub Registry. The selected windows should turn green.
 
     ![On the Smart Meter Simulator, the Activate button is highlighted, and all the windows have now turned to green.](media/smart-meter-simulator-activate-all.png 'Fabrikam Smart Meter Simulator')
 
-5.  Select **Connect**. Within a few moments, you should begin to see activity as the windows change color indicating the smart meters are transmitting telemetry. The grid on the left will list each telemetry message transmitted and the simulated temperature value.
+5. Select **Connect**. Within a few moments, you should begin to see activity as the windows change color indicating the smart meters are transmitting telemetry. The grid on the left will list each telemetry message transmitted and the simulated temperature value.
 
     ![On the Smart Meter Simulator, the Connect button is highlighted, the windows have turned different colors to signify the temperature.](media/smart-meter-simulator-connect-all.png 'Fabrikam Smart Meter Simulator')
 
-6.  Hover over one of the windows. You will see a dialog display information about the associated device, including the Device ID (in this case, `Device1`), Device Key, Temperature, and Indicator. The legend on the bottom shows the indicator displayed for each temperature range. The Device ID is important when sending cloud-to-device messages, as this is how we will target a specific device when we remotely set the desired temperature. Keep the Device ID values in mind when sending the messages in the next task.
+6. Hover over one of the windows. You will see a dialog display information about the associated device, including the Device ID (in this case, `Device1`), Device Key, Temperature, and Indicator. The legend on the bottom shows the indicator displayed for each temperature range. The Device ID is important when sending cloud-to-device messages, as this is how we will target a specific device when we remotely set the desired temperature. Keep the Device ID values in mind when sending the messages in the next task.
 
     ![A dialog containing device information is displayed after hovering over a window.](media/smart-meter-simulator-device-info.png 'Fabrikam Smart Meter Simulator')
 
-7.  Allow the smart meter to continue to run.
+7. Allow the smart meter to continue to run.
 
 ### Task 3: Run the console app and send cloud-to-device messages
 
 In this task, you will run the console app to send desired temperature settings to specific devices and observe the simulated device receiving and reacting to the message.
 
-1.  Within the `SmartMeterSimulator` Visual Studio solution, right-click the **CloudToDevice** project, select **Debug**, then select **Start new instance** to run the console app.
+1. Within the `SmartMeterSimulator` Visual Studio solution, right-click the **CloudToDevice** project, select **Debug**, then select **Start new instance** to run the console app.
 
-2.  In the console window, enter a device number when prompted. Accepted values are 0-9, since there are 10 devices whose IDs begin with 0. You can hover over the windows in the Smart Meter Simulator to view the Device IDs. When you enter a number, such as `5`, then a message will be sent to `Device5`.
+2. In the console window, enter a device number when prompted. Accepted values are 0-9, since there are 10 devices whose IDs begin with 0. You can hover over the windows in the Smart Meter Simulator to view the Device IDs. When you enter a number, such as `5`, then a message will be sent to `Device5`.
 
     ![The value of 1 is entered when prompted for the device number in the console window.](media/console-device-number.png 'Console App')
 
-3.  Now enter a temperature value between 65 and 85 degrees (F) when prompted. If you set a value above 72 degrees, the window will turn red. If the value is set between 68 and 72 degrees, it will turn green. Values below 68 degrees will turn the window blue. Once you set a value, the device will remain at that value until you set a new value, rather than randomly changing.
+3. Now enter a temperature value between 65 and 85 degrees (F) when prompted. If you set a value above 72 degrees, the window will turn red. If the value is set between 68 and 72 degrees, it will turn green. Values below 68 degrees will turn the window blue. Once you set a value, the device will remain at that value until you set a new value, rather than randomly changing.
 
     ![A value of 75 has been entered for the temperature. A new log entry in the Smart Meter Simulator appears in yellow showing the message value of 75 sent to Device1.](media/console-temperature.png 'Console App and Smart Meter Simulator')
 
     If you run the Smart Meter Simulator side-by-side with the console app, you can observe the message logged by the Smart Meter Simulator within seconds. This message appears with a yellow background and displays the temperature request value sent to the device. In our case, we sent a request of 75 degrees to Device1. The console app indicates that it is sending the temperature request to the indicated device.
 
-4.  Hover over the device to which you sent the message. You will see that its temperature is set to the value you requested through the console app.
+4. Hover over the device to which you sent the message. You will see that its temperature is set to the value you requested through the console app.
 
     ![Device1 is hovered over and the dialog appears showing the temperature set to the requested temperature.](media/smart-meter-simulator-set-temp.png 'Fabrikam Smart Meter Simulator')
 
-5.  In the console window, you can enter `Y` to send another message. Experiment with setting the temperature on other devices and observe the results.
+5. In the console window, you can enter `Y` to send another message. Experiment with setting the temperature on other devices and observe the results.
 
 ## After the hands-on lab
 

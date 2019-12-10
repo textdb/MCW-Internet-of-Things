@@ -9,7 +9,7 @@ Before the hands-on lab setup guide
 </div>
 
 <div class="MCWHeader3">
-September 2019
+December 2019
 </div>
 
 Information in this document, including URL and other Internet Web site references, is subject to change without notice. Unless otherwise noted, the example companies, organizations, products, domain names, e-mail addresses, logos, people, places, and events depicted herein are fictitious, and no association with any real company, organization, product, domain name, e-mail address, logo, person, place or event is intended or should be inferred. Complying with all applicable copyright laws is the responsibility of the user. Without limiting the rights under copyright, no part of this document may be reproduced, stored in or introduced into a retrieval system, or transmitted in any form or by any means (electronic, mechanical, photocopying, recording, or otherwise), or for any purpose, without the express written permission of Microsoft Corporation.
@@ -84,17 +84,21 @@ In this task, you will provision a virtual machine running Visual Studio Communi
 
 > **Optional**: If you already have Visual Studio 2019 or greater installed on your machine, you may skip this step.
 
-1. In the [Azure portal](https://portal.azure.com/), select **+Create a resource**, enter "visual studio community" into the Search the Marketplace box, select **Visual Studio Community 2019 (latest) on Windows Server 2016 (x64)** from the results, and select **Create**.
+1. In the [Azure portal](https://portal.azure.com/), select **+Create a resource**
+
+2. In the **Search the marketplace** textbox, enter "visual studio 2019 Latest" and then select it from the options
+
+3. For the software plan, select **Visual Studio 2019 Enterprise on Windows Server 2016 (x64)** from the results, and select **Create**.
 
    ![+Create a resource is selected in the Azure navigation pane, and "visual studio community" is entered into the Search the Marketplace box. Visual Studio Community 2019 (latest) on Windows Server 2016 (x64) is selected in the results.](./media/create-resource-visual-studio-on-windows-server-2016.png 'Create Windows Server 2016 with Visual Studio Community 2019')
 
-2. Set the following configuration on the Basics tab:
+4. Set the following configuration on the Basics tab:
 
    - **Subscription**: Select the same subscription you are using for this hands-on lab.
 
    - **Resource Group**: Select Use existing, and select the hands-on-lab-SUFFIX resource group.
 
-   - **Virtual machine name**: Enter LabVM
+   - **Virtual machine name**: Enter **LabVM**
 
    - **Region**: Select the same region you selected for the resource group.
 
@@ -102,7 +106,7 @@ In this task, you will provision a virtual machine running Visual Studio Communi
 
    - **Image**: The Visual Studio Community image you selected in the previous step should be listed here.
 
-   - **Size**: Select a **Standard D2 v3** size if it is not already selected.
+   - **Size**: Select the **Standard D2 v3** size if it is not already selected.
 
    - **Username**: Enter **demouser**
 
@@ -116,21 +120,23 @@ In this task, you will provision a virtual machine running Visual Studio Communi
 
    - Select **Review + create** to move to the next step.
 
-3. Select **Create** on the Create blade to provision the virtual machine.
+5. Select **Create** on the Create blade to provision the virtual machine.
 
-4. It may take 10+ minutes for the virtual machine to complete provisioning.
+6. It may take 10+ minutes for the virtual machine to complete provisioning.
 
-5. You can move on to the next task while waiting for the lab VM to provision.
+7. You can move on to the next task while waiting for the lab VM to provision.
 
 ### Task 3: Provision Azure Databricks
 
 In this task, you will create an Azure Databricks workspace.
 
-1. In the [Azure portal](https://portal.azure.com), select **+Create a resource**, enter "databricks" into the Search the Marketplace box, select **Azure Databricks** from the results, and select **Create**.
+1. In the [Azure portal](https://portal.azure.com), select **+Create a resource**, then enter "databricks" into the Search the Marketplace box
+
+2. Select **Azure Databricks** from the results, and then select **Create**.
 
    ![In the Azure navigation pane, +Create a resource is selected. In the Everything blade, "databricks" is entered into the Search the Marketplace box, and Azure Databricks is selected in the results.](media/create-resource-azure-databricks.png 'Create Azure Databricks')
 
-2. On the Azure Databricks Service blade, enter the following:
+3. On the Azure Databricks Service blade, enter the following:
 
    - **Workspace name**: Enter iot-db-workspace-SUFFIX
 
@@ -196,11 +202,11 @@ In this task, you will create an RDP connection to your lab virtual machine (VM)
 
    ![Resource groups is selected in the Azure navigation pane, "hands" is entered into the filter box, and the "hands-on-lab-SUFFIX" resource group is highlighted.](./media/resource-groups.png 'Resource groups list')
 
-2. In the list of resources for your resource group, select the LabVM virtual machine.
+2. In the list of resources for your resource group, select the **LabVM** virtual machine.
 
    ![The list of resources in the hands-on-lab-SUFFIX resource group are displayed, and LabVM is highlighted.](./media/resource-group-resources-labvm.png 'LabVM in resource group list')
 
-3. On your Lab VM blade, select **Connect** from the top menu.
+3. On your LabVM blade, select **Connect** from the top menu.
 
    ![The LabVM blade is displayed, with the Connect button highlighted in the top menu.](./media/connect-labvm.png 'Connect to LabVM')
 
@@ -226,11 +232,11 @@ In this task, you will create an RDP connection to your lab virtual machine (VM)
 
    ![The Server Manager tile is circled in the Start Menu.](./media/start-menu-server-manager.png 'Server Manager tile in the Start menu')
 
-9. Select **Local Server**, then select **On** next to **IE Enhanced Security Configuration**. **Note:** If the link says "Off", skip ahead to the next task.
+9. Select **Local Server**, then select **On** next to **IE Enhanced Security Configuration**. **Note:** If the link says `Off`, skip ahead to the next task.
 
    ![Screenshot of the Server Manager. In the left pane, Local Server is selected. In the right, Properties (For LabVM) pane, the IE Enhanced Security Configuration, which is set to On, is highlighted.](./media/windows-server-manager-ie-enhanced-security-configuration.png 'Server Manager')
 
-10. In the Internet Explorer Enhanced Security Configuration dialog, select **Off under Administrators**, then select **OK**.
+10. In the Internet Explorer Enhanced Security Configuration dialog, select **Off** under Administrators, then select **OK**.
 
     ![Screenshot of the Internet Explorer Enhanced Security Configuration dialog box, with Administrators set to Off.](./media/internet-explorer-enhanced-security-configuration-dialog.png 'Internet Explorer Enhanced Security Configuration dialog box')
 
@@ -264,13 +270,15 @@ Fabrikam has provided a Smart Meter Simulator that they use to simulate device r
 
    ![Download .zip containing the Intelligent vending machines repository](media/git-hub-download-repo.png 'Download ZIP')
 
-4. Unzip the contents to the folder **C:\SmartMeter**.
+4. Right-click the downloaded zip, select the **Unblock** checkbox, click **OK**
 
-5. Navigate to the `SmartMeterSimulator.sln` file within the `Hands-on lab\lab-files\starter-project` folder and open it with Visual Studio 2019.
+5. Unzip the contents to the folder **C:\SmartMeter**.
 
-6. Sign into Visual Studio or create an account, if prompted.
+6. Navigate to the `SmartMeterSimulator.sln` file within the `Hands-on lab\lab-files\starter-project` folder and open it with Visual Studio 2019.
 
-7. If the Security Warning for SmartMeterSimulator window appears, uncheck _Ask me for every project in this solution_, and select **OK**.
+7. Sign into Visual Studio or create an account, if prompted.
+
+8. If the Security Warning for SmartMeterSimulator window appears, un-check _Ask me for every project in this solution_, and select **OK**.
 
    ![The SmartMeterSimulator Security Warning window has the option to "Ask me for every project in this solution" circled.](./media/visual-studio-security-warning.png 'SmartMeterSimulator Security Warning')
 
