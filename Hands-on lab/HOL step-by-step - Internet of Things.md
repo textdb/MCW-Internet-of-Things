@@ -264,7 +264,7 @@ Fabrikam has left you a partially completed sample in the form of the Smart Mete
        {
            //Server-side management function to enable the provisioned device
            //to connect to IoT Hub after it has been installed locally.
-           //If device id device key is valid, Activate (enable) the device.
+           //If device id and device key are valid, Activate (enable) the device.
 
            //Make sure we're connected
            if (registryManager == null)
