@@ -73,7 +73,7 @@ Below is a diagram of the solution architecture you will build in this lab. Plea
 
 Messages are ingested from the Smart Meters via IoT Hub and temporarily stored there. A Stream Analytics job pulls telemetry messages from IoT Hub and sends the messages to two different destinations. There are two Stream Analytics jobs, one that retrieves all messages and sends them to Blob Storage (the cold path), and another that selects out only the important events needed for reporting in real time (the hot path). Data entering the hot path will be reported on using Power BI visualizations and reports. For the cold path, Azure Databricks can be used to apply the batch computation needed for the reports at scale.
 
-Other alternatives for processing of the ingested telemetry would be to use an HDInsight Storm cluster, a WebJob running the EventProcessorHost in place of Stream Analytics, or HDInsight running with Spark streaming. Depending on the type of message filtering being conducted for hot and cold stream separation, IoT Hub Message Routing might also be used, but this has the limitation that messages follow a single path, so with the current implementation, it would not be possible to send all messages to the cold path, while simultaneously sending some of the same messages into the hot path. An important limitation to keep in mind for Stream Analytics is that it is very restrictive on the format of the input data it can process: the payload must be UTF8 encoded JSON, UTF8 encoded CSV (fields delimited by commas, spaces, tabs, or vertical pipes), or AVRO, and it must be well formed. If any devices transmitting telemetry cannot generate output in these formats (e.g., because they are legacy devices), or their output can be not well formed at times, then alternatives that can better deal with these situations should be investigated. Additionally, any custom code or logic cannot be embedded with Stream Analytics---if greater extensibility is required, the alternatives should be considered.
+Other alternatives for processing of the ingested telemetry would be to use an HDInsight Storm cluster, a WebJob running the EventProcessorHost in place of Stream Analytics, or HDInsight running with Spark streaming. Depending on the type of message filtering being conducted for hot and cold stream separation, IoT Hub Message Routing might also be used, but this has the limitation that messages follow a single path, so with the current implementation, it would not be possible to send all messages to the cold path, while simultaneously sending some of the same messages into the hot path. An important limitation to keep in mind for Stream Analytics is that it is very restrictive on the format of the input data it can process: the payload must be UTF8 encoded JSON, UTF8 encoded CSV (fields delimited by commas, spaces, tabs, or vertical pipes), or AVRO, and it must be well-formed. If any devices transmitting telemetry cannot generate output in these formats (e.g., because they are legacy devices), or their output can be not well formed at times, then alternatives that can better deal with these situations should be investigated. Additionally, any custom code or logic cannot be embedded with Stream Analytics---if greater extensibility is required, the alternatives should be considered.
 
 > **Note**: The preferred solution is only one of many possible, viable approaches.
 
@@ -264,7 +264,7 @@ Fabrikam has left you a partially completed sample in the form of the Smart Mete
        {
            //Server-side management function to enable the provisioned device
            //to connect to IoT Hub after it has been installed locally.
-           //If device id device key are valid, Activate (enable) the device.
+           //If device id device key is valid, Activate (enable) the device.
 
            //Make sure we're connected
            if (registryManager == null)
@@ -535,7 +535,7 @@ In this task, you will build and run the Smart Meter Simulator project.
 
    ![Right-click MainForm.resx, go to Properties, then check the box next to Unblock](media/unblock-file.png 'Unblock file')
 
-   - Close and reopen Visual Studio. You should now be able to successfully build.
+   - Close and reopen Visual Studio. You should now be able to build successfully.
 
 2. Run the Smart Meter Simulator, by selecting the green Start button on the Visual Studio toolbar.
 
@@ -565,7 +565,7 @@ In this task, you will build and run the Smart Meter Simulator project.
 
 9. Return to the **Smart Meter Simulator** window.
 
-10. Select **Connect**. Within a few moments, you should begin to see activity as the windows change color indicating the smart meters are transmitting telemetry. The grid on the left will list each telemetry message transmitted and the simulated temperature value.
+10. Select **Connect**. Within a few moments, you should begin to see activity as the windows change color, indicating the smart meters are transmitting telemetry. The grid on the left will list each telemetry message transmitted and the simulated temperature value.
 
     ![On the Smart Meter Simulator, the Connect button is highlighted, and one of the green windows has now turned to blue. The current windows count is now seven gray, two green, and one blue.](media/smart-meter-simulator-connect.png 'Fabrikam Smart Meter Simulator')
 
@@ -883,7 +883,7 @@ To capture all metrics for the cold path, set up another Stream Analytics job th
 
 In this task, we are going to verify that the CSV file is being written to blob storage.
 
-> **Note**: This can be done via Visual Studio, or using the Azure portal. For this lab, we will perform the task using Visual Studio.
+> **Note**: This can be done via Visual Studio or using the Azure portal. For this lab, we will perform the task using Visual Studio.
 
 1. Within Visual Studio on your Lab VM, select the **View** menu, then select **Cloud Explorer**.
 
@@ -941,7 +941,7 @@ In this task, you will create a new Databricks notebook to perform some processi
 
    ![In the Databricks notebook, Account Key and Account Name widgets are highlighted.](media/azure-databricks-notebook-widgets.png 'Databricks Notebooks widgets')
 
-3. You will also notice a message at the bottom of the cell indicating that the cell execution completed, and the amount of time it took.
+3. You will also notice a message at the bottom of the cell, indicating that the cell execution completed, and the amount of time it took.
 
    ![A message is displayed at the bottom of the cell indicating how long the command took to execute.](media/azure-databricks-cell-execution-time.png 'Cell execution time')
 
@@ -1005,7 +1005,7 @@ In this task, you will create a new Databricks notebook to perform some processi
     df.show(10)
     ```
 
-14. Now, you can save the Dataframe to a global table in Databricks. This will make the table accessible to all users and clusters in your Databricks workspace. Insert a new cell, and run the following code.
+14. Now, you can save the Dataframe to a global table in Databricks. This will make the table accessible to all users and clusters in your Databricks workspace. Insert a new cell and run the following code.
 
     ```python
     df.write.mode("overwrite").saveAsTable("SmartMeters")
@@ -1067,7 +1067,7 @@ Fabrikam would like to send commands to devices from the cloud in order to contr
 
 ### Task 1: Add your IoT Hub connection string to the CloudToDevice console app
 
-This console app is configured to connect to IoT Hub using the same connection string you use in the SmartMeterSimulator app. Messages are sent from the console app to IoT Hub, specifying a device by its ID, for example `Device1`. IoT Hub then transmits that message to the device when it is connected. This is called a "cloud-to-device" message, as the console app in our case is not directly connecting to the device and sending it the message. All messages flow through IoT Hub where the connections and device state are managed.
+This console app is configured to connect to IoT Hub using the same connection string you use in the SmartMeterSimulator app. Messages are sent from the console app to IoT Hub, specifying a device by its ID, for example `Device1`. IoT Hub then transmits that message to the device when it is connected. This is called a "cloud-to-device" message. The console app is not directly connecting to the device and sending it the message. All messages flow through IoT Hub where the connections and device state are managed.
 
 1. Return to the `SmartMeterSimulator` solution in Visual Studio on your Lab VM.
 
@@ -1107,7 +1107,7 @@ In this task, you will register, activate, and connect all devices. You will the
 
     ![On the Smart Meter Simulator, the Activate button is highlighted, and all the windows have now turned to green.](media/smart-meter-simulator-activate-all.png 'Fabrikam Smart Meter Simulator')
 
-5. Select **Connect**. Within a few moments, you should begin to see activity as the windows change color indicating the smart meters are transmitting telemetry. The grid on the left will list each telemetry message transmitted and the simulated temperature value.
+5. Select **Connect**. Within a few moments, you should begin to see activity and the windows change color, indicating the smart meters are transmitting telemetry. The grid on the left will list each telemetry message transmitted and the simulated temperature value.
 
     ![On the Smart Meter Simulator, the Connect button is highlighted, the windows have turned different colors to signify the temperature.](media/smart-meter-simulator-connect-all.png 'Fabrikam Smart Meter Simulator')
 

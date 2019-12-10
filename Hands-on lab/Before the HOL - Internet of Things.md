@@ -270,7 +270,7 @@ Fabrikam has provided a Smart Meter Simulator that they use to simulate device r
 
    ![Download .zip containing the Intelligent vending machines repository](media/git-hub-download-repo.png 'Download ZIP')
 
-4. Right-click the downloaded zip, select the **Unblock** checkbox, click **OK**
+4. Right-click the downloaded zip, select the **Unblock** checkbox, select **OK**
 
 5. Unzip the contents to the folder **C:\SmartMeter**.
 
