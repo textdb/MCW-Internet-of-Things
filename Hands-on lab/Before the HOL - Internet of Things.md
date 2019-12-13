@@ -58,7 +58,7 @@ Duration: 45 minutes
 
 In the Before the hands-on lab exercise, you will set up your environment for use in the rest of the hands-on lab. You should follow all the steps provided in the Before the hands-on lab section to prepare your environment **before attending** the hands-on lab. Failure to do so will significantly impact your ability to complete the lab within the time allowed.
 
-> **IMPORTANT**: Most Azure resources require unique names. Throughout this lab you will see the word “SUFFIX” as part of resource names. You should replace this with your Microsoft alias, initials, or another value to ensure the resource is uniquely named.
+> **IMPORTANT**: Most Azure resources require unique names. Throughout this lab you will see the word “suffix” as part of resource names. You should replace this with your Microsoft alias, initials, or another value to ensure the resource is uniquely named.
 
 ### Task 1: Provision a resource group
 
@@ -96,9 +96,9 @@ In this task, you will provision a virtual machine running Visual Studio Communi
 
    - **Subscription**: Select the same subscription you are using for this hands-on lab.
 
-   - **Resource Group**: Select Use existing, and select the hands-on-lab-SUFFIX resource group.
+   - **Resource Group**: Select Use existing and select the hands-on-lab-SUFFIX resource group.
 
-   - **Virtual machine name**: Enter **LabVM**
+   - **Virtual machine name**: Enter **LabVM**.
 
    - **Region**: Select the same region you selected for the resource group.
 
@@ -108,7 +108,7 @@ In this task, you will provision a virtual machine running Visual Studio Communi
 
    - **Size**: Select the **Standard D2 v3** size if it is not already selected.
 
-   - **Username**: Enter **demouser**
+   - **Username**: Enter **demouser**.
 
    - **Password**: Enter **Password.1!!**
 
@@ -138,7 +138,7 @@ In this task, you will create an Azure Databricks workspace.
 
 3. On the Azure Databricks Service blade, enter the following:
 
-   - **Workspace name**: Enter iot-db-workspace-SUFFIX
+   - **Workspace name**: Enter iot-db-workspace-SUFFIX.
 
    - **Subscription**: Select the subscription you are using for this hands-on lab.
 
@@ -146,7 +146,7 @@ In this task, you will create an Azure Databricks workspace.
 
    - **Location**: Select the location you are using for resources in this hands-on lab.
 
-   - **Pricing tier**: Select **Standard**
+   - **Pricing tier**: Select **Standard**.
 
      ![The Azure Databricks Service blade is displayed, with the values specified above entered into the appropriate fields.](media/azure-databricks-create-workspace.png 'Create Azure Databricks workspace')
 
@@ -270,7 +270,7 @@ Fabrikam has provided a Smart Meter Simulator that they use to simulate device r
 
    ![Download .zip containing the Intelligent vending machines repository](media/git-hub-download-repo.png 'Download ZIP')
 
-4. Right-click the downloaded zip, select the **Unblock** checkbox, select **OK**
+4. Right-click the downloaded zip, select the **Unblock** checkbox, select **OK**.
 
 5. Unzip the contents to the folder **C:\SmartMeter**.
 
@@ -278,7 +278,7 @@ Fabrikam has provided a Smart Meter Simulator that they use to simulate device r
 
 7. Sign into Visual Studio or create an account, if prompted.
 
-8. If the Security Warning for SmartMeterSimulator window appears, un-check _Ask me for every project in this solution_, and select **OK**.
+8. If the Security Warning for SmartMeterSimulator window appears, un-check _Ask me for every project in this solution_ and select **OK**.
 
    ![The SmartMeterSimulator Security Warning window has the option to "Ask me for every project in this solution" circled.](./media/visual-studio-security-warning.png 'SmartMeterSimulator Security Warning')
 
