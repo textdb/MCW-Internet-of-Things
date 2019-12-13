@@ -752,7 +752,7 @@ Fabrikam would like to be able to capture all the "cold" data into scalable stor
    - **Performance**: Select **Standard**.
    - **Account kind**: Select **StorageV2 (general purpose v2)**.
    - **Replication**: Select **Locally-redundant storage (LRS)**.
-   - **Access tier (default)**: Select **Hot**
+   - **Access tier (default)**: Select **Hot**.
 
    ![The Create storage account blade is displayed, with the previously mentioned settings entered into the appropriate fields.](media/storage-account-create-new.png 'Create storage account')
 
@@ -917,7 +917,7 @@ In this task, you will create a new Databricks notebook to perform some processi
 
 2. On the Azure Databricks landing page, create a new notebook by selecting **New Notebook** under **Common Tasks**.
 
-3. In the Create Notebook dialog, enter **smartmeters** as the name, and select **Python** as the language, then select **Create**.
+3. In the Create Notebook dialog, enter **smartmeters** as the name and select **Python** as the language, then select **Create**.
 
    ![In the Create Notebook dialog, smartmeters is entered as the Name, and Python is selected in the Language drop down.](media/azure-databricks-create-notebook-dialog.png 'Create Notebook dialog')
 
@@ -933,7 +933,7 @@ In this task, you will create a new Databricks notebook to perform some processi
 
 > **Note**:  Make sure to be aware of any indents\tabs. Python  treats indents\tabs with specific syntactical meaning.
 
-1. Now, select the Run button on the right side of the cell, and select **Run cell**.
+1. Now, select the Run button on the right side of the cell and select **Run cell**.
 
    ![A cell in a Databricks Notebook is displayed, and the Run menu is visible with Run Cell highlighted in the menu.](media/azure-databricks-notebook-run-cell.png 'Datebricks Notebook run cell')
 
@@ -976,7 +976,7 @@ In this task, you will create a new Databricks notebook to perform some processi
 
     > **Note**: Mounting Azure Blob storage directly to DBFS allows you to access files as if they were on the local file system. Once your blob storage account is mounted, you can access them with Databricks Utilities, `dbutils.fs` commands. 
 
-9. Insert a new cell, and paste the code below to see how `dbutils.fs.ls` can be used to list the files and folders directly below the smartmeters folder.
+9. Insert a new cell and paste the code below to see how `dbutils.fs.ls` can be used to list the files and folders directly below the smartmeters folder.
 
     ```python
     # Inspect the file structure
@@ -999,7 +999,7 @@ In this task, you will create a new Databricks notebook to perform some processi
 
     ![Output from the df.dtypes property is displayed.](media/azure-databricks-df-dtypes-output.png 'Output from Dataframe dtypes')
 
-13. Insert another cell, and run the following code to view the first 10 records contained in the Dataframe.
+13. Insert another cell and run the following code to view the first 10 records contained in the Dataframe.
 
     ```python
     df.show(10)
@@ -1149,8 +1149,8 @@ In this exercise, you will delete any Azure resources that were created in suppo
 
 1. Using the [Azure portal](https://portal.azure.com), navigate to the Resource group you used throughout this hands-on lab by selecting Resource groups in the left menu.
 
-2. Search for the name of your research group, and select it from the list.
+2. Search for the name of your research group and select it from the list.
 
-3. Select Delete in the command bar, and confirm the deletion by re-typing the Resource group name, and selecting Delete.
+3. Select Delete in the command bar and confirm the deletion by re-typing the Resource group name, and selecting Delete.
 
 You should follow all steps provided _after_ attending the Hands-on lab.
