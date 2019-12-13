@@ -97,7 +97,7 @@ In your architecture design session with Fabrikam, it was agreed that you would 
 In these steps, you will provision an instance of IoT Hub.
 
 1. In your browser, navigate to the [Azure portal](https://portal.azure.com), select **+Create a resource** in the navigation pane, enter "iot" into the Search the Marketplace box.
- 
+
 2. Select **IoT Hub** from the results, and then select **Create**.
 
    ![+Create a resource is highlighted in the navigation page of the Azure portal, and "iot" is entered into the Search the Marketplace box. IoT Hub is highlighted in the search results.](./media/create-resource-iot-hub.png 'Create an IoT Hub')
@@ -144,27 +144,27 @@ If you want to save this connection string with your project (in case you stop d
 
 2. In the Solution Explorer, expand the SmartMeterSimulator project and double-click `MainForm.cs` to open it. (If the Solution Explorer is not in the upper-right corner of your Visual Studio instance, you can find it under the View menu in Visual Studio.)
 
-> NOTE:  If the form does not display, it is due to the `TODO` tasks in the code.  You can remove them in the following steps or simply add the following code to the `MainForm.Designer.cs` on line 260
+    > NOTE:  If the form does not display, it is due to the `TODO` tasks in the code.  You can remove them in the following steps or simply add the following code to the `MainForm.Designer.cs` on line 260
 
-```csharp
-this.txtIotHubCnString.Text = "YOUR CONNECTION STRING";
-```
+    ```csharp
+    this.txtIotHubCnString.Text = "YOUR CONNECTION STRING";
+    ```
 
    ![In the Visual Studio Solution Explorer window, SmartMeterSimulator is expanded, and under it, MainForm.cs is highlighted.](media/visual-studio-solution-explorer-mainform-cs.png 'Visual Studio Solution Explorer')
 
-1. In the Windows Forms designer surface, select the **IoT Hub Connection String TextBox** to select it.
+3. In the Windows Forms designer surface, select the **IoT Hub Connection String TextBox** to select it.
 
    ![The Windows Form designer surface is opened to the MainForm.cs tab. The IoT Hub Connection String is highlighted, but is empty.](./media/smart-meter-simulator-iot-hub-connection-string.png 'Windows Form designer surface')
 
-2. In the Properties panel, scroll until you see the **Text** property. Paste your IoT Hub connection string value copied in step 6 of the previous task into the value for the Text property. (If the properties window is not visible below the Solution Explorer, right-click the TextBox, and select **Properties**.)
+4. In the Properties panel, scroll until you see the **Text** property. Paste your IoT Hub connection string value copied in step 6 of the previous task into the value for the Text property. (If the properties window is not visible below the Solution Explorer, right-click the TextBox, and select **Properties**.)
 
    ![In the Properties panel, the Text property is highlighted, and is set to HostName=smartmeter-hub.](./media/smart-meter-simulator-iot-hub-connection-string-text-property.png 'Solution Explorer')
 
-3. Your connection string should now be present every time you run the Smart Meter Simulator.
+5. Your connection string should now be present every time you run the Smart Meter Simulator.
 
    ![The Windows Form designer surface is opened to the MainForm.cs tab. The IoT Hub Connection String now displays.](./media/smart-meter-simulator-iot-hub-connection-string-populated.png 'IoT Hub Connection String dialog')
 
-4. Save `MainForm.cs`.
+6. Save `MainForm.cs`.
 
 ## Exercise 2: Completing the Smart Meter Simulator
 
@@ -517,7 +517,7 @@ Fabrikam has left you a partially completed sample in the form of the Smart Mete
     }
    ```
 
-> **Note**:  Be sure you only replace the Sensor class and not any other code in the file.
+    > **Note**:  Be sure you only replace the Sensor class and not any other code in the file.
 
 3. Save `Sensor.cs`.
 
@@ -627,14 +627,14 @@ Fabrikam would like to visualize the "hot" data showing the average temperature 
 
 10. Once authorized, enter the following:
 
-- **Output alias**: Set to **powerbi**.
+    - **Output alias**: Set to **powerbi**.
 
-- For the remaining Power BI settings, enter the following:
+    - For the remaining Power BI settings, enter the following:
 
-  - **Group Workspace**: Select the default, My Workspace.
-  - **Dataset Name**: Enter avgtemps.
-  - **Table Name**: Enter avgtemps.
-  - **Authentication mode**: Enter **User token**.
+      - **Group Workspace**: Select the default, My Workspace.
+      - **Dataset Name**: Enter avgtemps.
+      - **Table Name**: Enter avgtemps.
+      - **Authentication mode**: Enter **User token**.
 
     ![Power BI new output blade. Output alias is selected and contains powerbi. Authorize button is highlighted.](media/stream-analytics-job-outputs-add-power-bi-authorize.png 'Power BI new output blade')
 
@@ -762,12 +762,12 @@ Fabrikam would like to be able to capture all the "cold" data into scalable stor
 
    - **Connectivity method**: Select **Public endpoint (all networks)**.
 
-![The Create storage account blade is displayed with options under the Networking tab.](media/storage-account-create-new-networking.png 'Create storage account - Networking')
+    ![The Create storage account blade is displayed with options under the Networking tab.](media/storage-account-create-new-networking.png 'Create storage account - Networking')
 
 5. In the Advanced tab, select the following:
 
    - **Secure transfer required**: Select **Disabled**.
-   
+
    ![The Create storage account blade is displayed with options under the Advanced tab.](media/storage-account-create-new-advanced.png 'Create storage account - Advanced')
 
 6. Select **Review + create**.
@@ -931,29 +931,29 @@ In this task, you will create a new Databricks notebook to perform some processi
    dbutils.widgets.text("accountKey", "", "Account Key")
    ```
 
-> **Note**:  Make sure to be aware of any indents\tabs. Python  treats indents\tabs with specific syntactical meaning.
+    > **Note**:  Make sure to be aware of any indents\tabs. Python  treats indents\tabs with specific syntactical meaning.
 
-1. Now, select the Run button on the right side of the cell and select **Run cell**.
+5. Now, select the Run button on the right side of the cell and select **Run cell**.
 
    ![A cell in a Databricks Notebook is displayed, and the Run menu is visible with Run Cell highlighted in the menu.](media/azure-databricks-notebook-run-cell.png 'Datebricks Notebook run cell')
 
-2. When the cell finishes executing, you will see the Account Key and Account Name widgets appear at the top of the notebook, just below the toolbar.
+6. When the cell finishes executing, you will see the Account Key and Account Name widgets appear at the top of the notebook, just below the toolbar.
 
    ![In the Databricks notebook, Account Key and Account Name widgets are highlighted.](media/azure-databricks-notebook-widgets.png 'Databricks Notebooks widgets')
 
-3. You will also notice a message at the bottom of the cell, indicating that the cell execution completed, and the amount of time it took.
+7. You will also notice a message at the bottom of the cell, indicating that the cell execution completed, and the amount of time it took.
 
    ![A message is displayed at the bottom of the cell indicating how long the command took to execute.](media/azure-databricks-cell-execution-time.png 'Cell execution time')
 
-4. Enter your Azure Storage account key into the Account Key widget text box, and your Azure storage account name into the Account Name widget text box. These values can be obtained from the Access keys blade in your storage account.
+8. Enter your Azure Storage account key into the Account Key widget text box, and your Azure storage account name into the Account Name widget text box. These values can be obtained from the Access keys blade in your storage account.
 
     ![The Account Key and Account Name widgets are populated with values from the Azure storage account.](media/azure-databricks-notebook-widgets-populated.png 'Databricks Notebooks widgets')
 
-5. At the bottom of the first cell, select the + button to insert a new cell below it.
+9. At the bottom of the first cell, select the + button to insert a new cell below it.
 
     ![The Insert new cell button is highlighted at the bottom of the Databricks cell.](media/azure-databricks-insert-new-cell.png 'Insert new cell')
 
-6. In the new cell, paste the following code that will assign the values you entered into the widgets you created above into variables that will be used throughout the notebook.
+10. In the new cell, paste the following code that will assign the values you entered into the widgets you created above into variables that will be used throughout the notebook.
 
     ```python
     # Get values entered into widgets
@@ -961,9 +961,9 @@ In this task, you will create a new Databricks notebook to perform some processi
     accountKey = dbutils.widgets.get("accountKey")
     ```
 
-7. Run the cell.
+11. Run the cell.
 
-8. Insert a new cell into the notebook, and paste the following code to mount your blob storage account into Databricks File System (DBFS), then run the cell.
+12. Insert a new cell into the notebook, and paste the following code to mount your blob storage account into Databricks File System (DBFS), then run the cell.
 
     ```python
     # Mount the blob storage account at /mnt/smartmeters. This assumes your container name is smartmeters, and you have a folder named smartmeters within that container, as specified in the exercises above.
@@ -976,16 +976,16 @@ In this task, you will create a new Databricks notebook to perform some processi
 
     > **Note**: Mounting Azure Blob storage directly to DBFS allows you to access files as if they were on the local file system. Once your blob storage account is mounted, you can access them with Databricks Utilities, `dbutils.fs` commands. 
 
-9. Insert a new cell and paste the code below to see how `dbutils.fs.ls` can be used to list the files and folders directly below the smartmeters folder.
+13. Insert a new cell and paste the code below to see how `dbutils.fs.ls` can be used to list the files and folders directly below the smartmeters folder.
 
     ```python
     # Inspect the file structure
     display(dbutils.fs.ls("/mnt/smartmeters/"))
     ```
 
-10. Run the cell.
+14. Run the cell.
 
-11. You know from inspecting the files in the storage container that the files are contained within a folder structure resembling, `smartmeters/YYYY-MM-DD/HH`. You can use wildcards to obfuscate the date and hour folders, as well as the file names, and access all the files in all the folders. Insert another cell into the notebook, paste the following code, and run the cell to load the data from the files in blob storage into a Databricks Dataframe.
+15. You know from inspecting the files in the storage container that the files are contained within a folder structure resembling, `smartmeters/YYYY-MM-DD/HH`. You can use wildcards to obfuscate the date and hour folders, as well as the file names, and access all the files in all the folders. Insert another cell into the notebook, paste the following code, and run the cell to load the data from the files in blob storage into a Databricks Dataframe.
 
     ```python
     # Create a Dataframe containing data from all the files in blob storage, regardless of the folder they are located within.
@@ -995,34 +995,34 @@ In this task, you will create a new Databricks notebook to perform some processi
 
     > **Note**: In some rare cases, you may receive an error that the `dbfs:/mnt/smartmeters///*.csv` path is incorrect. If this happens, change the path in the cell to the following: `dbfs:/mnt/smartmeters/*/*/*/*/*.csv`
 
-12. The cell above also outputs the value of the `df.dtypes` property, which is a list of the data types of the columns added to the Dataframe, similar to the following:
+16. The cell above also outputs the value of the `df.dtypes` property, which is a list of the data types of the columns added to the Dataframe, similar to the following:
 
     ![Output from the df.dtypes property is displayed.](media/azure-databricks-df-dtypes-output.png 'Output from Dataframe dtypes')
 
-13. Insert another cell and run the following code to view the first 10 records contained in the Dataframe.
+17. Insert another cell and run the following code to view the first 10 records contained in the Dataframe.
 
     ```python
     df.show(10)
     ```
 
-14. Now, you can save the Dataframe to a global table in Databricks. This will make the table accessible to all users and clusters in your Databricks workspace. Insert a new cell and run the following code.
+18. Now, you can save the Dataframe to a global table in Databricks. This will make the table accessible to all users and clusters in your Databricks workspace. Insert a new cell and run the following code.
 
     ```python
     df.write.mode("overwrite").saveAsTable("SmartMeters")
     ```
 
-15. Now, you will use the `%sql` magic command to change the language of the next cell to SQL from the notebook's default language, Python, then execute a SQL command to aggregate the SmartMeter data by average temperature. Paste the following code into a new cell, and run the cell.
+19. Now, you will use the `%sql` magic command to change the language of the next cell to SQL from the notebook's default language, Python, then execute a SQL command to aggregate the SmartMeter data by average temperature. Paste the following code into a new cell, and run the cell.
 
     ```sql
     %sql
     SELECT id, COUNT(*) AS count, AVG(temp) AS averageTemp FROM SmartMeters GROUP BY id ORDER BY id
     ```
 
-16. The output from the SQL command should resemble the following table:
+20. The output from the SQL command should resemble the following table:
 
     ![Output from executing a SQL statement a Databricks notebook cell using the %sql magic command.](media/azure-databricks-notebook-sql-magic-command.png 'SQL magic command')
 
-17. Now, execute the same command in a new cell, this time using Spark SQL so you can save the summary data into a Dataframe. Copy and execute the following code into a new cell:
+21. Now, execute the same command in a new cell, this time using Spark SQL so you can save the summary data into a Dataframe. Copy and execute the following code into a new cell:
 
     ```python
     # Query the table to create a Dataframe containing the summary
@@ -1032,18 +1032,18 @@ In this task, you will create a new Databricks notebook to perform some processi
     summary.write.mode("overwrite").saveAsTable("DeviceSummary")
     ```
 
-18. Next, query from this summary table by executing the following query in a new cell:
+22. Next, query from this summary table by executing the following query in a new cell:
 
     ```sql
     %sql
     SELECT * FROM DeviceSummary
     ```
 
-19. **Below** the results table, notice the area to change the visualization for tabular output. Select the **Bar** button, and then select **Plot Options**.
+23. **Below** the results table, notice the area to change the visualization for tabular output. Select the **Bar** button, and then select **Plot Options**.
 
     ![Buttons for displaying tablular results in different formats in Databricks](media/azure-databricks-notebook-visualizations.png 'Visualization options')
 
-20. In the Customize Plot dialog, ensure the following are set:
+24. In the Customize Plot dialog, ensure the following are set:
 
     - **Keys**: **id**.
     - **Values**: **averageTemp**.
@@ -1053,9 +1053,9 @@ In this task, you will create a new Databricks notebook to perform some processi
 
       ![Plot customization options dialog in Azure databricks, with id in the Keys field, averageTemp in the Values field, Aggregation set to AVG, and the chart set to a grouped bar chart.](media/azure-databricks-notebook-customize-plot.png)
 
-21. Select **Apply**.
+25. Select **Apply**.
 
-22. Observe the results graphed as a column chart, where each column represents a device's average temperature.
+26. Observe the results graphed as a column chart, where each column represents a device's average temperature.
 
     ![A bar chart is displayed, with devices on the X axis, and average temperations on the Y axis.](media/azure-databricks-notebook-visualizations-bar-chart.png 'Bar chart')
 
