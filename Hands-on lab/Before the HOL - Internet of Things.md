@@ -58,7 +58,7 @@ Duration: 45 minutes
 
 In the Before the hands-on lab exercise, you will set up your environment for use in the rest of the hands-on lab. You should follow all the steps provided in the Before the hands-on lab section to prepare your environment **before attending** the hands-on lab. Failure to do so will significantly impact your ability to complete the lab within the time allowed.
 
-> **IMPORTANT**: Most Azure resources require unique names. Throughout this lab you will see the word “suffix” as part of resource names. You should replace this with your Microsoft alias, initials, or another value to ensure the resource is uniquely named.
+> **IMPORTANT**: Most Azure resources require unique names. Throughout this lab you will see the word “SUFFIX” as part of resource names. You should replace this with your Microsoft alias, initials, or another value to ensure the resource is uniquely named.
 
 ### Task 1: Provision a resource group
 
