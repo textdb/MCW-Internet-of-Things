@@ -144,7 +144,7 @@ If you want to save this connection string with your project (in case you stop d
 
 2. In the Solution Explorer, expand the SmartMeterSimulator project and double-click `MainForm.cs` to open it. (If the Solution Explorer is not in the upper-right corner of your Visual Studio instance, you can find it under the View menu in Visual Studio.)
 
-    > NOTE:  If the form does not display, it is due to the `TODO` tasks in the code.  You can remove them in the following steps or simply add the following code to the `MainForm.Designer.cs` on line 260
+    > **Note**:  If the form does not display, it is due to the `TODO` tasks in the code.  You can remove them in the following steps or simply add the following code to the `MainForm.Designer.cs` on line 260
 
     ```csharp
     this.txtIotHubCnString.Text = "YOUR CONNECTION STRING";
