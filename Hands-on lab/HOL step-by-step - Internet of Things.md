@@ -679,7 +679,7 @@ Fabrikam would like to visualize the "hot" data showing the average temperature 
 
 1. Sign in to your Power BI subscription (<https://app.powerbi.com>) to see if data is being collected.
 
-2. Select **My Workspace** on the left-hand menu, then select the **Datasets tab**, and locate the **avgtemps** dataset from the list.
+2. Select **My Workspace** on the left-hand menu, then select the **Datasets tab**, and locate the **avgtemps** dataset from the list. **Note:** Sometimes it takes few minutes for the dataset to appear in the Power BI Dataset tab under "My Workspace"
 
    ![On the Power BI window, My Workspace is highlighted in the left pane, and the Datasets tab is highlighted in the right pane, and the avgtemps dataset is highlighted.](media/power-bi-workspaces-datasets-avgtemps.png 'Power BI Datasets')
 
