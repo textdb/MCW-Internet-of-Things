@@ -31,11 +31,11 @@ Microsoft and the trademarks listed at <https://www.microsoft.com/en-us/legal/in
   - [Requirements](#requirements)
   - [Exercise 1: IoT Hub provisioning](#exercise-1-iot-hub-provisioning)
     - [Task 1: Provision IoT Hub](#task-1-provision-iot-hub)
-    - [Task 2: Configure the Smart Meter Simulator](#task-2-configure-the-smart-meter-simulator)
   - [Exercise 2: Completing the Smart Meter Simulator](#exercise-2-completing-the-smart-meter-simulator)
     - [Task 1: Implement device management with the IoT Hub](#task-1-implement-device-management-with-the-iot-hub)
-    - [Task 2: Implement the communication of telemetry with IoT Hub](#task-2-implement-the-communication-of-telemetry-with-iot-hub)
-    - [Task 3: Verify device registration and telemetry](#task-3-verify-device-registration-and-telemetry)
+    - [Task 2: Configure the IoT Hub connection string](#task-2-configure-the-iot-hub-connection-string)
+    - [Task 3: Implement the communication of telemetry with IoT Hub](#task-3-implement-the-communication-of-telemetry-with-iot-hub)
+    - [Task 4: Verify device registration and telemetry](#task-4-verify-device-registration-and-telemetry)
   - [Exercise 3: Hot path data processing with Stream Analytics](#exercise-3-hot-path-data-processing-with-stream-analytics)
     - [Task 1: Create a Stream Analytics job for hot path processing to Power BI](#task-1-create-a-stream-analytics-job-for-hot-path-processing-to-power-bi)
     - [Task 2: Visualize hot data with Power BI](#task-2-visualize-hot-data-with-power-bi)
@@ -132,39 +132,9 @@ In these steps, you will provision an instance of IoT Hub.
 
    ![The Azure portal is shown with the iothubowner selected.](./media/iot-hub-shared-access-policies-iothubowner.png 'IoT Hub Owner shared access policy')
 
-7. In the **iothubowner** blade, select the Copy button to the right of the **Connection string - primary key** field. You will be pasting the connection string value into a TextBox's Text property value in the next task.
+7. In the **iothubowner** blade, select the Copy button to the right of the **Connection string - primary key** field. You will be needing this connection string value in the next exercise.
 
    ![Screenshot of the iothubowner blade. The connection string - primary key field is highlighted.](./media/iot-hub-shared-access-policies-iothubowner-blade.png 'iothubowner blade')
-
-### Task 2: Configure the Smart Meter Simulator
-
-If you want to save this connection string with your project (in case you stop debugging or otherwise close the simulator), you can set this as the default text for the text box. Follow these steps to configure the connection string:
-
-1. Return to the `SmartMeterSimulator` solution in Visual Studio on your Lab VM.
-
-2. In the Solution Explorer, expand the SmartMeterSimulator project and double-click `MainForm.cs` to open it. (If the Solution Explorer is not in the upper-right corner of your Visual Studio instance, you can find it under the View menu in Visual Studio.)
-
-    > **Note**:  If the form does not display, it is due to the `TODO` tasks in the code.  You can remove them in the following steps or simply add the following code to the `MainForm.Designer.cs` on line 260
-
-    ```csharp
-    this.txtIotHubCnString.Text = "YOUR CONNECTION STRING";
-    ```
-
-   ![In the Visual Studio Solution Explorer window, SmartMeterSimulator is expanded, and under it, MainForm.cs is highlighted.](media/visual-studio-solution-explorer-mainform-cs.png 'Visual Studio Solution Explorer')
-
-3. In the Windows Forms designer surface, select the **IoT Hub Connection String TextBox** to select it.
-
-   ![The Windows Form designer surface is opened to the MainForm.cs tab. The IoT Hub Connection String is highlighted, but is empty.](./media/smart-meter-simulator-iot-hub-connection-string.png 'Windows Form designer surface')
-
-4. In the Properties panel, scroll until you see the **Text** property. Paste your IoT Hub connection string value copied in step 6 of the previous task into the value for the Text property. (If the properties window is not visible below the Solution Explorer, right-click the TextBox, and select **Properties**.)
-
-   ![In the Properties panel, the Text property is highlighted, and is set to HostName=smartmeter-hub.](./media/smart-meter-simulator-iot-hub-connection-string-text-property.png 'Solution Explorer')
-
-5. Your connection string should now be present every time you run the Smart Meter Simulator.
-
-   ![The Windows Form designer surface is opened to the MainForm.cs tab. The IoT Hub Connection String now displays.](./media/smart-meter-simulator-iot-hub-connection-string-populated.png 'IoT Hub Connection String dialog')
-
-6. Save `MainForm.cs`.
 
 ## Exercise 2: Completing the Smart Meter Simulator
 
@@ -376,7 +346,31 @@ Fabrikam has left you a partially completed sample in the form of the Smart Mete
 
 5. Save `DeviceManager.cs`.
 
-### Task 2: Implement the communication of telemetry with IoT Hub
+### Task 2: Configure the IoT Hub connection string
+
+You will want to avoid entering the IoT Hub connection string every time the project is run. To do this, you can set this value as the default text for the connection string text box in the application. Follow these steps to configure the connection string:
+
+1. Return to the `SmartMeterSimulator` solution in Visual Studio on your Lab VM.
+
+2. In the Solution Explorer, expand the SmartMeterSimulator project and double-click `MainForm.cs` to open it. (If the Solution Explorer is not in the upper-right corner of your Visual Studio instance, you can find it under the View menu in Visual Studio.)
+
+   ![In the Visual Studio Solution Explorer window, SmartMeterSimulator is expanded, and under it, MainForm.cs is highlighted.](media/visual-studio-solution-explorer-mainform-cs.png 'Visual Studio Solution Explorer')
+
+3. In the Windows Forms designer surface, select the **IoT Hub Connection String TextBox** to select it.
+
+   ![The Windows Form designer surface is opened to the MainForm.cs tab. The IoT Hub Connection String is highlighted, but is empty.](./media/smart-meter-simulator-iot-hub-connection-string.png 'Windows Form designer surface')
+
+4. In the Properties panel, scroll until you see the **Text** property. Paste your IoT Hub connection string value copied from Exercise 1, Task 1, Step 7 of the previous exercise into the value for the Text property. (If the properties window is not visible below the Solution Explorer, right-click the TextBox, and select **Properties**.)
+
+   ![In the Properties panel, the Text property is highlighted, and is set to HostName=smartmeter-hub.](./media/smart-meter-simulator-iot-hub-connection-string-text-property.png 'Solution Explorer')
+
+5. Your connection string should now be present every time you run the Smart Meter Simulator.
+
+   ![The Windows Form designer surface is opened to the MainForm.cs tab. The IoT Hub Connection String now displays.](./media/smart-meter-simulator-iot-hub-connection-string-populated.png 'IoT Hub Connection String dialog')
+
+6. Save `MainForm.cs`.
+
+### Task 3: Implement the communication of telemetry with IoT Hub
 
 1. Open `Sensor.cs` from the Solution Explorer, and complete the `TODO` items indicated within the code that are responsible for transmitting telemetry data to the IoT Hub, as well as receiving data from IoT Hub.
 
@@ -521,7 +515,7 @@ Fabrikam has left you a partially completed sample in the form of the Smart Mete
 
 3. Save `Sensor.cs`.
 
-### Task 3: Verify device registration and telemetry
+### Task 4: Verify device registration and telemetry
 
 In this task, you will build and run the Smart Meter Simulator project.
 
