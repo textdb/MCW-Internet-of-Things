@@ -132,7 +132,7 @@ In these steps, you will provision an instance of IoT Hub.
 
    ![The Azure portal is shown with the iothubowner selected.](./media/iot-hub-shared-access-policies-iothubowner.png 'IoT Hub Owner shared access policy')
 
-7. In the **iothubowner** blade, select the Copy button to the right of the **Connection string - primary key** field. You will be needing this connection string value in the next exercise.
+7. In the **iothubowner** blade, select the Copy button to the right of the **Connection string - primary key** field. You will need this connection string value in the next exercise.
 
    ![Screenshot of the iothubowner blade. The connection string - primary key field is highlighted.](./media/iot-hub-shared-access-policies-iothubowner-blade.png 'iothubowner blade')
 
