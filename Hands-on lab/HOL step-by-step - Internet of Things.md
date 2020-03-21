@@ -9,7 +9,7 @@ Hands-on lab step-by-step
 </div>
 
 <div class="MCWHeader3">
-December 2019
+March 2020
 </div>
 
 Information in this document, including URL and other Internet Web site references, is subject to change without notice. Unless otherwise noted, the example companies, organizations, products, domain names, e-mail addresses, logos, people, places, and events depicted herein are fictitious, and no association with any real company, organization, product, domain name, e-mail address, logo, person, place or event is intended or should be inferred. Complying with all applicable copyright laws is the responsibility of the user. Without limiting the rights under copyright, no part of this document may be reproduced, stored in or introduced into a retrieval system, or transmitted in any form or by any means (electronic, mechanical, photocopying, recording, or otherwise), or for any purpose, without the express written permission of Microsoft Corporation.
@@ -18,7 +18,7 @@ Microsoft may have patents, patent applications, trademarks, copyrights, or othe
 
 The names of manufacturers, products, or URLs are provided for informational purposes only and Microsoft makes no representations and warranties, either expressed, implied, or statutory, regarding these manufacturers or the use of the products with any Microsoft technologies. The inclusion of a manufacturer or product does not imply endorsement of Microsoft of the manufacturer or product. Links may be provided to third party sites. Such sites are not under the control of Microsoft and Microsoft is not responsible for the contents of any linked site or any link contained in a linked site, or any changes or updates to such sites. Microsoft is not responsible for webcasting or any other form of transmission received from any linked site. Microsoft is providing these links to you only as a convenience, and the inclusion of any link does not imply endorsement of Microsoft of the site or the products contained therein.
 
-© 2019 Microsoft Corporation. All rights reserved.
+© 2020 Microsoft Corporation. All rights reserved.
 
 Microsoft and the trademarks listed at <https://www.microsoft.com/en-us/legal/intellectualproperty/Trademarks/Usage/General.aspx> are trademarks of the Microsoft group of companies. All other trademarks are property of their respective owners.
 
@@ -354,8 +354,19 @@ You will want to avoid entering the IoT Hub connection string every time the pro
 
 2. In the Solution Explorer, expand the SmartMeterSimulator project and double-click `MainForm.cs` to open it. (If the Solution Explorer is not in the upper-right corner of your Visual Studio instance, you can find it under the View menu in Visual Studio.)
 
-   ![In the Visual Studio Solution Explorer window, SmartMeterSimulator is expanded, and under it, MainForm.cs is highlighted.](media/visual-studio-solution-explorer-mainform-cs.png 'Visual Studio Solution Explorer')
+   ![In the Visual Studio Solution Explorer window, SmartMeterSimulator is expanded, and under it, MainForm.cs is highlighted.](media/visual-studio-solution-explorer-mainform-cs.png
+   'Visual Studio Solution Explorer')
 
+    > **Note**: If the file does not open. One of the project files may be blocked.
+
+   - Open Windows Explorer and navigate to the starter project folder: `C:\SmartMeter\Hands-on lab\lab-files\starter-project\SmartMeterSimulator\`.
+   - Right-click on the `MainForm.resx` file, then select **Properties**.
+   - Check the **Unblock** checkbox on the bottom of the General tab, then select Apply then OK.
+
+   ![Right-click MainForm.resx, go to Properties, then check the box next to Unblock](media/unblock-file.png 'Unblock file')
+
+   - Close and reopen Visual Studio. Re-open the MainForm.cs file.
+  
 3. In the Windows Forms designer surface, select the **IoT Hub Connection String TextBox** to select it.
 
    ![The Windows Form designer surface is opened to the MainForm.cs tab. The IoT Hub Connection String is highlighted, but is empty.](./media/smart-meter-simulator-iot-hub-connection-string.png 'Windows Form designer surface')
@@ -521,16 +532,6 @@ In this task, you will build and run the Smart Meter Simulator project.
 
 1. In Visual Studio select **Build** from the Visual Studio menu, then select **Build Solution**.
 
-   > **Note**: If you receive the following error after building the solution, complete the steps that follow: `Couldn't process file MainForm.resx due to its being in the Internet or Restricted zone or having the mark of the web on the file. Remove the mark of the web if you want to process these files.`
-
-   - Open Windows Explorer and navigate to the starter project folder: `C:\SmartMeter\Hands-on lab\lab-files\starter-project\SmartMeterSimulator\`.
-   - Right-click on the `MainForm.resx` file, then select **Properties**.
-   - Check the **Unblock** checkbox on the bottom of the General tab, then select Apply then OK.
-
-   ![Right-click MainForm.resx, go to Properties, then check the box next to Unblock](media/unblock-file.png 'Unblock file')
-
-   - Close and reopen Visual Studio. You should now be able to build successfully.
-
 2. Run the Smart Meter Simulator, by selecting the green Start button on the Visual Studio toolbar.
 
    ![The green Start button is highlighted on the Visual Studio toolbar.](media/visual-studio-toolbar-start.png 'Visual Studio toolbar')
@@ -667,7 +668,7 @@ Fabrikam would like to visualize the "hot" data showing the average temperature 
 
 19. Once the Stream Analytics Job has successfully started, verify that you are showing a non-zero amount of **Input Events** on the **Monitoring** chart on the overview blade. You may need to reconnect your devices on the Smart Meter Simulator and let it run for a while to see the events.
 
-    ![The Stream Analytics job monitoring chart is diplayed with a non-zero amount of input events highlighted.](media/stream-analytics-job-monitoring-input-events.png 'Monitoring chart for Stream Analytics job')
+    ![The Stream Analytics job monitoring chart is displayed with a non-zero amount of input events highlighted.](media/stream-analytics-job-monitoring-input-events.png 'Monitoring chart for Stream Analytics job')
 
 ### Task 2: Visualize hot data with Power BI
 
@@ -968,7 +969,7 @@ In this task, you will create a new Databricks notebook to perform some processi
       extra_configs = {"fs.azure.account.key." + accountName + ".blob.core.windows.net": accountKey})
     ```
 
-    > **Note**: Mounting Azure Blob storage directly to DBFS allows you to access files as if they were on the local file system. Once your blob storage account is mounted, you can access them with Databricks Utilities, `dbutils.fs` commands. 
+    > **Note**: Mounting Azure Blob storage directly to DBFS allows you to access files as if they were on the local file system. Once your blob storage account is mounted, you can access them with Databricks Utilities, `dbutils.fs` commands.
 
 13. Insert a new cell and paste the code below to see how `dbutils.fs.ls` can be used to list the files and folders directly below the smartmeters folder.
 
@@ -987,7 +988,7 @@ In this task, you will create a new Databricks notebook to perform some processi
     print(df.dtypes)
     ```
 
-    > **Note**: In some rare cases, you may receive an error that the `dbfs:/mnt/smartmeters///*.csv` path is incorrect. If this happens, change the path in the cell to the following: `dbfs:/mnt/smartmeters/*/*/*/*/*.csv`
+    > **Note**: In some rare cases, you may receive an error that the `dbfs:/mnt/smartmeters/*/*/*.csv` path is incorrect. If this happens, change the path in the cell to the following: `dbfs:/mnt/smartmeters/*/*/*/*/*.csv`
 
 16. The cell above also outputs the value of the `df.dtypes` property, which is a list of the data types of the columns added to the Dataframe, similar to the following:
 

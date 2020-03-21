@@ -9,7 +9,7 @@ Before the hands-on lab setup guide
 </div>
 
 <div class="MCWHeader3">
-December 2019
+March 2020
 </div>
 
 Information in this document, including URL and other Internet Web site references, is subject to change without notice. Unless otherwise noted, the example companies, organizations, products, domain names, e-mail addresses, logos, people, places, and events depicted herein are fictitious, and no association with any real company, organization, product, domain name, e-mail address, logo, person, place or event is intended or should be inferred. Complying with all applicable copyright laws is the responsibility of the user. Without limiting the rights under copyright, no part of this document may be reproduced, stored in or introduced into a retrieval system, or transmitted in any form or by any means (electronic, mechanical, photocopying, recording, or otherwise), or for any purpose, without the express written permission of Microsoft Corporation.
@@ -18,7 +18,7 @@ Microsoft may have patents, patent applications, trademarks, copyrights, or othe
 
 The names of manufacturers, products, or URLs are provided for informational purposes only and Microsoft makes no representations and warranties, either expressed, implied, or statutory, regarding these manufacturers or the use of the products with any Microsoft technologies. The inclusion of a manufacturer or product does not imply endorsement of Microsoft of the manufacturer or product. Links may be provided to third party sites. Such sites are not under the control of Microsoft and Microsoft is not responsible for the contents of any linked site or any link contained in a linked site, or any changes or updates to such sites. Microsoft is not responsible for webcasting or any other form of transmission received from any linked site. Microsoft is providing these links to you only as a convenience, and the inclusion of any link does not imply endorsement of Microsoft of the site or the products contained therein.
 
-© 2019 Microsoft Corporation. All rights reserved.
+© 2020 Microsoft Corporation. All rights reserved.
 
 Microsoft and the trademarks listed at <https://www.microsoft.com/en-us/legal/intellectualproperty/Trademarks/Usage/General.aspx> are trademarks of the Microsoft group of companies. All other trademarks are property of their respective owners.
 
@@ -86,7 +86,7 @@ In this task, you will provision a virtual machine running Visual Studio Communi
 
 1. In the [Azure portal](https://portal.azure.com/), select **+Create a resource**
 
-2. In the **Search the marketplace** textbox, enter "visual studio 2019 Latest" and then select it from the options
+2. In the **Search the marketplace** textbox, enter "Visual Studio 2019 Latest" and then select it from the options
 
 3. For the software plan, select **Visual Studio 2019 Enterprise on Windows Server 2016 (x64)** from the results, and select **Create**.
 
@@ -110,7 +110,7 @@ In this task, you will provision a virtual machine running Visual Studio Communi
 
    - **Username**: Enter **demouser**.
 
-   - **Password**: Enter **Password.1!!**
+   - **Password**: Enter a password
 
    - **Public inbound ports**: Select **Allow selected ports**.
 
@@ -149,6 +149,8 @@ In this task, you will create an Azure Databricks workspace.
    - **Pricing tier**: Select **Standard**.
 
      ![The Azure Databricks Service blade is displayed, with the values specified above entered into the appropriate fields.](media/azure-databricks-create-workspace.png 'Create Azure Databricks workspace')
+
+   - Select **Review + Create**.
 
    - Select **Create**.
 
@@ -222,7 +224,7 @@ In this task, you will create an RDP connection to your lab virtual machine (VM)
 
    - **Username**: demouser
 
-   - **Password**: Password.1!!
+   - **Password**: {Your password}
 
 7. Select **Yes** to connect, if prompted that the identity of the remote computer cannot be verified.
 
@@ -248,15 +250,7 @@ Azure Databricks requires Google Chrome or Firefox. By default, the VM only incl
 
 1. From your LabVM, open Internet Explorer and browse to <https://www.google.com/chrome/>.
 
-2. Select the gear icon on the upper-right of your browser, then choose **Internet options**.
-
-   ![The gear icon is selected and the Internet options menu item is highlighted.](media/ie-internet-options.png 'Internet Explorer')
-
-3. Select the **Security** tab, select **Trusted sites**, the choose **Sites**. In the Trusted sites dialog, type in `https://*.google.com`. You may have "https://www.google.com" in that field already. If so, replace the "www" with a "\*". Select **Add**, then **Close**. Apply and save your changes.
-
-![The Trusted sites dialog is displayed with the previously mentioned items highlighted.](media/ie-trusted-sites.png 'Trusted sites')
-
-4. Select **Download Chrome** on the webpage and follow the prompts.
+2. Select **Download Chrome** on the webpage and follow the prompts.
 
 ### Task 8: Download Smart Meter Simulator project
 
@@ -264,7 +258,7 @@ Fabrikam has provided a Smart Meter Simulator that they use to simulate device r
 
 1. From your LabVM, download the starter project by downloading a .zip copy of the Intelligent vending machines GitHub repo.
 
-2. In your Chrome web browser, navigate to the Internet of Things MCW repo: <https://github.com/Microsoft/MCW-Internet-of-Things>.
+2. In your newly installed Chrome web browser, navigate to the Internet of Things MCW repo: <https://github.com/Microsoft/MCW-Internet-of-Things>.
 
 3. On the repo page, select **Clone or download**, then select **Download ZIP**.
 
