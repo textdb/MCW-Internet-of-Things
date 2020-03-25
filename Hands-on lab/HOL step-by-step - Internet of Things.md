@@ -118,7 +118,7 @@ In these steps, you will provision an instance of IoT Hub.
 
    - On the **Size and scale** tab, accept the default Pricing and scale tier of **S1: Standard tier**, and select **Review + create**.
 
-   - Select **Create** on the Review + create blade.
+   - Select **Create** on the **Review + create** blade.
 
 4. When the IoT Hub deployment is completed, you will receive a notification in the Azure portal. Select **Go to resource** in the notification.
 
@@ -367,7 +367,7 @@ You will want to avoid entering the IoT Hub connection string every time the pro
 
    - Close and reopen **Visual Studio**. Re-open the **MainForm.cs** file.
   
-3. In the **Windows Forms designer surface**, select the **IoT Hub Connection String TextBox** to select it.
+3. In the **Windows Forms designer surface**, select the **IoT Hub Connection String TextBox**.
 
    ![The Windows Form designer surface is opened to the MainForm.cs tab. The IoT Hub Connection String is highlighted, but is empty.](./media/smart-meter-simulator-iot-hub-connection-string.png 'Windows Form designer surface')
 
@@ -550,7 +550,7 @@ In this task, you will build and run the Smart Meter Simulator project.
 
 6. At this point, you have registered 10 devices (the gray windows) but activated only the ones you selected (in green). To view this list of devices, you will switch over to the **Azure Portal**, and open the **IoT Hub** you provisioned.
 
-7. From the IoT Hub blade, select **IoT Devices** under Explorers on the left-hand menu.
+7. From the **IoT Hub** blade, select **IoT Devices** under **Explorers** on the left-hand menu.
 
    ![On the IoT Hub blade, in the Explorers section, under Explorers, IoT Devices is highlighted.](media/iot-hub-explorers-iot-devices.png 'IoT Hub blade, Explorers section')
 
@@ -593,7 +593,7 @@ Fabrikam would like to visualize the "hot" data showing the average temperature 
 
 4. Once provisioned, navigate to your new **Stream Analytics job** in the portal.
 
-5. On the Stream Analytics job blade, select **Inputs** from the left-hand menu, under **Job Topology**, then select **+Add stream input**, and select **IoT Hub** from the dropdown menu to add an input connected to your IoT Hub.
+5. On the **Stream Analytics job** blade, select **Inputs** from the left-hand menu, under **Job Topology**, then select **+Add stream input**, and select **IoT Hub** from the dropdown menu to add an input connected to your IoT Hub.
 
    ![On the Stream Analytics job blade, Inputs is selected under Job Topology in the left-hand menu, and +Add stream input is highlighted in the Inputs blade, and IoT Hub is highlighted in the drop down menu.](media/stream-analytics-job-inputs-add.png 'Add Stream Analytics job inputs')
 
@@ -620,6 +620,8 @@ Fabrikam would like to visualize the "hot" data showing the average temperature 
 
 9. In the **Power BI** blade, select **Authorize** to authorize the connection to your Power BI account. When prompted in the popup window, enter the account credentials you used to create your Power BI account in [Before the hands-on lab setup guide, Task 1](./Before%20the%20HOL%20-%20Internet%20of%20Things.md).
 
+    ![The Authorize connection message is displayed and the Authorize button is highlighted.](media/stream-analytics-job-outputs-add-power-bi-authorize.png 'Power BI new output blade')
+
 10. Once authorized, enter the following:
 
     - **Output alias**: Set to `powerbi`
@@ -631,8 +633,6 @@ Fabrikam would like to visualize the "hot" data showing the average temperature 
       - **Table Name**: Enter `avgtemps`
       - **Authentication mode**: Select **User token**
 
-    ![The Authorize connection message is displayed and the Authorize button is highlighted.](media/stream-analytics-job-outputs-add-power-bi-authorize.png 'Power BI new output blade')
-
     ![Power BI blade. Output alias is powerbi, dataset name is avgtemps, table name is avgtemps, authentication mode is User token.](media/stream-analytics-job-outputs-add-power-bi-save.png 'Add Power BI Output')
 
 11. Select **Save**.
@@ -641,7 +641,7 @@ Fabrikam would like to visualize the "hot" data showing the average temperature 
 
     ![Under Job Topology, Query is selected.](./media/stream-analytics-job-query.png 'Stream Analytics Query')
 
-13. In the query text box, paste the following query.
+13. In the **Query** text box, paste the following query.
 
     ```sql
     SELECT AVG(temp) AS Average, id
@@ -716,7 +716,7 @@ Fabrikam would like to visualize the "hot" data showing the average temperature 
 
     ![Under File, Save is highlighted.](media/power-bi-save-report.png 'Save report')
 
-12. Enter the name "Average Temperatures," and select **Save**.
+12. Enter the name `Average Temperatures`, and select **Save**.
 
     ![The report name is set to Average Temperatures.](./media/power-bi-save-report-average-temperatures.png 'Save your report')
 
@@ -736,7 +736,7 @@ Fabrikam would like to be able to capture all the "cold" data into scalable stor
 
 ### Task 1: Create a Storage account
 
-1. In the [Azure portal](https://portal.azure.com), select **+ Create a resource**, enter "storage account" into the Search the Marketplace box, select **Storage account** from the results, and select **Create**.
+1. In the [Azure portal](https://portal.azure.com), select **+ Create a resource**, enter `storage account` into the **Search the Marketplace** box, select **Storage account** from the results, and select **Create**.
 
    ![In the Azure portal, +Create a resource is highlighted in the navigation pane, "storage account" is entered into the Search the Marketplace box, and Storage account - blob, file, table, queue is highlighted in the results.](media/create-resource-storage-account.png 'Create Storage account')
 
@@ -761,7 +761,7 @@ Fabrikam would like to be able to capture all the "cold" data into scalable stor
 
     ![The Create storage account blade is displayed with options under the Networking tab.](media/storage-account-create-new-networking.png 'Create storage account - Networking')
 
-5. In the Advanced tab, select the following:
+5. In the **Advanced** tab, select the following:
 
    - **Secure transfer required**: Select **Disabled**.
 
@@ -769,7 +769,7 @@ Fabrikam would like to be able to capture all the "cold" data into scalable stor
 
 6. Select **Review + create**.
 
-7. In the Review tab, select **Create**.
+7. In the **Review  + create** tab, select **Create**.
 
 8. Once provisioned, navigate to your storage account, select **Access keys** from the left-hand menu, and copy the **key1** Key value into a text editor, such as Notepad, for later use.
 
@@ -802,7 +802,7 @@ To capture all metrics for the cold path, set up another Stream Analytics job th
 
    ![On the Stream Analytics job blade, Inputs is selected under Job Topology in the left-hand menu, and +Add stream input is highlighted in the Inputs blade, and IoT Hub is highlighted in the drop down menu.](media/stream-analytics-job-inputs-add.png 'Add Stream Analytics job inputs')
 
-6. On the New Input blade, enter the following:
+6. On the **New Input** blade, enter the following:
 
    - **Input alias**: Enter `iothub`
    - Choose **Select IoT Hub from your subscriptions**.
@@ -845,7 +845,7 @@ To capture all metrics for the cold path, set up another Stream Analytics job th
 
     ![Under Job Topology, Query is selected.](./media/stream-analytics-job-query.png 'Stream Analytics Query')
 
-12. In the query text box, paste the following query.
+12. In the **Query** text box, paste the following query.
 
     ```sql
     SELECT
@@ -946,11 +946,11 @@ In this task, you will create a new Databricks notebook to perform some processi
 
     ![The Account Key and Account Name widgets are populated with values from the Azure storage account.](media/azure-databricks-notebook-widgets-populated.png 'Databricks Notebooks widgets')
 
-9. At the bottom of the first cell, select the + button to insert a new cell below it.
+9. At the bottom of the **first cell**, select the **+** button to insert a new cell below it.
 
     ![The Insert new cell button is highlighted at the bottom of the Databricks cell.](media/azure-databricks-insert-new-cell.png 'Insert new cell')
 
-10. In the new cell, paste the following code that will assign the values you entered into the widgets you created above into variables that will be used throughout the notebook.
+10. In the **new cell**, paste the following code that will assign the values you entered into the widgets you created above into variables that will be used throughout the notebook.
 
     ```python
     # Get values entered into widgets
@@ -960,7 +960,7 @@ In this task, you will create a new Databricks notebook to perform some processi
 
 11. Run the cell.
 
-12. Insert a new cell into the notebook, and paste the following code to mount your blob storage account into Databricks File System (DBFS), then run the cell.
+12. **Insert a new cell** into the notebook, and paste the following code to mount your blob storage account into Databricks File System (DBFS), then **run** the cell.
 
     ```python
     # Mount the blob storage account at /mnt/smartmeters. This assumes your container name is smartmeters, and you have a folder named smartmeters within that container, as specified in the exercises above.
@@ -973,16 +973,16 @@ In this task, you will create a new Databricks notebook to perform some processi
 
     > **Note**: Mounting Azure Blob storage directly to DBFS allows you to access files as if they were on the local file system. Once your blob storage account is mounted, you can access them with Databricks Utilities, `dbutils.fs` commands.
 
-13. Insert a new cell and paste the code below to see how **dbutils.fs.ls** can be used to list the files and folders directly below the smartmeters folder.
+13. **Insert a new cell** and paste the code below to see how **dbutils.fs.ls** can be used to list the files and folders directly below the **smartmeters** folder.
 
     ```python
     # Inspect the file structure
     display(dbutils.fs.ls("/mnt/smartmeters/"))
     ```
 
-14. Run the cell.
+14. **Run** the cell.
 
-15. You know from inspecting the files in the storage container that the files are contained within a folder structure resembling, **smartmeters/YYYY-MM-DD/HH**. You can use wildcards to obfuscate the date and hour folders, as well as the file names, and access all the files in all the folders. Insert another cell into the notebook, paste the following code, and run the cell to load the data from the files in blob storage into a Databricks Dataframe.
+15. You know from inspecting the files in the storage container that the files are contained within a folder structure resembling, **smartmeters/YYYY-MM-DD/HH**. You can use wildcards to obfuscate the date and hour folders, as well as the file names, and access all the files in all the folders. **Insert another cell** into the notebook, paste the following code, and **run** the cell to load the data from the files in blob storage into a **Databricks Dataframe**.
 
     ```python
     # Create a Dataframe containing data from all the files in blob storage, regardless of the folder they are located within.
@@ -990,25 +990,25 @@ In this task, you will create a new Databricks notebook to perform some processi
     print(df.dtypes)
     ```
 
-    > **Note**: In some rare cases, you may receive an error that the `dbfs:/mnt/smartmeters/*/*/*.csv` path is incorrect. If this happens, change the path in the cell to the following: `dbfs:/mnt/smartmeters/*/*/*/*/*.csv`
+    > **Note**: In some rare cases, you may receive an error that the **dbfs:/mnt/smartmeters/\*/\*/\*.csv** path is incorrect. If this happens, change the path in the cell to the following: **dbfs:/mnt/smartmeters/\*/\*/\*/\*/\*.csv**
 
-16. The cell above also outputs the value of the `df.dtypes` property, which is a list of the data types of the columns added to the Dataframe, similar to the following:
+16. The cell above also outputs the value of the **df.dtypes** property, which is a list of the data types of the columns added to the **Dataframe**, similar to the following:
 
-    ![Output from the df.dtypes property is displayed.](media/azure-databricks-df-dtypes-output.png 'Output from Dataframe dtypes')
+    ![Output from the df.dtypes property is displayed representing each column and type in the dataframe schema.](media/azure-databricks-df-dtypes-output.png 'Output from Dataframe dtypes')
 
-17. Insert another cell and run the following code to view the first 10 records contained in the Dataframe.
+17. **Insert another cell** and run the following code to view the first 10 records contained in the **Dataframe**.
 
     ```python
     df.show(10)
     ```
 
-18. Now, you can save the Dataframe to a global table in Databricks. This will make the table accessible to all users and clusters in your Databricks workspace. Insert a new cell and run the following code.
+18. Now, you can save the **Dataframe** to a **global table** in **Databricks**. This will make the table accessible to all users and clusters in your Databricks workspace. **Insert a new cell** and **run** the following code.
 
     ```python
     df.write.mode("overwrite").saveAsTable("SmartMeters")
     ```
 
-19. Now, you will use the `%sql` magic command to change the language of the next cell to SQL from the notebook's default language, Python, then execute a SQL command to aggregate the SmartMeter data by average temperature. Paste the following code into a new cell, and run the cell.
+19. Now, you will use the `%sql` magic command to change the language of the next cell to **SQL** from the notebook's default language, Python, then execute a SQL command to aggregate the SmartMeter data by average temperature. Paste the following code into **a new cell**, and **run** the cell.
 
     ```sql
     %sql
@@ -1019,7 +1019,7 @@ In this task, you will create a new Databricks notebook to perform some processi
 
     ![Output from executing a SQL statement a Databricks notebook cell using the %sql magic command.](media/azure-databricks-notebook-sql-magic-command.png 'SQL magic command')
 
-21. Now, execute the same command in a new cell, this time using Spark SQL so you can save the summary data into a Dataframe. Copy and execute the following code into a new cell:
+21. Now, execute the same command in **a new cell**, this time using **Spark SQL** so you can save the summary data into a Dataframe. Copy and **execute** the following code into **a new cell**:
 
     ```python
     # Query the table to create a Dataframe containing the summary
@@ -1029,7 +1029,7 @@ In this task, you will create a new Databricks notebook to perform some processi
     summary.write.mode("overwrite").saveAsTable("DeviceSummary")
     ```
 
-22. Next, query from this summary table by executing the following query in a new cell:
+22. Next, query from this summary table by **executing** the following query in **a new cell**:
 
     ```sql
     %sql
@@ -1040,7 +1040,7 @@ In this task, you will create a new Databricks notebook to perform some processi
 
     ![Buttons for displaying tablular results in different formats in Databricks](media/azure-databricks-notebook-visualizations.png 'Visualization options')
 
-24. In the Customize Plot dialog, ensure the following are set:
+24. In the **Customize Plot** dialog, ensure the following are set:
 
     - **Keys**: **id**
     - **Values**: **averageTemp**
@@ -1120,11 +1120,11 @@ In this task, you will run the console app to send desired temperature settings 
 
 1. Within the **SmartMeterSimulator** Visual Studio solution, right-click the **CloudToDevice** project, select **Debug**, then select **Start new instance** to run the console app.
 
-2. In the console window, enter a device number when prompted. Accepted values are 0-9, since there are 10 devices whose IDs begin with 0. You can hover over the windows in the **Smart Meter Simulator** to view the Device IDs. When you enter a number, such as `5`, then a message will be sent to **Device5**.
+2. In the **console window**, enter a **device number** when prompted. Accepted values are 0-9, since there are 10 devices whose IDs begin with 0. You can hover over the windows in the **Smart Meter Simulator** to view the Device IDs. When you enter a number, such as `5`, then a message will be sent to **Device5**.
 
     ![The value of 1 is entered when prompted for the device number in the console window.](media/console-device-number.png 'Console App')
 
-3. Now enter a temperature value between 65 and 85 degrees (F) when prompted. If you set a value above 72 degrees, the window will turn red. If the value is set between 68 and 72 degrees, it will turn green. Values below 68 degrees will turn the window blue. Once you set a value, the device will remain at that value until you set a new value, rather than randomly changing.
+3. Now enter a **temperature value** between 65 and 85 degrees (F) when prompted. If you set a value above 72 degrees, the window will turn red. If the value is set between 68 and 72 degrees, it will turn green. Values below 68 degrees will turn the window blue. Once you set a value, the device will remain at that value until you set a new value, rather than randomly changing.
 
     ![A value of 75 has been entered for the temperature. A new log entry in the Smart Meter Simulator appears in yellow showing the message value of 75 sent to Device1.](media/console-temperature.png 'Console App and Smart Meter Simulator')
 

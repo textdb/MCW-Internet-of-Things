@@ -96,7 +96,7 @@ In this task, you will provision a virtual machine running Visual Studio Communi
 
    - **Subscription**: Select the same subscription you are using for this hands-on lab.
 
-   - **Resource Group**: Select Use existing and select the hands-on-lab-SUFFIX resource group.
+   - **Resource Group**: Select Use existing and select the **hands-on-lab-SUFFIX** resource group.
 
    - **Virtual machine name**: Enter `LabVM`
 
