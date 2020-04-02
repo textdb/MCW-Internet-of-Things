@@ -9,7 +9,7 @@ Whiteboard design session trainer guide
 </div>
 
 <div class="MCWHeader3">
-December 2019
+March 2020
 </div>
 
 Information in this document, including URL and other Internet Web site references, is subject to change without notice. Unless otherwise noted, the example companies, organizations, products, domain names, e-mail addresses, logos, people, places, and events depicted herein are fictitious, and no association with any real company, organization, product, domain name, e-mail address, logo, person, place or event is intended or should be inferred. Complying with all applicable copyright laws is the responsibility of the user. Without limiting the rights under copyright, no part of this document may be reproduced, stored in or introduced into a retrieval system, or transmitted in any form or by any means (electronic, mechanical, photocopying, recording, or otherwise), or for any purpose, without the express written permission of Microsoft Corporation.
@@ -18,7 +18,7 @@ Microsoft may have patents, patent applications, trademarks, copyrights, or othe
 
 The names of manufacturers, products, or URLs are provided for informational purposes only and Microsoft makes no representations and warranties, either expressed, implied, or statutory, regarding these manufacturers or the use of the products with any Microsoft technologies. The inclusion of a manufacturer or product does not imply endorsement of Microsoft of the manufacturer or product. Links may be provided to third party sites. Such sites are not under the control of Microsoft and Microsoft is not responsible for the contents of any linked site or any link contained in a linked site, or any changes or updates to such sites. Microsoft is not responsible for webcasting or any other form of transmission received from any linked site. Microsoft is providing these links to you only as a convenience, and the inclusion of any link does not imply endorsement of Microsoft of the site or the products contained therein.
 
-© 2019 Microsoft Corporation. All rights reserved.
+© 2020 Microsoft Corporation. All rights reserved.
 
 Microsoft and the trademarks listed at <https://www.microsoft.com/legal/intellectualproperty/Trademarks/Usage/General.aspx> are trademarks of the Microsoft group of companies. All other trademarks are property of their respective owners.
 
@@ -180,15 +180,15 @@ Timeframe: 15 minutes
 
 Directions: With all participants in the session, the facilitator/SME presents an overview of the customer case study along with technical tips.
 
-1.  Meet your table participants and trainer.
+1. Meet your table participants and trainer.
 
-2.  Read all of the directions for steps 1-3 in the student guide.
+2. Read all of the directions for steps 1-3 in the student guide.
 
-3.  As a table team, review the following customer case study.
+3. As a table team, review the following customer case study.
 
 ### Customer situation
 
-Fabrikam provides services and smart meters for enterprise energy (electrical power) management. Their "_You-Left-The-Light-On_" service enables the enterprise to understand their energy consumption, not just as monthly totals, but also with a more detailed breakdown providing kilowatt-hours consumed by day. These reports are used by the enterprise to identify operational patterns and address spikes that could be mitigated with better procedures.
+Fabrikam provides services and smart meters for enterprise energy (electrical power) management. Their **You-Left-The-Light-On** service enables the enterprise to understand their energy consumption, not just as monthly totals, but also with a more detailed breakdown providing kilowatt-hours consumed by day. These reports are used by the enterprise to identify operational patterns and address spikes that could be mitigated with better procedures.
 
 Today, Fabrikam provides this information as printed reports that are mailed to customer enterprises monthly. However, regulations are changing and are encouraging Fabrikam to upgrade their offering and increase their market share.
 
@@ -200,7 +200,7 @@ Fabrikam would like to become an authorized energy management solution provider.
 
 According to their Director of Analytics, Sam George, "We are investigating a move to the cloud to help our customers not only to meet CPL's data collection and reporting requirements, but also become the number one energy management solution provider." They are intending to enable their enterprise customers with a web-based dashboard where they can see historical trends of power consumption, no longer limited to the current quarter.
 
-Fabrikam believes that small optimizations made using intraday data is the best way to help its enterprise customers receive awards from CPL and cut costs from electricity use in the end. Within the customer dashboard, it would like to provide customized alerts for when a customer's electrical demand is "out of the ordinary" for that customer at that point of the day and could cause them to miss CPL rebates and energy savings. In short, they would like to provide their customers with a "hot" dashboard of near-real-time metrics and ultimately offer predictions over the current 15-minute period of data (albeit the predictive analytics is out of scope for this first effort) and support for the analysis of "cold" historical data (such as month over month, and year over year comparisons).
+Fabrikam believes that small optimizations made using intra-day data is the best way to help its enterprise customers receive awards from CPL and cut costs from electricity use in the end. Within the customer dashboard, it would like to provide customized alerts for when a customer's electrical demand is "out of the ordinary" for that customer at that point of the day and could cause them to miss CPL rebates and energy savings. In short, they would like to provide their customers with a "hot" dashboard of near-real-time metrics and ultimately offer predictions over the current 15-minute period of data (albeit the predictive analytics is out of scope for this first effort) and support for the analysis of "cold" historical data (such as month over month, and year over year comparisons).
 
 To accomplish this, Fabrikam will aggressively adjust its reporting interval for its smart meters to one-minute intervals for all of its 20,000 business customers and 200K smart meters. Each beacon generated by a meter is about 100 bytes in size and is sent to Fabrikam services via an HTTP POST over Transport Layer Security (TLS), Message Queuing Telemetry Transport (MQTT), or Advanced Message Queueing Protocol (AMQP).
 
@@ -234,7 +234,7 @@ In addition to collecting telemetry, Fabrikam not only seeks to gain competitive
 
 ### Infographic of common scenarios
 
-![Screenshot of a sample Internet of Things workflow, which is broken into On-Premises and Azure services.](./media/common-scenarios.png 'Common Internet of Things scenarios')
+![A sample Internet of Things workflow is displayed, which is broken into On-Premises and Azure services. On-premises shows a building that has multiple devices communicating to the cloud. The Azure services ingest the telemetry through Event Hubs or IoT Hubs. From there Stream Processing functions through HDInsight Storm, HDInsight Spark, and Stream Analytics take place. Batch storage holds processed data in Data Lake and Storage Blobs services. Batch Processing takes place using HDInsight, Batch, SQL Data Warehouse and Machine Learning services. Views of this processed data are made available through HDInsight HBase, SQL Data Warehouse, and Search Services. Data is consumed by Analytics clients such as Power BI, Web Apps, and API applications. Stream near real time data is also made available to analytics clients through the use of Redis Cache, Cosmos DB, and SQL Databases - these services are fed directly from the stream processing engine(s).](./media/common-scenarios.png 'Common Internet of Things scenarios')
 
 ## Step 2: Design a proof of concept solution
 
@@ -248,9 +248,9 @@ Timeframe: 60 minutes
 
 Directions: With all participants at your table, answer the following questions and list the answers on a flip chart:
 
-1.  Who should you present this solution to? Who is your target customer audience? Who are the decision makers?
+1. Who should you present this solution to? Who is your target customer audience? Who are the decision makers?
 
-2.  What customer business needs do you need to address with your solution?
+2. What customer business needs do you need to address with your solution?
 
 **Design**
 
@@ -322,11 +322,11 @@ _Cloud to device communication_
 
 Directions: With all participants at your table:
 
-1.  Identify any customer needs that are not addressed with the proposed solution.
+1. Identify any customer needs that are not addressed with the proposed solution.
 
-2.  Identify the benefits of your solution.
+2. Identify the benefits of your solution.
 
-3.  Determine how you will respond to the customer's objections.
+3. Determine how you will respond to the customer's objections.
 
 Prepare a 15-minute chalk-talk style presentation to the customer.
 
@@ -342,19 +342,19 @@ Timeframe: 30 minutes
 
 Directions:
 
-1.  Pair with another table.
+1. Pair with another table.
 
-2.  One table is the Microsoft team and the other table is the customer.
+2. One table is the Microsoft team and the other table is the customer.
 
-3.  The Microsoft team presents their proposed solution to the customer.
+3. The Microsoft team presents their proposed solution to the customer.
 
-4.  The customer makes one of the objections from the list of objections.
+4. The customer makes one of the objections from the list of objections.
 
-5.  The Microsoft team responds to the objection.
+5. The Microsoft team responds to the objection.
 
-6.  The customer team gives feedback to the Microsoft team.
+6. The customer team gives feedback to the Microsoft team.
 
-7.  Tables switch roles and repeat Steps 2-6.
+7. Tables switch roles and repeat Steps 2-6.
 
 ## Wrap-up
 
@@ -463,7 +463,7 @@ _Device to cloud communication_
 
    - What service endpoints do the devices talk to?
 
-     To an endpoint of the form `http(s)://{IoTHubHostName}.azure-devices.net/devices/{deviceId}/events`.
+     To an endpoint of the form `http(s)://{IoTHubHostName}.azure-devices.net/devices/{deviceId}/events`
 
    ![the Device to cloud communication diagram starts with Smart meters. Messages are sent to an IoT Hub via: HTTPS, POST, AMQP, AMQP over WebSockets, MQTT, and MQTT over WebSockets.](./media/device-to-cloud-communication.png 'Device to cloud communication diagram')
 
@@ -536,7 +536,7 @@ _"Cold" path processing_
 
 2. What would you use to query these blob files?
 
-   A Databricks notebook should be used to query the blob files. The storage account containing the blob files can be mounted in Databricks File System (DBFS), or they could be accessed via a `wasbs` path in Databricks. If HDInsight is used, HiveQL or Spark SQL can be used for querying the files. Azure SQL Data Warehouse can also be used to read from Azure Storage blobs.
+   A Databricks notebook should be used to query the blob files. The storage account containing the blob files can be mounted in Databricks File System (DBFS), or they could be accessed via a **wasbs** path in Databricks. If HDInsight is used, HiveQL or Spark SQL can be used for querying the files. Azure SQL Data Warehouse can also be used to read from Azure Storage blobs.
 
 3. How would you orchestrate the processing and retain visibility into the status of the data flow? How would you configure this data flow? Be specific on what activities you would use.
 
