@@ -110,7 +110,7 @@ In these steps, you will provision an instance of IoT Hub.
 
    - **Region**: Select the location you are using for this hands-on lab.
 
-   - **IoT Hub Name**: Enter a unique name, such as `smartmeter-hub-SUFFIX`
+   - **IoT Hub Name**: Enter a unique name, such as `smartmeter-hub-SUFFIX`.
 
      ![The Basics blade for IoT Hub is displayed, with the values specified above entered into the appropriate fields.](./media/iot-hub-basics-blade.png 'Create IoT Hub Basic blade')
 
@@ -359,7 +359,7 @@ You will want to avoid entering the IoT Hub connection string every time the pro
 
     > **Note**: If the file does not open. One of the project files may be blocked.
 
-   - Open **Windows Explorer** and navigate to the starter project folder: **C:\SmartMeter\Hands-on lab\lab-files\starter-project\SmartMeterSimulator**
+   - Open **Windows Explorer** and navigate to the starter project folder: **C:\SmartMeter\Hands-on lab\lab-files\starter-project\SmartMeterSimulator**.
    - Right-click on the **MainForm.resx** file, then select **Properties**.
    - Check the **Unblock** checkbox on the bottom of the **General** tab, then select **Apply** then **OK**.
 
@@ -584,7 +584,7 @@ Fabrikam would like to visualize the "hot" data showing the average temperature 
    - **Subscription**: Select the subscription you are using for this hands-on lab.
    - **Resource group**: Choose Use existing and select the **hands-on-lab-SUFFIX** resource group.
    - **Location**: Select the location you are using for resources in this hands-on lab.
-   - **Hosting environment**: Select **Cloud**
+   - **Hosting environment**: Select **Cloud**.
    - **Streaming units**: Change the value to `1` by sliding the slider all the way left.
 
      ![The New Stream Analytics Job blade is displayed, with the previously mentioned settings entered into the appropriate fields.](media/stream-analytics-job-create.png 'New Stream Analytics Job blade')
@@ -603,12 +603,12 @@ Fabrikam would like to visualize the "hot" data showing the average temperature 
    - Choose **Select IoT Hub from your subscriptions**.
    - **Subscription**: Select the subscription you are using for this hands-on lab.
    - **IoT Hub**: Select the **smartmeter-hub-SUFFIX** IoT Hub.
-   - **Endpoint**: Select **Messaging**
-   - **Shared access policy name**: Select **service**
-   - **Consumer Group**: Leave set to **\$Default**
-   - **Event serialization format**: Select **JSON**
-   - **Encoding**: Select **UTF-8**
-   - **Event compression type**: Leave set to **None**
+   - **Endpoint**: Select **Messaging**.
+   - **Shared access policy name**: Select **service**.
+   - **Consumer Group**: Leave set to **\$Default**.
+   - **Event serialization format**: Select **JSON**.
+   - **Encoding**: Select **UTF-8**.
+   - **Event compression type**: Leave set to **None**.
 
      ![IoT Hub New Input blade is displayed with the values specified above entered into the appropriate fields.](media/stream-analytics-job-inputs-add-iot-hub-input.png 'IoT Hub New Input blade')
 
@@ -628,10 +628,10 @@ Fabrikam would like to visualize the "hot" data showing the average temperature 
 
     - For the remaining Power BI settings, enter the following:
 
-      - **Group Workspace**: Select the default, **My Workspace**
+      - **Group Workspace**: Select the default, **My Workspace**.
       - **Dataset Name**: Enter `avgtemps`
       - **Table Name**: Enter `avgtemps`
-      - **Authentication mode**: Select **User token**
+      - **Authentication mode**: Select **User token**.
 
     ![Power BI blade. Output alias is powerbi, dataset name is avgtemps, table name is avgtemps, authentication mode is User token.](media/stream-analytics-job-outputs-add-power-bi-save.png 'Add Power BI Output')
 
@@ -746,10 +746,10 @@ Fabrikam would like to be able to capture all the "cold" data into scalable stor
    - **Resource group**: Choose Use existing and select the **hands-on-lab-SUFFIX** resource group.
    - **Storage account name**: Enter `smartmetersSUFFIX`
    - **Location**: Select the location you are using for resources in this hands-on lab.
-   - **Performance**: Select **Standard**
-   - **Account kind**: Select **StorageV2 (general purpose v2)**
-   - **Replication**: Select **Locally-redundant storage (LRS)**
-   - **Access tier (default)**: Select **Hot**
+   - **Performance**: Select **Standard**.
+   - **Account kind**: Select **StorageV2 (general purpose v2)**.
+   - **Replication**: Select **Locally-redundant storage (LRS)**.
+   - **Access tier (default)**: Select **Hot**.
 
    ![The Create storage account blade is displayed, with the previously mentioned settings entered into the appropriate fields.](media/storage-account-create-new.png 'Create storage account')
 
@@ -789,7 +789,7 @@ To capture all metrics for the cold path, set up another Stream Analytics job th
    - **Subscription**: Select the subscription you are using for this hands-on lab.
    - **Resource group**: Select the **hands-on-lab-SUFFIX** resource group.
    - **Location**: Select the location you are using for resources in this hands-on lab.
-   - **Hosting environment**: Select **Cloud**
+   - **Hosting environment**: Select **Cloud**.
    - **Streaming units**: Drag the slider all the way to the left to select `1` streaming unit.
 
      ![The New Stream Analytics Job blade is displayed, with the previously mentioned settings entered into the appropriate fields.](media/stream-analytics-job-create-cold-stream.png 'New Stream Analytics Job blade')
@@ -808,12 +808,12 @@ To capture all metrics for the cold path, set up another Stream Analytics job th
    - Choose **Select IoT Hub from your subscriptions**.
    - **Subscription**: Select the subscription you are using for this hands-on lab.
    - **IoT Hub**: Select the **smartmeter-hub-SUFFIX** IoT Hub.
-   - **Endpoint**: Select **Messaging**
-   - **Shared access policy name**: Select **service**
-   - **Consumer Group**: Leave set to **\$Default**
-   - **Event serialization format**: Select **JSON**
-   - **Encoding**: Select **UTF-8**
-   - **Event compression type**: Leave set to **None**
+   - **Endpoint**: Select **Messaging**.
+   - **Shared access policy name**: Select **service**.
+   - **Consumer Group**: Leave set to **\$Default**.
+   - **Event serialization format**: Select **JSON**.
+   - **Encoding**: Select **UTF-8**.
+   - **Event compression type**: Leave set to **None**.
 
      ![IoT Hub New Input blade is displayed with the values specified above entered into the appropriate fields.](media/stream-analytics-job-inputs-add-iot-hub-input-cold-stream.png 'IoT Hub New Input blade')
 
@@ -831,11 +831,11 @@ To capture all metrics for the cold path, set up another Stream Analytics job th
    - **Storage account**: Select the **smartmetersSUFFIX** storage account you created in the previous task.
    - **Container**: Choose **Create new** and enter `smartmeters`
    - **Path pattern**: Enter `smartmeters/{date}/{time}`
-   - **Date format**: Select **YYYY-DD-MM**
-   - **Time format**: Select **HH**
-   - **Event serialization format**: Select **CSV**
-   - **Delimiter**: Select **comma (,)**
-   - **Encoding**: Select **UTF-8**
+   - **Date format**: Select **YYYY-DD-MM**.
+   - **Time format**: Select **HH**.
+   - **Event serialization format**: Select **CSV**.
+   - **Delimiter**: Select **comma (,)**.
+   - **Encoding**: Select **UTF-8**.
 
      ![Blob storage New output blade is displayed, with the values mentioned above entered into the appropriate fields.](media/stream-analytics-job-outputs-blob-storage-new.png 'Add Blob storage Output')
 
@@ -1046,7 +1046,7 @@ In this task, you will create a new Databricks notebook to perform some processi
     - **Values**: **averageTemp**
     - **Aggregation**: Select **AVG**
     - Select **Grouped** as the chart type.
-    - **Display type**: Select **Bar chart**
+    - **Display type**: Select **Bar chart**.
 
       ![Plot customization options dialog in Azure databricks, with id in the Keys field, averageTemp in the Values field, Aggregation set to AVG, and the chart set to a grouped bar chart.](media/azure-databricks-notebook-customize-plot.png)
 
