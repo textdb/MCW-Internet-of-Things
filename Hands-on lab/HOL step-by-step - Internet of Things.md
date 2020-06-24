@@ -720,11 +720,7 @@ Fabrikam would like to visualize the "hot" data showing the average temperature 
 
     ![The report name is set to Average Temperatures.](./media/power-bi-save-report-average-temperatures.png 'Save your report')
 
-13. Switch to **Reading View**.
-
-    ![Power BI report Reading view button](media/power-bi-report-reading-view.png 'Reading view button')
-
-14. Within the report, select one of the columns to see the data for just that device.
+13. Within the report, select one of the columns to see the data for just that device.
 
     ![The report window has two bar graphs: Max of average by id, and Min of average by id. both bar charts list data for Device0, Device1, Device3, Device8, and Device9. Device1 is selected. On the right, a table displays data for Device1, with an Average of average value of 69.50.](./media/power-bi-report-reading-view-single-device.png 'Report window')
 
