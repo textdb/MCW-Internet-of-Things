@@ -9,7 +9,7 @@ Hands-on lab step-by-step
 </div>
 
 <div class="MCWHeader3">
-March 2020
+June 2020
 </div>
 
 Information in this document, including URL and other Internet Web site references, is subject to change without notice. Unless otherwise noted, the example companies, organizations, products, domain names, e-mail addresses, logos, people, places, and events depicted herein are fictitious, and no association with any real company, organization, product, domain name, e-mail address, logo, person, place or event is intended or should be inferred. Complying with all applicable copyright laws is the responsibility of the user. Without limiting the rights under copyright, no part of this document may be reproduced, stored in or introduced into a retrieval system, or transmitted in any form or by any means (electronic, mechanical, photocopying, recording, or otherwise), or for any purpose, without the express written permission of Microsoft Corporation.
@@ -720,11 +720,7 @@ Fabrikam would like to visualize the "hot" data showing the average temperature 
 
     ![The report name is set to Average Temperatures.](./media/power-bi-save-report-average-temperatures.png 'Save your report')
 
-13. Switch to **Reading View**.
-
-    ![Power BI report Reading view button](media/power-bi-report-reading-view.png 'Reading view button')
-
-14. Within the report, select one of the columns to see the data for just that device.
+13. Within the report, select one of the columns to see the data for just that device.
 
     ![The report window has two bar graphs: Max of average by id, and Min of average by id. both bar charts list data for Device0, Device1, Device3, Device8, and Device9. Device1 is selected. On the right, a table displays data for Device1, with an Average of average value of 69.50.](./media/power-bi-report-reading-view-single-device.png 'Report window')
 
