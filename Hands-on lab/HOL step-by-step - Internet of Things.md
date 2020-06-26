@@ -354,8 +354,7 @@ You will want to avoid entering the IoT Hub connection string every time the pro
 
 2. In the **Solution Explorer**, expand the **SmartMeterSimulator** project and double-click **MainForm.cs** to open it. (If the Solution Explorer is not in the upper-right corner of your Visual Studio instance, you can find it under the View menu in Visual Studio.)
 
-   ![In the Visual Studio Solution Explorer window, SmartMeterSimulator project is expanded, and under it, MainForm.cs is highlighted.](media/visual-studio-solution-explorer-mainform-cs.png
-   'Visual Studio Solution Explorer')
+   ![In the Visual Studio Solution Explorer window, SmartMeterSimulator project is expanded, and under it, MainForm.cs is highlighted.](media/visual-studio-solution-explorer-mainform-cs.png 'Visual Studio Solution Explorer')
 
     > **Note**: If the file does not open. One of the project files may be blocked.
 
