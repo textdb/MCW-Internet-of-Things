@@ -372,7 +372,7 @@ You will want to avoid entering the IoT Hub connection string every time the pro
 
    >**Note**: If you are still unable to see the Windows Forms designer, close it, then right-click the project and select **Clean**. Then, right-click the project again and select **Build**. Now, you should be able to open the form without a problem.
    >
-   >    ![](./media/build-and-clean-solution.png)
+   >    ![Building and cleaning the solution to ensure that the Windows Forms editor shows up.](./media/build-and-clean-solution.png "Building and cleaning solution")
 
 4. In the **Properties** panel, scroll until you see the **Text** property. Paste your **IoT Hub connection string** value copied from Exercise 1, Task 1, Step 7 of the previous exercise into the value for the **Text** property. (If the properties window is not visible below the Solution Explorer, right-click the TextBox, and select **Properties**.)
 
