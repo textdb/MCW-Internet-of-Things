@@ -370,6 +370,10 @@ You will want to avoid entering the IoT Hub connection string every time the pro
 
    ![The Windows Form designer surface is opened to the MainForm.cs tab. The IoT Hub Connection String is highlighted, but is empty.](./media/smart-meter-simulator-iot-hub-connection-string.png 'Windows Form designer surface')
 
+   >**Note**: If you are still unable to see the Windows Forms designer, close it, then right-click the project and select **Clean**. Then, right-click the project again and select **Build**. Now, you should be able to open the form without a problem.
+   >
+   >    ![](./media/build-and-clean-solution.png)
+
 4. In the **Properties** panel, scroll until you see the **Text** property. Paste your **IoT Hub connection string** value copied from Exercise 1, Task 1, Step 7 of the previous exercise into the value for the **Text** property. (If the properties window is not visible below the Solution Explorer, right-click the TextBox, and select **Properties**.)
 
    ![In the Properties panel, the Text property is highlighted, and is set to HostName=smartmeter-hub.](./media/smart-meter-simulator-iot-hub-connection-string-text-property.png 'Solution Explorer')
@@ -759,6 +763,7 @@ Fabrikam would like to be able to capture all the "cold" data into scalable stor
 5. In the **Advanced** tab, select the following:
 
    - **Secure transfer required**: Select **Disabled**.
+   - You may also need to specify the default access tier as **Hot** at this tab
 
    ![The Create storage account blade is displayed with options under the Advanced tab.](media/storage-account-create-new-advanced.png 'Create storage account - Advanced')
 
@@ -831,6 +836,7 @@ To capture all metrics for the cold path, set up another Stream Analytics job th
    - **Event serialization format**: Select **CSV**.
    - **Delimiter**: Select **comma (,)**.
    - **Encoding**: Select **UTF-8**.
+   - **Authentication mode**: Select **Connection string**.
 
      ![Blob storage New output blade is displayed, with the values mentioned above entered into the appropriate fields.](media/stream-analytics-job-outputs-blob-storage-new.png 'Add Blob storage Output')
 
