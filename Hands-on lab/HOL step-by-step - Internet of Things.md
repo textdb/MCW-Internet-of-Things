@@ -997,6 +997,8 @@ In this task, you will create a new Databricks notebook to perform some processi
 
     ![Output from the df.dtypes property is displayed representing each column and type in the dataframe schema.](media/azure-databricks-df-dtypes-output.png 'Output from Dataframe dtypes')
 
+    >**Note**: Do not worry if any of the time columns in the output are represented as `string`s, rather than `timestamp`s. It is simple to perform this cast if you need to. 
+
 17. **Insert another cell** and run the following code to view the first 10 records contained in the **Dataframe**.
 
     ```python
