@@ -763,7 +763,7 @@ Fabrikam would like to be able to capture all the "cold" data into scalable stor
 5. In the **Advanced** tab, select the following:
 
    - **Secure transfer required**: Select **Disabled**.
-   - You may also need to specify the default access tier as **Hot** at this tab
+   - You may also need to specify the default access tier as **Hot** at this tab.
 
    ![The Create storage account blade is displayed with options under the Advanced tab.](media/storage-account-create-new-advanced.png 'Create storage account - Advanced')
 
