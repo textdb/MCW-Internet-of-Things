@@ -370,6 +370,10 @@ You will want to avoid entering the IoT Hub connection string every time the pro
 
    ![The Windows Form designer surface is opened to the MainForm.cs tab. The IoT Hub Connection String is highlighted, but is empty.](./media/smart-meter-simulator-iot-hub-connection-string.png 'Windows Form designer surface')
 
+   >**Note**: If you are still unable to see the Windows Forms designer, close it, then right-click the project and select **Clean**. Then, right-click the project again and select **Build**. Now, you should be able to open the form without a problem.
+   >
+   >    ![Building and cleaning the solution to ensure that the Windows Forms editor shows up.](./media/build-and-clean-solution.png "Building and cleaning solution")
+
 4. In the **Properties** panel, scroll until you see the **Text** property. Paste your **IoT Hub connection string** value copied from Exercise 1, Task 1, Step 7 of the previous exercise into the value for the **Text** property. (If the properties window is not visible below the Solution Explorer, right-click the TextBox, and select **Properties**.)
 
    ![In the Properties panel, the Text property is highlighted, and is set to HostName=smartmeter-hub.](./media/smart-meter-simulator-iot-hub-connection-string-text-property.png 'Solution Explorer')
@@ -759,6 +763,7 @@ Fabrikam would like to be able to capture all the "cold" data into scalable stor
 5. In the **Advanced** tab, select the following:
 
    - **Secure transfer required**: Select **Disabled**.
+   - You may also need to specify the default access tier as **Hot** at this tab.
 
    ![The Create storage account blade is displayed with options under the Advanced tab.](media/storage-account-create-new-advanced.png 'Create storage account - Advanced')
 
@@ -831,6 +836,7 @@ To capture all metrics for the cold path, set up another Stream Analytics job th
    - **Event serialization format**: Select **CSV**.
    - **Delimiter**: Select **comma (,)**.
    - **Encoding**: Select **UTF-8**.
+   - **Authentication mode**: Select **Connection string**.
 
      ![Blob storage New output blade is displayed, with the values mentioned above entered into the appropriate fields.](media/stream-analytics-job-outputs-blob-storage-new.png 'Add Blob storage Output')
 
@@ -990,6 +996,8 @@ In this task, you will create a new Databricks notebook to perform some processi
 16. The cell above also outputs the value of the **df.dtypes** property, which is a list of the data types of the columns added to the **Dataframe**, similar to the following:
 
     ![Output from the df.dtypes property is displayed representing each column and type in the dataframe schema.](media/azure-databricks-df-dtypes-output.png 'Output from Dataframe dtypes')
+
+    >**Note**: Do not worry if any of the time columns in the output are represented as `string`s, rather than `timestamp`s. It is simple to perform this cast if you need to. 
 
 17. **Insert another cell** and run the following code to view the first 10 records contained in the **Dataframe**.
 
