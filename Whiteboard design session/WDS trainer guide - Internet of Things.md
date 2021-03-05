@@ -9,7 +9,7 @@ Whiteboard design session trainer guide
 </div>
 
 <div class="MCWHeader3">
-June 2020
+March 2021
 </div>
 
 Information in this document, including URL and other Internet Web site references, is subject to change without notice. Unless otherwise noted, the example companies, organizations, products, domain names, e-mail addresses, logos, people, places, and events depicted herein are fictitious, and no association with any real company, organization, product, domain name, e-mail address, logo, person, place or event is intended or should be inferred. Complying with all applicable copyright laws is the responsibility of the user. Without limiting the rights under copyright, no part of this document may be reproduced, stored in or introduced into a retrieval system, or transmitted in any form or by any means (electronic, mechanical, photocopying, recording, or otherwise), or for any purpose, without the express written permission of Microsoft Corporation.
@@ -18,7 +18,7 @@ Microsoft may have patents, patent applications, trademarks, copyrights, or othe
 
 The names of manufacturers, products, or URLs are provided for informational purposes only and Microsoft makes no representations and warranties, either expressed, implied, or statutory, regarding these manufacturers or the use of the products with any Microsoft technologies. The inclusion of a manufacturer or product does not imply endorsement of Microsoft of the manufacturer or product. Links may be provided to third party sites. Such sites are not under the control of Microsoft and Microsoft is not responsible for the contents of any linked site or any link contained in a linked site, or any changes or updates to such sites. Microsoft is not responsible for webcasting or any other form of transmission received from any linked site. Microsoft is providing these links to you only as a convenience, and the inclusion of any link does not imply endorsement of Microsoft of the site or the products contained therein.
 
-© 2020 Microsoft Corporation. All rights reserved.
+© 2021 Microsoft Corporation. All rights reserved.
 
 Microsoft and the trademarks listed at <https://www.microsoft.com/legal/intellectualproperty/Trademarks/Usage/General.aspx> are trademarks of the Microsoft group of companies. All other trademarks are property of their respective owners.
 
@@ -228,7 +228,7 @@ In addition to collecting telemetry, Fabrikam not only seeks to gain competitive
 
 3. Can Azure handle a lambda architecture?
 
-4. We have heard of Azure IoT Solution Accelerators, do these offer a good starting point for us?
+4. We have heard of Azure IoT Central, does this offer a good starting point for us?
 
 5. Some of our customers require their IoT devices to communicate in a firewall-friendly way without opening up additional incoming or outgoing ports. What options do we have to accomplish this?
 
@@ -435,9 +435,9 @@ _High-level architecture_
 
    ![Diagram of preferred solution, displaying smart meter telemetry being ingested into IoT Hub, then processed via Stream Analytics into hot and cold paths. More about the diagram is described in the text following this diagram.](./media/preferred-solution-architecture.png 'Preferred solution architecture')
 
-   Messages are ingested from the Smart Meters via IoT Hub and temporarily stored there. A Stream Analytics job pulls telemetry messages from IoT Hub and sends the messages to two different destinations. There are two Stream Analytics jobs, one that retrieves all messages and sends them to Blob Storage (the cold path), and another that selects out only the important events needed for reporting in real time (the hot path) from the website hosted in Azure Web Apps. Data entering the hot path will be reported on using Power BI visualizations and reports. For the cold path, Azure Databricks can be used to apply the batch computation needed for the reports at scale. The entire cold-path processing pipeline could be coordinated with Azure Data Factory.
+   Messages are ingested from the Smart Meters via IoT Hub and temporarily stored there. A Stream Analytics job pulls telemetry messages from IoT Hub and sends the messages to two different destinations. There are two Stream Analytics jobs, one that retrieves all messages and sends them to Blob Storage (the cold path), and another that selects out only the important events needed for reporting in real time (the hot path) from the website hosted in Azure Web Apps. Data entering the hot path will be reported on using Power BI visualizations and reports. For the cold path, Azure Databricks can be used to apply the batch computation needed for the reports at scale. The entire cold-path processing pipeline could be coordinated with Azure Data Factory or Azure Synapse Analytics.
 
-   Other alternatives for processing of the ingested telemetry would be to use an HDInsight Storm cluster, a WebJob or Azure function running the EventProcessorHost in place of Stream Analytics, or Azure Databricks running with Spark streaming. Depending on the type of message filtering being conducted for hot and cold stream separation, IoT Hub Message Routing might also be used. A couple things to consider are that adding additional routing endpoints could add some minor end-to-end latency to device-to-cloud telemetry messages (usually less than 500ms), and that you are restricted to outputting in either Apache Avro or JSON (in preview) formats when writing to Blob storage. An important limitation to keep in mind for Stream Analytics is that it is very restrictive on the format of the input data it can process: the payload must be UTF8 encoded JSON, UTF8 encoded CSV (fields delimited by commas, spaces, tabs, or vertical pipes), or AVRO, and it must be well formed. If any devices transmitting telemetry cannot generate output in these formats (e.g., because they are legacy devices), or their output can be not well formed at times, then alternatives that can better deal with these situations should be investigated. Additionally, any custom code or logic cannot be embedded with Stream Analytics---if greater extensibility is required, the alternatives should be considered.
+   Other alternatives for processing of the ingested telemetry would be to use an HDInsight Storm cluster, a WebJob or Azure function running the EventProcessorHost in place of Stream Analytics, or Azure Databricks running with Spark streaming. Depending on the type of message filtering being conducted for hot and cold stream separation, IoT Hub Message Routing might also be used. A couple things to consider are that adding additional routing endpoints could add some minor end-to-end latency to device-to-cloud telemetry messages (usually less than 500ms), and that you are restricted to outputting in either Apache Avro or JSON formats when writing to Blob storage. An important limitation to keep in mind for Stream Analytics is that it is very restrictive on the format of the input data it can process: the payload must be UTF8 encoded JSON, UTF8 encoded CSV (fields delimited by commas, spaces, tabs, or vertical pipes), or AVRO, and it must be well formed. If any devices transmitting telemetry cannot generate output in these formats (e.g., because they are legacy devices), or their output can be not well formed at times, then alternatives that can better deal with these situations should be investigated. Additionally, any custom code or logic cannot be embedded with Stream Analytics---if greater extensibility is required, the alternatives should be considered.
 
    > **Note**: The preferred solution is only one of many possible, viable approaches.
 
@@ -483,7 +483,7 @@ _"Hot" path processing_
 
 1. How would you select out the "hot" data? Choosing between the stream processing options Azure Stream Analytics and Storm on HDInsight, which would recommend for this scenario and why?
 
-   In this scenario, Azure Stream Analytics and Storm can both perform the necessary window computations and write the output to SQL Database. A primary consideration is the effort required. In the case of Stream Analytics, Fabrikam need only author a query using the Stream Analytics Query Language, but for Storm, Fabrikam would need to author, package, and deploy a Java application or if using HDInsight with Storm on a Windows Cluster, they would use SCP.NET to write Storm topologies using .NET.
+   In this scenario, Azure Stream Analytics and Storm can both perform the necessary window computations and write the output to SQL Database. A primary consideration is the effort required. In the case of Stream Analytics, Fabrikam need only author a query using the Stream Analytics Query Language, but for Storm, Fabrikam would need to author, package, and deploy a Java application or if using HDInsight with Storm on a Windows Cluster, they would use SCP.NET to write Storm topologies using .NET. Azure Stream Analytics also has the ability to provide a real-time dataset directly to a Power BI dashboard.
 
 2. Explain how you could build the solution using Azure Stream Analytics:
 
@@ -519,7 +519,7 @@ _"Hot" path processing_
 
 4. How would you store the "hot" data for consumption by the web dashboard? Estimate the write throughput you would require, does your selected store support it?
 
-   If Stream Analytics was used, then you could store the hot data in SQL DB. Using Storm, your options broaden to SQL DB or HBase, but SQL DB would still be the preferred option because it would require more development for the Web Dashboard to "join" additional data to the telemetry that is used in the reports (such as friendly device names, labels, and so on).
+   If Stream Analytics was used, then you could store the hot data in SQL DB or expose a real-time dataset to a Power BI dashboard. Using Storm, your options broaden to SQL DB or HBase, but SQL DB would still be the preferred option because it would require more development for the Web Dashboard to "join" additional data to the telemetry that is used in the reports (such as friendly device names, labels, and so on).
 
    When averaged to a 5-minute window per device, the write requirement becomes very low \~0.06 MB/s. SQL DB S0 or higher could easily handle this load.
 
@@ -536,11 +536,11 @@ _"Cold" path processing_
 
 2. What would you use to query these blob files?
 
-   A Databricks notebook should be used to query the blob files. The storage account containing the blob files can be mounted in Databricks File System (DBFS), or they could be accessed via a **wasbs** path in Databricks. If HDInsight is used, HiveQL or Spark SQL can be used for querying the files. Azure SQL Data Warehouse can also be used to read from Azure Storage blobs.
+   A Databricks notebook should be used to query the blob files. The storage account containing the blob files can be mounted in Databricks File System (DBFS), or they could be accessed via a **wasbs** path in Databricks. If HDInsight is used, HiveQL or Spark SQL can be used for querying the files. Azure Synapse Analytics can also be used to read from Azure Storage blobs. Azure Synapse Analytics also has the ability to query blob files a using serverless SQL pool.
 
 3. How would you orchestrate the processing and retain visibility into the status of the data flow? How would you configure this data flow? Be specific on what activities you would use.
 
-   You can orchestrate the processing and get a status in flowchart form of the data flow by using Azure Data Factory (ADF). In ADF, you would configure a pipeline that has as input a dataset that is pointing to blob storage (where the telemetry data lives), and as output a dataset that writes the data to SQL Database. The pipeline would contain an activity to execute a Databricks notebook, which would start an Azure Databricks cluster on-demand, perform any data processing required, and output the results back into blob storage. A copy activity in the pipeline would then write the data to SQL Database. Alternatively, a single Hive activity that executes a previously defined Hive query (stored in blob storage) could be used. An on-demand HDInsight cluster would be used for computation of the Hive query.
+   You can orchestrate the processing and get a status in flowchart form of the data flow by using Azure Data Factory (ADF) or Azure Synapse Analytics pipelines. You would configure a pipeline that has as input a dataset that is pointing to blob storage (where the telemetry data lives), and as output a dataset that writes the data to a SQL Database. The pipeline would contain an activity to execute a Databricks notebook, which would start an Azure Databricks cluster on-demand, perform any data processing required, and output the results back into blob storage. A copy activity in the pipeline would then write the data to a SQL Database. Alternatively, a single Hive activity that executes a previously defined Hive query (stored in blob storage) could be used. An on-demand HDInsight cluster would be used for computation of the Hive query.
 
 _Cloud to device communication_
 
@@ -564,9 +564,9 @@ _Cloud to device communication_
 
    Yes. There are a variety of services in Azure that can be used in combination according to the customer requirements to accomplish the batch or streaming ingest, the hot and cold paths of processing (both stream and batch), transactional and write-once-read-many storage and data pipelining. Many services overlap in their capability to meet the needs of the lambda architecture---it is important to take the time to create a project plan that educates the customer with the Azure options in the analytics pipeline and identifies why specific services were recommended for the final solution.
 
-4. We have heard of Azure IoT Solution Accelerators, do these offer a good starting point for us?
+4. We have heard of Azure IoT Central, does this offer a good starting point for us?
 
-   Azure IoT Solution Accelerators offer pre-configured solutions that automate the provisioning and configuration of scenario-oriented solutions that leverage a combination of Azure services. The idea is that a customer can take the solution accelerator deployed by one of the Azure IoT Solution Accelerators and customize it to meet their needs. The Remote Monitoring IoT Solution Accelerator provides a solution that is reasonably close to the needs of Fabrikam (see the illustration below for the architecture deployed by the Remote Monitoring solution), although some additional work is needed to handle the cold path processing, to capitalize on Spark, or to use Azure SQL Data Warehouse.
+   Azure IoT Central is a SaaS offering that simplifies the creation, provisioning, and management of an IoT Solution. Due to the fact that IoT Central is PaaS, much of the underlying IoT infrastructure is hidden. This does not mean the solution is not extensible. The continuous data export allows for JSON formatted data to be exported to Azure Event Hubs, Azure Service Bus queue, Azure Service Bus topic, Azure Blob Storage, or to a Webhook. It has the ability to filter and enrich data prior to the export. This solution does offer a great starting point, but will also mean less control over the infrastructure. With continuous data export,some additional work is needed to handle the cold path processing, to capitalize on Spark, or to use Azure Synapse Analytics.
 
    ![Screenshot of the Remote Monitoring Azure IoT Solution Accelerator workflow. At a very high level, the solution includes the following: Web App, Cosmos DB (Device Registry), Logic Apps, Azure Active Directory, Microservices on VMs, Azure Stream Analytics, an IoT Hub, and simulated devices.](./media/azure-iot-solution-accelerator.png 'Azure IoT Solution Accelerator')
 
