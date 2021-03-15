@@ -64,7 +64,7 @@ In the Before the hands-on lab exercise, you will set up your environment for us
 
 In this task, you will create an Azure resource group for the resources used throughout this lab.
 
-1. In the [Azure portal](https://portal.azure.com), select **Resource groups**, select **+Add**, then enter the following in the **Create an empty resource group** blade:
+1. In the [Azure portal](https://portal.azure.com), select **+ Create a resource**, search for and select **Resource group**. In the Resource group overview screen, select **Create**, then enter the following in the **Create a resource group** form:
 
    - **Name**: Enter `hands-on-lab-SUFFIX`
 
@@ -72,9 +72,9 @@ In this task, you will create an Azure resource group for the resources used thr
 
    - **Resource group location**: Select the region you would like to use for resources in this hands-on lab. Remember this location so you can use it for the other resources you'll provision throughout this lab.
 
-     ![Add Resource group Resource groups is highlighted in the navigation pane of the Azure portal, +Add is highlighted in the Resource groups blade, and hands-on-lab is entered into the Resource group name box on the Create an empty resource group blade.](media/create-resource-group.png 'Create resource group')
+     ![The Create a resource group form is displayed with hands-on-lab-SUFFIX is entered into the Resource group name box.](media/create-resource-group.png 'Create resource group')
 
-   - Select **Create**.
+   - Select **Review + create**, then once validation passes, select **Create**.
 
 ### Task 2: Setup a lab virtual machine
 
@@ -84,13 +84,13 @@ In this task, you will provision a virtual machine running Visual Studio Communi
 
 > **Optional**: If you already have Visual Studio 2019 or greater installed on your machine, you may skip this step.
 
-1. In the [Azure portal](https://portal.azure.com/), select **+Create a resource**
+1. In the [Azure portal](https://portal.azure.com/), select **+ Create a resource**
 
 2. In the **Search the marketplace** textbox, enter `Visual Studio 2019 Latest` and then select it from the suggested options.
 
-3. For the **Select a software plan**, select **Visual Studio 2019 Community on Windows Server 2019 (x64)** from the results, and select **Create**.
+3. For the **Select a plan**, select **Visual Studio 2019 Community (latest release) on Windows Server 2019 (x64)** from the results, and select **Create**.
 
-   ![In the Visual Studio 2019 Latest resource overview screen, Visual Studio Community 2019 (latest) on Windows Server 2019 (x64) is selected in the Select a software plan drop down list.](./media/create-resource-visual-studio-on-windows-server-2019.png 'Create Windows Server 2019 with Visual Studio Community 2019')
+   ![In the Visual Studio 2019 Latest resource overview screen, Visual Studio Community 2019 (latest release) on Windows Server 2019 (x64) is selected in the Select a software plan drop down list.](./media/create-resource-visual-studio-on-windows-server-2019.png 'Create Windows Server 2019 with Visual Studio Community 2019')
 
 4. Set the following configuration on the **Basics** tab:
 
@@ -104,7 +104,9 @@ In this task, you will provision a virtual machine running Visual Studio Communi
 
    - **Availability options**: Select **No infrastructure redundancy required**.
 
-   - **Image**: The Visual Studio Community image you selected in the previous step should be listed here.
+   - **Image**: Select **Visual Studio 2019 Community (latest release) on Windows Server 2019 (x64)**.
+
+   - **Azure Spot Instance**: Unchecked.
 
    - **Size**: Select the **Standard D2s v3** size if it is not already selected.
 
@@ -116,7 +118,11 @@ In this task, you will provision a virtual machine running Visual Studio Communi
 
    - **Selected inbound ports**: Select **RDP (3389)** from the drop down.
 
-     ![Screenshot of the Create virtual machine blade, with fields set to the previously mentioned settings.](media/virtual-machine.png 'Create virtual machine blade')
+   - **License type**: Select **Windows client**.
+
+   - Check the confirmation checkbox.
+
+     ![The Create virtual machine form is shown with fields set to the previously mentioned settings.](media/virtual-machine.png 'Create virtual machine form')
 
    - Select **Review + create** to move to the next step.
 
@@ -130,25 +136,25 @@ In this task, you will provision a virtual machine running Visual Studio Communi
 
 In this task, you will create an Azure Databricks workspace.
 
-1. In the [Azure portal](https://portal.azure.com), select **+Create a resource**, then enter `databricks` into the **Search the Marketplace** box.
+1. In the [Azure portal](https://portal.azure.com), select **+ Create a resource**, then enter `Azure Databricks` into the **Search the Marketplace** box.
 
 2. Select **Azure Databricks** from the results, and then select **Create**.
 
-   ![In the Azure navigation pane, +Create a resource is selected, "databricks" is entered into the Search the Marketplace box, and Azure Databricks is selected in the results.](media/create-resource-azure-databricks.png 'Create Azure Databricks')
+   ![Azure Databricks is entered into the Search the Marketplace box, and Azure Databricks is selected in the results.](media/create-resource-azure-databricks.png 'Create Azure Databricks')
 
-3. On the **Azure Databricks Service** blade, enter the following:
-
-   - **Workspace name**: Enter `iot-db-workspace-SUFFIX`
+3. On the **Create an Azure Databricks workspace** blade, enter the following:
 
    - **Subscription**: Select the subscription you are using for this hands-on lab.
 
    - **Resource group**: Choose Use existing and select the **hands-on-lab-SUFFIX** resource group.
 
-   - **Location**: Select the location you are using for resources in this hands-on lab.
+   - **Workspace name**: Enter `iot-db-workspace-SUFFIX`
 
-   - **Pricing tier**: Select **Standard**
+   - **Region**: Select the region you are using for resources in this hands-on lab.
 
-     ![The Azure Databricks Service blade is displayed, with the values specified above entered into the appropriate fields.](media/azure-databricks-create-workspace.png 'Create Azure Databricks workspace')
+   - **Pricing tier**: Select **Standard (Apache Spark, Secure with Azure AD)**
+
+     ![The Create an Azure Databricks workspace form is displayed, with the values specified above entered into the appropriate fields.](media/azure-databricks-create-workspace.png 'Create Azure Databricks workspace')
 
    - Select **Review + Create**.
 
@@ -158,7 +164,7 @@ In this task, you will create an Azure Databricks workspace.
 
 In this task, you will create an Azure Databricks cluster within the workspace you created previously.
 
-1. Once the deployment of the Databricks workspace is complete, select **Go to resource** on the notification you receive.
+1. Once the deployment of the Databricks workspace is complete, select **Go to resource** on the notification you receive. Alternatively, you can also open the lab resource group, and select the **Azure Databricks Service** resource named **iot-db-workspace-SUFFIX**.
 
    ![Under Notifications in Azure, a message that the Azure Databricks deployment succeeded is displayed, and the Go to resource button is highlighted.](media/azure-databricks-resource-created.png 'Azure Databricks deployment succeeded')
 
@@ -200,21 +206,19 @@ If you do not already have a Power BI account:
 
 In this task, you will create an RDP connection to your lab virtual machine (VM).
 
-1. In the [Azure portal](https://portal.azure.com), select **Resource groups** in the Azure navigation pane, enter your resource group name `hands-on-lab-SUFFIX` into the filter box, and select it from the list.
-
-   ![Resource groups is selected in the Azure navigation pane, "hands" is entered into the filter box, and the "hands-on-lab-SUFFIX" resource group is highlighted.](./media/resource-groups.png 'Resource groups list')
+1. In the [Azure portal](https://portal.azure.com), open your resource group named `hands-on-lab-SUFFIX`.
 
 2. In the list of resources for your resource group, select the **LabVM** virtual machine.
 
    ![The list of resources in the hands-on-lab-SUFFIX resource group are displayed, and LabVM is highlighted.](./media/resource-group-resources-labvm.png 'LabVM in resource group list')
 
-3. On your **LabVM blade**, select **Connect** from the top menu.
+3. On your **LabVM** resource screen, expand **Connect** from the top menu, and select RDP.
 
-   ![The LabVM blade is displayed, with the Connect button highlighted in the top menu.](./media/connect-labvm.png 'Connect to LabVM')
+   ![The LabVM resource screen is displayed, with the Connect button highlighted in the top menu.](./media/connect-labvm.png 'Connect to LabVM')
 
 4. Select **Download RDP file**, then open the downloaded RDP file.
 
-   ![The Connect to virtual machine blade is displayed, and the Download RDP file button is highlighted.](./media/connect-to-virtual-machine.png 'Connect to virtual machine')
+   ![The Connect screen is displayed and the Download RDP file button is highlighted.](./media/connect-to-virtual-machine.png 'Connect to virtual machine')
 
 5. Select **Connect** on the **Remote Desktop Connection** dialog.
 
@@ -260,19 +264,17 @@ Fabrikam has provided a Smart Meter Simulator that they use to simulate device r
 
 2. In your newly installed Chrome web browser, navigate to the Internet of Things MCW repo: <https://github.com/Microsoft/MCW-Internet-of-Things>.
 
-3. On the repo page, select **Clone or download**, then select **Download ZIP**.
+3. On the repo page, expand the **Code** button, then select **Download ZIP**.
 
    ![Download .zip containing the Internet of Things MCW repository](media/git-hub-download-repo.png 'Download ZIP')
 
-4. Right-click the downloaded zip, select the **Unblock** checkbox, select **OK**.
+4. Unzip the contents to the folder **C:\SmartMeter**.
 
-5. Unzip the contents to the folder **C:\SmartMeter**.
+5. Navigate to the `SmartMeterSimulator.sln` file within the `Hands-on lab\lab-files\starter-project` folder and open it with **Visual Studio 2019**.
 
-6. Navigate to the `SmartMeterSimulator.sln` file within the `Hands-on lab\lab-files\starter-project` folder and open it with **Visual Studio 2019**.
+6. Sign into Visual Studio or create an account, if prompted.
 
-7. Sign into Visual Studio or create an account, if prompted.
-
-8. If the Security Warning for SmartMeterSimulator window appears, un-check **Ask me for every project in this solution** and select **OK**.
+7. If the Security Warning for SmartMeterSimulator window appears, un-check **Ask me for every project in this solution** and select **OK**.
 
    ![The SmartMeterSimulator Security Warning window has the option to "Ask me for every project in this solution" highlighted.](./media/visual-studio-security-warning.png 'SmartMeterSimulator Security Warning')
 
