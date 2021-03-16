@@ -583,7 +583,7 @@ Fabrikam would like to visualize the "hot" data showing the average temperature 
 
 2. On the New Stream Analytics Job form, enter the following:
 
-   - **Job name**: Enter `hot-stream`
+   - **Job name**: Enter `hot-stream`.
    - **Subscription**: Select the subscription you are using for this hands-on lab.
    - **Resource group**: Choose Use existing and select the **hands-on-lab-SUFFIX** resource group.
    - **Location**: Select the location you are using for resources in this hands-on lab.
@@ -602,7 +602,7 @@ Fabrikam would like to visualize the "hot" data showing the average temperature 
 
 6. On the **New Input** blade, enter the following:
 
-   - **Input alias**: Enter `temps`
+   - **Input alias**: Enter `temps`.
    - Choose **Select IoT Hub from your subscriptions**.
    - **Subscription**: Select the subscription you are using for this hands-on lab.
    - **IoT Hub**: Select the **smartmeter-hub-SUFFIX** IoT Hub.
@@ -673,7 +673,7 @@ Fabrikam would like to visualize the "hot" data showing the average temperature 
 
 ### Task 2: Visualize hot data with Power BI
 
-1. Sign in to your Power BI subscription (<https://app.powerbi.com>) to see if data is being collected.
+1. Sign into your Power BI subscription (<https://app.powerbi.com>) to see if data is being collected.
 
 2. Select **My Workspace** on the left-hand menu, then select the **Datasets + dataflows tab**, and locate the **avgtemps** dataset from the list.
 
@@ -741,7 +741,7 @@ Fabrikam would like to be able to capture all the "cold" data into scalable stor
 
    - **Subscription**: Select the subscription you are using for this hands-on lab.
    - **Resource group**: Choose Use existing and select the **hands-on-lab-SUFFIX** resource group.
-   - **Storage account name**: Enter `smartmetersSUFFIX`
+   - **Storage account name**: Enter `smartmetersSUFFIX`.
    - **Location**: Select the location you are using for resources in this hands-on lab.
    - **Performance**: Select **Standard**.
    - **Account kind**: Select **StorageV2 (general purpose v2)**.
@@ -774,7 +774,7 @@ To capture all metrics for the cold path, set up another Stream Analytics job th
 
 2. On the New Stream Analytics Job blade, enter the following:
 
-   - **Job name**: Enter `cold-stream`
+   - **Job name**: Enter `cold-stream`.
    - **Subscription**: Select the subscription you are using for this hands-on lab.
    - **Resource group**: Select the **hands-on-lab-SUFFIX** resource group.
    - **Location**: Select the location you are using for resources in this hands-on lab.
@@ -793,7 +793,7 @@ To capture all metrics for the cold path, set up another Stream Analytics job th
 
 6. On the **New Input** blade, enter the following:
 
-   - **Input alias**: Enter `iothub`
+   - **Input alias**: Enter `iothub`.
    - Choose **Select IoT Hub from your subscriptions**.
    - **Subscription**: Select the subscription you are using for this hands-on lab.
    - **IoT Hub**: Select the **smartmeter-hub-SUFFIX** IoT Hub.
@@ -815,7 +815,7 @@ To capture all metrics for the cold path, set up another Stream Analytics job th
 
 9. On the **Blob storage** output blade, enter the following:
 
-   - **Output alias**: Set to `blobs`
+   - **Output alias**: Set to `blobs`.
    - Choose **Select blob storage from your subscriptions**.
    - **Subscription**: Select the subscription you are using for this hands-on lab.
    - **Storage account**: Select the **smartmetersSUFFIX** storage account you created in the previous task.
@@ -1039,7 +1039,7 @@ In this task, you will create a new Databricks notebook to perform some processi
 
     - **Keys**: **id**
     - **Values**: **averageTemp**
-    - **Aggregation**: Select **AVG**
+    - **Aggregation**: Select **AVG**.
     - Select **Grouped** as the chart type.
     - **Display type**: Select **Bar chart**.
 
