@@ -228,7 +228,7 @@ In addition to collecting telemetry, Fabrikam not only seeks to gain competitive
 
 3. Can Azure handle a lambda architecture?
 
-4. We have heard of Azure IoT Central, does this offer a good starting point for us?
+4. We have heard of Azure IoT Central; does this offer a good starting point for us?
 
 5. Some of our customers require their IoT devices to communicate in a firewall-friendly way without opening up additional incoming or outgoing ports. What options do we have to accomplish this?
 
@@ -423,7 +423,7 @@ Directions: Tables reconvene with the larger group to hear the facilitator/SME s
 
 - Sam George, Director of Analytics for Fabrikam
 
-- The primary audience is the business and technology decision makers. From the case study scenario, this would include the Director of Analytics. Usually we talk to the infrastructure managers who report to the chief information officers (CIOs), or to application sponsors (like a vice president [VP] line of business [LOB], or chief marketing officer [CMO]), or to those that represent the business unit IT or developers that report to application sponsors.
+- The primary audience is the business and technology decision makers. From the case study scenario, this would include the Director of Analytics. Usually, we talk to the infrastructure managers who report to the chief information officers (CIOs), or to application sponsors (like a vice president [VP] line of business [LOB], or chief marketing officer [CMO]), or to those that represent the business unit IT or developers that report to application sponsors.
 
 ## Preferred solution
 
@@ -564,9 +564,9 @@ _Cloud to device communication_
 
    Yes. There are a variety of services in Azure that can be used in combination according to the customer requirements to accomplish the batch or streaming ingest, the hot and cold paths of processing (both stream and batch), transactional and write-once-read-many storage and data pipelining. Many services overlap in their capability to meet the needs of the lambda architecture---it is important to take the time to create a project plan that educates the customer with the Azure options in the analytics pipeline and identifies why specific services were recommended for the final solution.
 
-4. We have heard of Azure IoT Central, does this offer a good starting point for us?
+4. We have heard of Azure IoT Central; does this offer a good starting point for us?
 
-   Azure IoT Central is a SaaS offering that simplifies the creation, provisioning, and management of an IoT Solution. Due to the fact that IoT Central is PaaS, much of the underlying IoT infrastructure is hidden. This does not mean the solution is not extensible. The continuous data export allows for JSON formatted data to be exported to Azure Event Hubs, Azure Service Bus queue, Azure Service Bus topic, Azure Blob Storage, or to a Webhook. It has the ability to filter and enrich data prior to the export. This solution does offer a great starting point, but will also mean less control over the infrastructure. With continuous data export,some additional work is needed to handle the cold path processing, to capitalize on Spark, or to use Azure Synapse Analytics.
+   Azure IoT Central is a SaaS offering that simplifies the creation, provisioning, and management of an IoT Solution. Due to the fact that IoT Central is PaaS, much of the underlying IoT infrastructure is hidden. This does not mean the solution is not extensible. The continuous data export allows for JSON formatted data to be exported to Azure Event Hubs, Azure Service Bus queue, Azure Service Bus topic, Azure Blob Storage, or to a Webhook. It has the ability to filter and enrich data prior to the export. This solution does offer a great starting point, but will also mean less control over the infrastructure. With continuous data export, some additional work is needed to handle the cold path processing, to capitalize on Spark, or to use Azure Synapse Analytics.
 
    ![Screenshot of the Remote Monitoring Azure IoT Solution Accelerator workflow. At a very high level, the solution includes the following: Web App, Cosmos DB (Device Registry), Logic Apps, Azure Active Directory, Microservices on VMs, Azure Stream Analytics, an IoT Hub, and simulated devices.](./media/azure-iot-solution-accelerator.png 'Azure IoT Solution Accelerator')
 
