@@ -543,9 +543,9 @@ In this task, you will build and run the Smart Meter Simulator project.
 
    ![In addition to the IoT Hub Connection String, the Smart Meter Simulator has two buildings with 10 windows. The color of the windows indicating the status of the devices. Currently, all windows are gray.](media/smart-meter-simulator-register.png 'Fabrikam Smart Meter Simulator')
 
-4. Select a few of the windows. Each represents a device for which you want to simulate device installation. The selected windows should turn yellow.
+4. Select a few of the windows. Each represents a device for which you want to simulate device installation. The selected windows should turn pale yellow.
 
-   ![The Smart Meter Simulator now has three white windows, with the other seven remaining gray.](media/smart-meter-simulator-window-select.png 'Fabrikam Smart Meter Simulator')
+   ![The Smart Meter Simulator now has three pale yellow windows, with the other seven remaining gray.](media/smart-meter-simulator-window-select.png 'Fabrikam Smart Meter Simulator')
 
 5. Select **Activate** to simulate changing the device status from disabled to enabled in the IoT Hub Registry. The selected windows should turn green.
 
@@ -1091,9 +1091,9 @@ In this task, you will register, activate, and connect all devices. You will the
 
     ![In addition to the IoT Hub Connection String, the Smart Meter Simulator has two buildings with 10 windows. The color of the windows indicating the status of the devices. Currently, all windows are gray.](media/smart-meter-simulator-register.png 'Fabrikam Smart Meter Simulator')
 
-3. Select **all** of the windows. Each represents a device for which you want to simulate device installation. The selected windows should turn yellow.
+3. Select **all** of the windows. Each represents a device for which you want to simulate device installation. The selected windows should turn pale yellow.
 
-    ![The Smart Meter Simulator now has all yellow windows.](media/smart-meter-simulator-window-select-all.png 'Fabrikam Smart Meter Simulator')
+    ![The Smart Meter Simulator now has all pale yellow windows.](media/smart-meter-simulator-window-select-all.png 'Fabrikam Smart Meter Simulator')
 
 4. Select **Activate** to simulate changing the device status from disabled to enabled in the IoT Hub Registry. The selected windows should turn green.
 
