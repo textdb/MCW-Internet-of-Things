@@ -102,7 +102,7 @@ In addition to collecting telemetry, Fabrikam not only seeks to gain competitive
 
 3. Can Azure handle a lambda architecture?
 
-4. We have heard of Azure IoT Central, does this offer a good starting point for us?
+4. We have heard of Azure IoT Central; does this offer a good starting point for us?
 
 5. Some of our customers require their IoT devices to communicate in a firewall-friendly way without opening up additional incoming or outgoing ports. What options do we have to accomplish this?
 

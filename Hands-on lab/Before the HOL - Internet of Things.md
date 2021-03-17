@@ -84,7 +84,7 @@ In this task, you will provision a virtual machine running Visual Studio Communi
 
 > **Optional**: If you already have Visual Studio 2019 or greater installed on your machine, you may skip this step.
 
-1. In the [Azure portal](https://portal.azure.com/), select **+ Create a resource**
+1. In the [Azure portal](https://portal.azure.com/), select **+ Create a resource**.
 
 2. In the **Search the marketplace** textbox, enter `Visual Studio 2019 Latest` and then select it from the suggested options.
 
@@ -98,7 +98,7 @@ In this task, you will provision a virtual machine running Visual Studio Communi
 
    - **Resource Group**: Select Use existing and select the **hands-on-lab-SUFFIX** resource group.
 
-   - **Virtual machine name**: Enter `LabVM`
+   - **Virtual machine name**: Enter `LabVM`.
 
    - **Region**: Select the same region you selected for the resource group.
 
@@ -106,11 +106,11 @@ In this task, you will provision a virtual machine running Visual Studio Communi
 
    - **Image**: Select **Visual Studio 2019 Community (latest release) on Windows Server 2019 (x64)**.
 
-   - **Azure Spot Instance**: Unchecked.
+   - **Azure Spot Instance**: Unchecked
 
    - **Size**: Select the **Standard D2s v3** size if it is not already selected.
 
-   - **Username**: Enter `demouser`
+   - **Username**: Enter `demouser`.
 
    - **Password**: Enter a password that you will remember.
 
@@ -148,7 +148,7 @@ In this task, you will create an Azure Databricks workspace.
 
    - **Resource group**: Choose Use existing and select the **hands-on-lab-SUFFIX** resource group.
 
-   - **Workspace name**: Enter `iot-db-workspace-SUFFIX`
+   - **Workspace name**: Enter `iot-db-workspace-SUFFIX`.
 
    - **Region**: Select the region you are using for resources in this hands-on lab.
 
