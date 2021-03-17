@@ -9,7 +9,7 @@ Hands-on lab step-by-step
 </div>
 
 <div class="MCWHeader3">
-June 2020
+March 2021
 </div>
 
 Information in this document, including URL and other Internet Web site references, is subject to change without notice. Unless otherwise noted, the example companies, organizations, products, domain names, e-mail addresses, logos, people, places, and events depicted herein are fictitious, and no association with any real company, organization, product, domain name, e-mail address, logo, person, place or event is intended or should be inferred. Complying with all applicable copyright laws is the responsibility of the user. Without limiting the rights under copyright, no part of this document may be reproduced, stored in or introduced into a retrieval system, or transmitted in any form or by any means (electronic, mechanical, photocopying, recording, or otherwise), or for any purpose, without the express written permission of Microsoft Corporation.
@@ -18,7 +18,7 @@ Microsoft may have patents, patent applications, trademarks, copyrights, or othe
 
 The names of manufacturers, products, or URLs are provided for informational purposes only and Microsoft makes no representations and warranties, either expressed, implied, or statutory, regarding these manufacturers or the use of the products with any Microsoft technologies. The inclusion of a manufacturer or product does not imply endorsement of Microsoft of the manufacturer or product. Links may be provided to third party sites. Such sites are not under the control of Microsoft and Microsoft is not responsible for the contents of any linked site or any link contained in a linked site, or any changes or updates to such sites. Microsoft is not responsible for webcasting or any other form of transmission received from any linked site. Microsoft is providing these links to you only as a convenience, and the inclusion of any link does not imply endorsement of Microsoft of the site or the products contained therein.
 
-© 2020 Microsoft Corporation. All rights reserved.
+© 2021 Microsoft Corporation. All rights reserved.
 
 Microsoft and the trademarks listed at <https://www.microsoft.com/en-us/legal/intellectualproperty/Trademarks/Usage/General.aspx> are trademarks of the Microsoft group of companies. All other trademarks are property of their respective owners.
 
@@ -96,13 +96,13 @@ In your architecture design session with Fabrikam, it was agreed that you would 
 
 In these steps, you will provision an instance of IoT Hub.
 
-1. In your browser, navigate to the [Azure portal](https://portal.azure.com), select **+Create a resource** in the navigation pane, enter `iot` into the **Search the Marketplace** box.
+1. In your browser, navigate to the [Azure portal](https://portal.azure.com), select **+Create a resource** in the navigation pane, enter `IoT Hub` into the **Search the Marketplace** box, and select **IoT Hub** from the results.
 
-2. Select **IoT Hub** from the results, and then select **Create**.
+   !["IoT Hub" is entered into the Search the Marketplace box. IoT Hub is highlighted in the search results.](./media/create-resource-iot-hub.png 'Create an IoT Hub')
 
-   ![+Create a resource is highlighted in the navigation page of the Azure portal, and "iot" is entered into the Search the Marketplace box. IoT Hub is highlighted in the search results.](./media/create-resource-iot-hub.png 'Create an IoT Hub')
+2. On the resource overview page, select **Create**.
 
-3. On the **IoT Hub** blade **Basics** tab, enter the following:
+3. On the **IoT Hub** screen, **Basics** tab, enter the following:
 
    - **Subscription**: Select the subscription you are using for this hands-on lab.
 
@@ -112,27 +112,27 @@ In these steps, you will provision an instance of IoT Hub.
 
    - **IoT Hub Name**: Enter a unique name, such as `smartmeter-hub-SUFFIX`.
 
-     ![The Basics blade for IoT Hub is displayed, with the values specified above entered into the appropriate fields.](./media/iot-hub-basics-blade.png 'Create IoT Hub Basic blade')
+     ![The Basics tab for IoT Hub is displayed, with the values specified above entered into the appropriate fields.](./media/iot-hub-basics-blade.png 'Create IoT Hub Basics tab')
 
-   - Select **Next: Size and Scale**.
+4. Select the **Management** tab. Accept the default Pricing and scale tier of **S1: Standard tier**, and select **Review + create**.
 
-   - On the **Size and scale** tab, accept the default Pricing and scale tier of **S1: Standard tier**, and select **Review + create**.
+    ![The Management tab for IoT Hub is displayed with the Standard pricing tier selected.](media/iot-hub-management-tab.png 'Create IoT Hub Management tab')
 
-   - Select **Create** on the **Review + create** blade.
+5. Once validation has passed, select **Create**.
 
-4. When the IoT Hub deployment is completed, you will receive a notification in the Azure portal. Select **Go to resource** in the notification.
+6. When the IoT Hub deployment is completed, you will receive a notification in the Azure portal. Select **Go to resource** in the notification.
 
    ![Screenshot of the Deployment succeeded message, with the Go to resource button highlighted.](./media/iot-hub-deployment-succeeded.png 'Deployment succeeded message')
 
-5. From the **IoT Hub's Overview** blade, select **Shared access policies** under **Settings** on the left-hand menu.
+7. From the **IoT Hub's Overview** blade, select **Shared access policies** under **Settings** on the left-hand menu.
 
    ![Screenshot of the Overview blade, settings section. Under Settings, Shared access policies is highlighted.](./media/iot-hub-shared-access-policies.png 'Overview blade, settings section')
 
-6. Select **iothubowner** policy.
+8. Select **iothubowner** policy.
 
    ![The Azure portal is shown with the iothubowner selected.](./media/iot-hub-shared-access-policies-iothubowner.png 'IoT Hub Owner shared access policy')
 
-7. In the **iothubowner** blade, select the **Copy** button to the right of the **Connection string - primary key** field. You will need this connection string value in the next exercise.
+9. In the **iothubowner** blade, select the **Copy** button to the right of the **Connection string - primary key** field. You will need this connection string value in the next exercise.
 
    ![Screenshot of the iothubowner blade. The connection string - primary key field is highlighted.](./media/iot-hub-shared-access-policies-iothubowner-blade.png 'iothubowner blade')
 
@@ -543,9 +543,9 @@ In this task, you will build and run the Smart Meter Simulator project.
 
    ![In addition to the IoT Hub Connection String, the Smart Meter Simulator has two buildings with 10 windows. The color of the windows indicating the status of the devices. Currently, all windows are gray.](media/smart-meter-simulator-register.png 'Fabrikam Smart Meter Simulator')
 
-4. Select a few of the windows. Each represents a device for which you want to simulate device installation. The selected windows should turn yellow.
+4. Select a few of the windows. Each represents a device for which you want to simulate device installation. The selected windows should turn pale yellow.
 
-   ![The Smart Meter Simulator now has three white windows, with the other seven remaining gray.](media/smart-meter-simulator-window-select.png 'Fabrikam Smart Meter Simulator')
+   ![The Smart Meter Simulator now has three pale yellow windows, with the other seven remaining gray.](media/smart-meter-simulator-window-select.png 'Fabrikam Smart Meter Simulator')
 
 5. Select **Activate** to simulate changing the device status from disabled to enabled in the IoT Hub Registry. The selected windows should turn green.
 
@@ -577,20 +577,20 @@ Fabrikam would like to visualize the "hot" data showing the average temperature 
 
 ### Task 1: Create a Stream Analytics job for hot path processing to Power BI
 
-1. In the [Azure Portal](https://portal.azure.com), select **+ Create a resource**, enter `stream analytics` into the **Search the Marketplace** box, select **Stream Analytics job** from the results, and select **Create**.
+1. In the [Azure Portal](https://portal.azure.com), expand the left menu and select **+ Create a resource**, enter `stream analytics` into the **Search the Marketplace** box, select **Stream Analytics job** from the results, and select **Create**.
 
    ![In the Azure Portal, +Create a resource is highlighted, "stream analytics" is entered into the Search the Marketplace box, and Stream Analytics job is highlighted in the results.](media/create-resource-stream-analytics-job.png 'Create Stream Analytics job')
 
-2. On the New Stream Analytics Job blade, enter the following:
+2. On the New Stream Analytics Job form, enter the following:
 
-   - **Job name**: Enter `hot-stream`
+   - **Job name**: Enter `hot-stream`.
    - **Subscription**: Select the subscription you are using for this hands-on lab.
    - **Resource group**: Choose Use existing and select the **hands-on-lab-SUFFIX** resource group.
    - **Location**: Select the location you are using for resources in this hands-on lab.
    - **Hosting environment**: Select **Cloud**.
    - **Streaming units**: Change the value to `1` by sliding the slider all the way left.
 
-     ![The New Stream Analytics Job blade is displayed, with the previously mentioned settings entered into the appropriate fields.](media/stream-analytics-job-create.png 'New Stream Analytics Job blade')
+     ![The New Stream Analytics Job form is displayed, with the previously mentioned settings entered into the appropriate fields.](media/stream-analytics-job-create.png 'New Stream Analytics Job form')
 
 3. Select **Create**.
 
@@ -602,13 +602,14 @@ Fabrikam would like to visualize the "hot" data showing the average temperature 
 
 6. On the **New Input** blade, enter the following:
 
-   - **Input alias**: Enter `temps`
+   - **Input alias**: Enter `temps`.
    - Choose **Select IoT Hub from your subscriptions**.
    - **Subscription**: Select the subscription you are using for this hands-on lab.
    - **IoT Hub**: Select the **smartmeter-hub-SUFFIX** IoT Hub.
-   - **Endpoint**: Select **Messaging**.
-   - **Shared access policy name**: Select **service**.
    - **Consumer Group**: Leave set to **\$Default**.
+   - **Shared access policy name**: Select **service**.
+   - **Endpoint**: Select **Messaging**.
+   - **Partition Key**: Leave empty.
    - **Event serialization format**: Select **JSON**.
    - **Encoding**: Select **UTF-8**.
    - **Event compression type**: Leave set to **None**.
@@ -628,13 +629,10 @@ Fabrikam would like to visualize the "hot" data showing the average temperature 
 10. Once authorized, enter the following:
 
     - **Output alias**: Set to `powerbi`
-
-    - For the remaining Power BI settings, enter the following:
-
-      - **Group Workspace**: Select the default, **My Workspace**.
-      - **Dataset Name**: Enter `avgtemps`
-      - **Table Name**: Enter `avgtemps`
-      - **Authentication mode**: Select **User token**.
+    - **Group Workspace**: Select the default, **My Workspace**.
+    - **Authentication mode**: Select **User token**.
+    - **Dataset Name**: Enter `avgtemps`
+    - **Table Name**: Enter `avgtemps`
 
     ![Power BI blade. Output alias is powerbi, dataset name is avgtemps, table name is avgtemps, authentication mode is User token.](media/stream-analytics-job-outputs-add-power-bi-save.png 'Add Power BI Output')
 
@@ -675,15 +673,15 @@ Fabrikam would like to visualize the "hot" data showing the average temperature 
 
 ### Task 2: Visualize hot data with Power BI
 
-1. Sign in to your Power BI subscription (<https://app.powerbi.com>) to see if data is being collected.
+1. Sign into your Power BI subscription (<https://app.powerbi.com>) to see if data is being collected.
 
-2. Select **My Workspace** on the left-hand menu, then select the **Datasets tab**, and locate the **avgtemps** dataset from the list.
+2. Select **My Workspace** on the left-hand menu, then select the **Datasets + dataflows tab**, and locate the **avgtemps** dataset from the list.
 
    > **Note:** Sometimes it takes few minutes for the dataset to appear in the Power BI Dataset tab under **My Workspace**
 
    ![On the Power BI window, My Workspace is highlighted in the left pane, and the Datasets tab is highlighted in the right pane, and the avgtemps dataset is highlighted.](media/power-bi-workspaces-datasets-avgtemps.png 'Power BI Datasets')
 
-3. Select the **Create Report** button under the **Actions** column.
+3. Select the **Create Report** button under the **Actions** menu.
 
    ![On the Datasets tab, under Actions, the Create Report button is highlighted.](./media/power-bi-datasets-avgtemps-create-report.png 'Datasets tab, Action column')
 
@@ -695,15 +693,15 @@ Fabrikam would like to visualize the "hot" data showing the average temperature 
 
    ![Under Fields, an arrow points from the id field under avgtemps, to the same id field now located in the Visualizations listing, under Axis.](./media/power-bi-visualizations-stacked-column-chart-axis.png 'Visualizations and Fields')
 
-6. Next, drag the **average** field and drop it into the **Value** field.
+6. Next, drag the **Average** field and drop it into the **Values** field.
 
-   ![Under Fields, an arrow points from the average field under avgtemps, to the same id field now located in the Visualizations listing, under Value.](./media/power-bi-visualizations-stacked-column-chart-value.png 'Visualizations and Fields')
+   ![Under Fields, an arrow points from the average field under avgtemps, to the same Average field now located in the Visualizations listing, under Values.](./media/power-bi-visualizations-stacked-column-chart-value.png 'Visualizations and Fields')
 
-7. Now, set the **Value** to **Max of average**, by selecting the down arrow next to **average**, and select **Maximum**.
+7. Now, set the **Values** to **Max of average**, by selecting the down arrow next to **Average**, and select **Maximum**.
 
    ![On the Value drop-down list, Maximum is highlighted.](./media/power-bi-visualizations-stacked-column-chart-value-maximum.png 'Value drop-down list')
 
-8. Repeat steps 5-8, this time adding a Stacked Column Chart for **Min of average**. (You may need to select on any area of white space on the report designer surface to deselect the Max of average by id chart visualization.)
+8. Repeat steps 4-7, this time adding a Stacked Column Chart for **Min of average**. (You may need to select on any area of white space on the report designer surface to deselect the Max of average by id chart visualization.)
 
    ![Min of average is added under Value.](./media/power-bi-visualizations-stacked-column-chart-value-minimum.png 'Min of average')
 
@@ -711,11 +709,11 @@ Fabrikam would like to visualize the "hot" data showing the average temperature 
 
    ![On the Visualizations palette, the table icon is highlighted.](./media/power-bi-visualizations-table.png 'Visualizations pallete')
 
-10. Set the values to **id** and **Average of average**, by dragging and dropping both fields in the **Values** field, then selecting the dropdown next to **average**, and selecting **Average**.
+10. Set the values to **id** and **Average of Average**, by dragging and dropping both fields in the **Values** field, then selecting the dropdown next to **Average**, and selecting **Average**.
 
     ![ID and Average of average now display under Values.](./media/power-bi-visualizations-table-average-of-average.png 'Table Visualization values')
 
-11. Save the report.
+11. Under the **File** menu, select to **Save** the report.
 
     ![Under File, Save is highlighted.](media/power-bi-save-report.png 'Save report')
 
@@ -725,7 +723,7 @@ Fabrikam would like to visualize the "hot" data showing the average temperature 
 
 13. Within the report, select one of the columns to see the data for just that device.
 
-    ![The report window has two bar graphs: Max of average by id, and Min of average by id. both bar charts list data for Device0, Device1, Device3, Device8, and Device9. Device1 is selected. On the right, a table displays data for Device1, with an Average of average value of 69.50.](./media/power-bi-report-reading-view-single-device.png 'Report window')
+    ![The report window has two bar graphs: Max of average by id, and Min of average by id. Both bar charts list data for Device0, Device1, Device3, Device8, and Device9. Device1 is selected. Below the bar charts, a table displays data for Device1, with an Average of average value of 68.61.](./media/power-bi-report-reading-view-single-device.png 'Report window')
 
 ## Exercise 4: Cold path data processing with Azure Databricks
 
@@ -737,41 +735,32 @@ Fabrikam would like to be able to capture all the "cold" data into scalable stor
 
 1. In the [Azure portal](https://portal.azure.com), select **+ Create a resource**, enter `storage account` into the **Search the Marketplace** box, select **Storage account** from the results, and select **Create**.
 
-   ![In the Azure portal, +Create a resource is highlighted in the navigation pane, "storage account" is entered into the Search the Marketplace box, and Storage account - blob, file, table, queue is highlighted in the results.](media/create-resource-storage-account.png 'Create Storage account')
+   !["storage account" is entered into the Search the Marketplace box, and Storage account is highlighted in the results.](media/create-resource-storage-account.png 'Create Storage account')
 
-2. In the Create storage account blade, enter the following:
+2. In the **Create storage account** on the **Basics** tab, enter the following:
 
    - **Subscription**: Select the subscription you are using for this hands-on lab.
    - **Resource group**: Choose Use existing and select the **hands-on-lab-SUFFIX** resource group.
-   - **Storage account name**: Enter `smartmetersSUFFIX`
+   - **Storage account name**: Enter `smartmetersSUFFIX`.
    - **Location**: Select the location you are using for resources in this hands-on lab.
    - **Performance**: Select **Standard**.
    - **Account kind**: Select **StorageV2 (general purpose v2)**.
    - **Replication**: Select **Locally-redundant storage (LRS)**.
-   - **Access tier (default)**: Select **Hot**.
 
    ![The Create storage account blade is displayed, with the previously mentioned settings entered into the appropriate fields.](media/storage-account-create-new.png 'Create storage account')
 
-3. Select **Next: Networking >**.
-
-4. Select **Next: Advanced >**.
-
-   - **Connectivity method**: Select **Public endpoint (all networks)**.
-
-    ![The Create storage account blade is displayed with options under the Networking tab.](media/storage-account-create-new-networking.png 'Create storage account - Networking')
-
-5. In the **Advanced** tab, select the following:
+3. Select the **Advanced** tab, select the following:
 
    - **Secure transfer required**: Select **Disabled**.
    - You may also need to specify the default access tier as **Hot** at this tab.
 
    ![The Create storage account blade is displayed with options under the Advanced tab.](media/storage-account-create-new-advanced.png 'Create storage account - Advanced')
 
-6. Select **Review + create**.
+4. Select **Review + create**.
 
-7. In the **Review  + create** tab, select **Create**.
+5. Once validation has passed, select **Create**.
 
-8. Once provisioned, navigate to your storage account, select **Access keys** from the left-hand menu, and copy the **key1** Key value into a text editor, such as Notepad, for later use.
+6. Once provisioned, navigate to your storage account, select **Access keys** from the left-hand menu, and copy the **key1** Key value into a text editor, such as Notepad, for later use.
 
    ![The Access Keys blade is displayed and the key1 copy button is highlighted.](media/storage-account-key.png 'Storage account - Keys')
 
@@ -779,13 +768,13 @@ Fabrikam would like to be able to capture all the "cold" data into scalable stor
 
 To capture all metrics for the cold path, set up another Stream Analytics job that will write all events to Blob storage for analysis with Azure Databricks.
 
-1. In the [Azure Portal](https://portal.azure.com), select **+ Create a resource**, enter `stream analytics` into the **Search the Marketplace** box, select **Stream Analytics job** from the results, and select **Create**.
+1. In the [Azure Portal](https://portal.azure.com), select **+ Create a resource**, enter `stream analytics job` into the **Search the Marketplace** box, select **Stream Analytics job** from the results, and select **Create**.
 
    ![In the Azure Portal, +Create a resource is highlighted, "stream analytics" is entered into the Search the Marketplace box, and Stream Analytics job is highlighted in the results.](media/create-resource-stream-analytics-job.png 'Create Stream Analytics job')
 
 2. On the New Stream Analytics Job blade, enter the following:
 
-   - **Job name**: Enter `cold-stream`
+   - **Job name**: Enter `cold-stream`.
    - **Subscription**: Select the subscription you are using for this hands-on lab.
    - **Resource group**: Select the **hands-on-lab-SUFFIX** resource group.
    - **Location**: Select the location you are using for resources in this hands-on lab.
@@ -800,17 +789,18 @@ To capture all metrics for the cold path, set up another Stream Analytics job th
 
 5. On the **Stream Analytics job** blade, select **Inputs** from the left-hand menu, under **Job Topology**, then select **+Add stream input**, and select **IoT Hub** from the dropdown menu to add an input connected to your IoT Hub.
 
-   ![On the Stream Analytics job blade, Inputs is selected under Job Topology in the left-hand menu, and +Add stream input is highlighted in the Inputs blade, and IoT Hub is highlighted in the drop down menu.](media/stream-analytics-job-inputs-add.png 'Add Stream Analytics job inputs')
+   ![On the Stream Analytics job blade, Inputs is selected under Job Topology in the left-hand menu, and +Add stream input is highlighted in the Inputs blade, and IoT Hub is highlighted in the drop down menu.](media/stream-analytics-job-inputs-add-cold.png 'Add Stream Analytics job inputs')
 
 6. On the **New Input** blade, enter the following:
 
-   - **Input alias**: Enter `iothub`
+   - **Input alias**: Enter `iothub`.
    - Choose **Select IoT Hub from your subscriptions**.
    - **Subscription**: Select the subscription you are using for this hands-on lab.
    - **IoT Hub**: Select the **smartmeter-hub-SUFFIX** IoT Hub.
-   - **Endpoint**: Select **Messaging**.
-   - **Shared access policy name**: Select **service**.
    - **Consumer Group**: Leave set to **\$Default**.
+   - **Shared access policy name**: Select **service**.
+   - **Endpoint**: Select **Messaging**.
+   - **Partition key**: Keep empty.
    - **Event serialization format**: Select **JSON**.
    - **Encoding**: Select **UTF-8**.
    - **Event compression type**: Leave set to **None**.
@@ -819,34 +809,36 @@ To capture all metrics for the cold path, set up another Stream Analytics job th
 
 7. Select **Save**.
 
-8. Next, select **Outputs** from the left-hand menu, under **Job Topology**, and select **+ Add**, then select **Blob storage/Data Lake Storage Gen2** from the drop-down menu.
+8. Next, select **Outputs** from the left-hand menu, under **Job Topology**, and select **+ Add**, then select **Blob storage/ADLS Gen2** from the drop-down menu.
 
    ![Outputs is highlighted in the left-hand menu, under Job Topology, +Add is selected, and Blob storage is highlighted in the drop down menu.](media/stream-analytics-job-outputs-add-blob-storage.png 'Add Blob storage Output')
 
 9. On the **Blob storage** output blade, enter the following:
 
-   - **Output alias**: Set to `blobs`
+   - **Output alias**: Set to `blobs`.
    - Choose **Select blob storage from your subscriptions**.
    - **Subscription**: Select the subscription you are using for this hands-on lab.
    - **Storage account**: Select the **smartmetersSUFFIX** storage account you created in the previous task.
    - **Container**: Choose **Create new** and enter `smartmeters`
+   - **Authentication mode**: Select **Connection string**.
    - **Path pattern**: Enter `smartmeters/{date}/{time}`
    - **Date format**: Select **YYYY-DD-MM**.
    - **Time format**: Select **HH**.
    - **Event serialization format**: Select **CSV**.
    - **Delimiter**: Select **comma (,)**.
    - **Encoding**: Select **UTF-8**.
-   - **Authentication mode**: Select **Connection string**.
+   - **Minimum rows**: Enter **100**.
+   - **Maximum time**: Enter **5** Minutes.
 
      ![Blob storage New output blade is displayed, with the values mentioned above entered into the appropriate fields.](media/stream-analytics-job-outputs-blob-storage-new.png 'Add Blob storage Output')
 
-10. Select **Save**.
+     Select **Save**.
 
-11. Next, select **Query** from the left-hand menu, under **Job Topology**.
+10. Next, select **Query** from the left-hand menu, under **Job Topology**.
 
     ![Under Job Topology, Query is selected.](./media/stream-analytics-job-query.png 'Stream Analytics Query')
 
-12. In the **Query** text box, paste the following query.
+11. In the **Query** text box, paste the following query.
 
     ```sql
     SELECT
@@ -857,23 +849,23 @@ To capture all metrics for the cold path, set up another Stream Analytics job th
           iothub
     ```
 
-13. Select **Save query**, and **Yes** when prompted with the confirmation.
+12. Select **Save query**, and **Yes** when prompted with the confirmation.
 
     ![Save button on the Query blade is highlighted](./media/stream-analytics-job-query-save-2.png 'Query Save button')
 
-14. Return to the **Overview** blade on your **Stream Analytics job** and select **Start**.
+13. Return to the **Overview** blade on your **Stream Analytics job** and select **Start**.
 
     ![The Start button is highlighted on the Overview blade.](./media/stream-analytics-job-start.png 'Overview blade start button')
 
-15. In the **Start job** blade, select **Now** (the job will start processing messages from the current point in time onward).
+14. In the **Start job** blade, select **Now** (the job will start processing messages from the current point in time onward).
 
     ![Now is selected on the Start job blade.](./media/stream-analytics-job-start-job.png 'Start job blade')
 
-16. Select **Start**.
+15. Select **Start**.
 
-17. Allow your Stream Analytics Job a few minutes to start.
+16. Allow your Stream Analytics Job a few minutes to start.
 
-18. Once the Stream Analytics Job has successfully started, verify that you are showing a non-zero amount of **Input Events** on the **Monitoring** chart on the **Overview** blade. You may need to reconnect your devices on the **Smart Meter Simulator** and let it run for a while to see the events.
+17. Once the Stream Analytics Job has successfully started, verify that you are showing a non-zero amount of **Input Events** on the **Monitoring** chart on the **Overview** blade. You may need to reconnect your devices on the **Smart Meter Simulator** and let it run for a while to see the events.
 
     ![The Stream Analytics job monitoring chart is diplayed with a non-zero amount of input events highlighted.](media/stream-analytics-job-monitoring-events.png 'Monitoring chart for Stream Analytics job')
 
@@ -983,7 +975,7 @@ In this task, you will create a new Databricks notebook to perform some processi
 
 14. **Run** the cell.
 
-15. You know from inspecting the files in the storage container that the files are contained within a folder structure resembling, **smartmeters/YYYY-MM-DD/HH**. You can use wildcards to obfuscate the date and hour folders, as well as the file names, and access all the files in all the folders. **Insert another cell** into the notebook, paste the following code, and **run** the cell to load the data from the files in blob storage into a **Databricks Dataframe**.
+15. You know from inspecting the files in the storage container that the files are contained within a folder structure resembling, **smartmeters/YYYY-DD-MM/HH**. You can use wildcards to obfuscate the date and hour folders, as well as the file names, and access all the files in all the folders. **Insert another cell** into the notebook, paste the following code, and **run** the cell to load the data from the files in blob storage into a **Databricks Dataframe**.
 
     ```python
     # Create a Dataframe containing data from all the files in blob storage, regardless of the folder they are located within.
@@ -1039,15 +1031,15 @@ In this task, you will create a new Databricks notebook to perform some processi
     SELECT * FROM DeviceSummary
     ```
 
-23. **Below** the results table, notice the area to change the visualization for tabular output. Select the **Bar** button, and then select **Plot Options**.
+23. **Below** the results table, notice the area to change the visualization for the tabular output. Expand the **Chart** menu and choose the **Bar** option.
 
-    ![Buttons for displaying tablular results in different formats in Databricks](media/azure-databricks-notebook-visualizations.png 'Visualization options')
+    ![Buttons for displaying tabular results in different formats in Databricks](media/azure-databricks-notebook-visualizations.png 'Visualization options')
 
-24. In the **Customize Plot** dialog, ensure the following are set:
+24. With the Bar chart visualization chosen, a **Plot Options..** button appears. Select **Plot Options..** and in the **Customize Plot** dialog, ensure the following are set:
 
     - **Keys**: **id**
     - **Values**: **averageTemp**
-    - **Aggregation**: Select **AVG**
+    - **Aggregation**: Select **AVG**.
     - Select **Grouped** as the chart type.
     - **Display type**: Select **Bar chart**.
 
@@ -1057,7 +1049,7 @@ In this task, you will create a new Databricks notebook to perform some processi
 
 26. Observe the results graphed as a column chart, where each column represents a device's average temperature.
 
-    ![A bar chart is displayed, with devices on the X axis, and average temperations on the Y axis.](media/azure-databricks-notebook-visualizations-bar-chart.png 'Bar chart')
+    ![A bar chart is displayed, with devices on the X axis, and average temperatures on the Y axis.](media/azure-databricks-notebook-visualizations-bar-chart.png 'Bar chart')
 
 ## Exercise 5: Sending commands to the IoT devices
 
@@ -1099,9 +1091,9 @@ In this task, you will register, activate, and connect all devices. You will the
 
     ![In addition to the IoT Hub Connection String, the Smart Meter Simulator has two buildings with 10 windows. The color of the windows indicating the status of the devices. Currently, all windows are gray.](media/smart-meter-simulator-register.png 'Fabrikam Smart Meter Simulator')
 
-3. Select **all** of the windows. Each represents a device for which you want to simulate device installation. The selected windows should turn yellow.
+3. Select **all** of the windows. Each represents a device for which you want to simulate device installation. The selected windows should turn pale yellow.
 
-    ![The Smart Meter Simulator now has all yellow windows.](media/smart-meter-simulator-window-select-all.png 'Fabrikam Smart Meter Simulator')
+    ![The Smart Meter Simulator now has all pale yellow windows.](media/smart-meter-simulator-window-select-all.png 'Fabrikam Smart Meter Simulator')
 
 4. Select **Activate** to simulate changing the device status from disabled to enabled in the IoT Hub Registry. The selected windows should turn green.
 
@@ -1123,7 +1115,7 @@ In this task, you will run the console app to send desired temperature settings 
 
 1. Within the **SmartMeterSimulator** Visual Studio solution, right-click the **CloudToDevice** project, select **Debug**, then select **Start new instance** to run the console app.
 
-2. In the **console window**, enter a **device number** when prompted. Accepted values are 0-9, since there are 10 devices whose IDs begin with 0. You can hover over the windows in the **Smart Meter Simulator** to view the Device IDs. When you enter a number, such as `5`, then a message will be sent to **Device5**.
+2. In the **console window**, enter a **device number** when prompted. Accepted values are 0-9, since there are 10 devices whose IDs begin with 0. You can hover over the windows in the **Smart Meter Simulator** to view the Device IDs. When you enter a number, such as `1`, then a message will be sent to **Device1**.
 
     ![The value of 1 is entered when prompted for the device number in the console window.](media/console-device-number.png 'Console App')
 
