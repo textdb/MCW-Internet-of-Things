@@ -9,7 +9,7 @@ Hands-on lab step-by-step
 </div>
 
 <div class="MCWHeader3">
-March 2021
+May 2021
 </div>
 
 Information in this document, including URL and other Internet Web site references, is subject to change without notice. Unless otherwise noted, the example companies, organizations, products, domain names, e-mail addresses, logos, people, places, and events depicted herein are fictitious, and no association with any real company, organization, product, domain name, e-mail address, logo, person, place or event is intended or should be inferred. Complying with all applicable copyright laws is the responsibility of the user. Without limiting the rights under copyright, no part of this document may be reproduced, stored in or introduced into a retrieval system, or transmitted in any form or by any means (electronic, mechanical, photocopying, recording, or otherwise), or for any purpose, without the express written permission of Microsoft Corporation.
@@ -150,7 +150,7 @@ Fabrikam has left you a partially completed sample in the form of the Smart Mete
 
    ![On the Visual Studio View menu, Task List is selected.](media/visual-studio-view-menu-task-list.png 'Visual Studio View menu')
 
-3. In the **Task List**, you will see a list of **TODO** tasks, where each task represents one line of code that needs to be completed. Complete the line of code below each **TODO** using the code below as a reference.
+3. In the **Task List**, you will see a list of **TODO** tasks, where each task represents one line of code that needs to be completed. Complete the line of code below each **TODO** using the code below as a reference. If your task list is blank, complete TODO steps 1-16 as indicated in the code in the next step.
 
 4. The following code represents the completed tasks in **DeviceManager.cs**:
 
@@ -191,7 +191,6 @@ Fabrikam has left you a partially completed sample in the form of the Smart Mete
            Device device = new Device(deviceId);
 
            //TODO: 3.Initialize device with a status of Disabled
-           //Enabled in a subsequent step
            device.Status = DeviceStatus.Disabled;
 
            try
@@ -386,7 +385,7 @@ You will want to avoid entering the IoT Hub connection string every time the pro
 
 ### Task 3: Implement the communication of telemetry with IoT Hub
 
-1. Open **Sensor.cs** from the **Solution Explorer**, and complete the **TODO** items indicated within the code that are responsible for transmitting telemetry data to the IoT Hub, as well as receiving data from IoT Hub.
+1. Open **Sensor.cs** from the **Solution Explorer**, and complete the **TODO** items 17 to 22 as indicated within the code that are responsible for transmitting telemetry data to the IoT Hub, as well as receiving data from IoT Hub.
 
 2. The following code shows the completed result:
 
@@ -744,15 +743,13 @@ Fabrikam would like to be able to capture all the "cold" data into scalable stor
    - **Storage account name**: Enter `smartmetersSUFFIX`.
    - **Location**: Select the location you are using for resources in this hands-on lab.
    - **Performance**: Select **Standard**.
-   - **Account kind**: Select **StorageV2 (general purpose v2)**.
-   - **Replication**: Select **Locally-redundant storage (LRS)**.
+   - **Redundancy**: Select **Locally-redundant storage (LRS)**.
 
    ![The Create storage account blade is displayed, with the previously mentioned settings entered into the appropriate fields.](media/storage-account-create-new.png 'Create storage account')
 
 3. Select the **Advanced** tab, select the following:
 
-   - **Secure transfer required**: Select **Disabled**.
-   - You may also need to specify the default access tier as **Hot** at this tab.
+   - **Secure transfer required**: Unchecked.
 
    ![The Create storage account blade is displayed with options under the Advanced tab.](media/storage-account-create-new-advanced.png 'Create storage account - Advanced')
 
@@ -824,8 +821,7 @@ To capture all metrics for the cold path, set up another Stream Analytics job th
    - **Path pattern**: Enter `smartmeters/{date}/{time}`
    - **Date format**: Select **YYYY-DD-MM**.
    - **Time format**: Select **HH**.
-   - **Event serialization format**: Select **CSV**.
-   - **Delimiter**: Select **comma (,)**.
+   - **Event serialization format**: Select **CSV**, **comma (,)**
    - **Encoding**: Select **UTF-8**.
    - **Minimum rows**: Enter **100**.
    - **Maximum time**: Enter **5** Minutes.
@@ -1081,7 +1077,7 @@ This console app is configured to connect to IoT Hub using the same connection s
 
 ### Task 2: Run the device simulator
 
-In this task, you will register, activate, and connect all devices. You will then leave the simulator running so that you can launch the console app and start sending cloud-to-device messages.
+In this task, you will register, activate, and connect all devices. You will then leave the simulator running so that you can launch the console app and start sending cloud-to-device messages. If you currently have the device simulator running from an earlier task, you may stop it and perform the following steps. Alternatively, you could skip to step 6 and interact with your currently active devices.
 
 1. Within the **SmartMeterSimulator** Visual Studio solution, right-click the **SmartMeterSimulator** project, select **Debug**, then select **Start new instance** to run the device simulator.
 

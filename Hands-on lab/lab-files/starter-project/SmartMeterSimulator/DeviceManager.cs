@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Microsoft.Azure.Devices;
 using Microsoft.Azure.Devices.Client.Exceptions;
+using Microsoft.Azure.Devices.Common.Exceptions;
 
 namespace SmartMeterSimulator
 {
