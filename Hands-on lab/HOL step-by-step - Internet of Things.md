@@ -29,8 +29,11 @@ Microsoft and the trademarks listed at <https://www.microsoft.com/en-us/legal/in
   - [Overview](#overview)
   - [Solution architecture](#solution-architecture)
   - [Requirements](#requirements)
-  - [Exercise 1: IoT Hub provisioning](#exercise-1-iot-hub-provisioning)
-    - [Task 1: Provision IoT Hub](#task-1-provision-iot-hub)
+  - [Exercise 1: IoT Hub and Device Provisioning Service deployment](#exercise-1-iot-hub-and-device-provisioning-service-deployment)
+    - [Task 1: Provision the IoT Hub](#task-1-provision-the-iot-hub)
+    - [Task 2: Deploy the Device Provisioning Service](#task-2-deploy-the-device-provisioning-service)
+    - [Task 3: Link the IoT Hub to the Device Provisioning Service](#task-3-link-the-iot-hub-to-the-device-provisioning-service)
+    - [Task 4: Create an enrollment group](#task-4-create-an-enrollment-group)
   - [Exercise 2: Completing the Smart Meter Simulator](#exercise-2-completing-the-smart-meter-simulator)
     - [Task 1: Implement device management with the IoT Hub](#task-1-implement-device-management-with-the-iot-hub)
     - [Task 2: Configure the IoT Hub connection string](#task-2-configure-the-iot-hub-connection-string)
@@ -86,13 +89,13 @@ Other alternatives for processing of the ingested telemetry would be to use an H
   - Azure SDK 2.9 or later (Included with Visual Studio)
 - A running Azure Databricks cluster (see [Before the hands-on lab](./Before%20the%20HOL%20-%20Internet%20of%20Things.md))
 
-## Exercise 1: IoT Hub provisioning
+## Exercise 1: IoT Hub and Device Provisioning Service deployment
 
 Duration: 15 minutes
 
-In your architecture design session with Fabrikam, it was agreed that you would use an Azure IoT Hub to manage both the device registration and telemetry ingest from the Smart Meter Simulator. Your team also identified the Microsoft provided Device Explorer project that Fabrikam can use to view the list and status of devices in the IoT Hub registry.
+In your architecture design session with Fabrikam, it was agreed upon to use Azure Device Provisioning Service (DPS) to manage automatic device registration. The DPS would then assign an IoT Hub to the device that ingests telemetry from the Smart Meter Simulator. In this exercise, you will deploy an IoT Hub and DPS to enable device registration and connectivity.
 
-### Task 1: Provision IoT Hub
+### Task 1: Provision the IoT Hub
 
 In these steps, you will provision an instance of IoT Hub.
 
@@ -135,6 +138,10 @@ In these steps, you will provision an instance of IoT Hub.
 9. In the **iothubowner** blade, select the **Copy** button to the right of the **Connection string - primary key** field. You will need this connection string value in the next exercise.
 
    ![Screenshot of the iothubowner blade. The connection string - primary key field is highlighted.](./media/iot-hub-shared-access-policies-iothubowner-blade.png 'iothubowner blade')
+
+### Task 2: Deploy the Device Provisioning Service
+### Task 3: Link the IoT Hub to the Device Provisioning Service
+### Task 4: Create an enrollment group
 
 ## Exercise 2: Completing the Smart Meter Simulator
 

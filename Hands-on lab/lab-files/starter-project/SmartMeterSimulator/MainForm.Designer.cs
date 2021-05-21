@@ -41,8 +41,6 @@
             this.Device1 = new System.Windows.Forms.Button();
             this.Device3 = new System.Windows.Forms.Button();
             this.Device6 = new System.Windows.Forms.Button();
-            this.lblIotHubCnString = new System.Windows.Forms.Label();
-            this.txtIotHubCnString = new System.Windows.Forms.TextBox();
             this.lvSensorData = new System.Windows.Forms.ListView();
             this.colDeviceID = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colSensorData = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -58,8 +56,6 @@
             this.pictureBox4 = new System.Windows.Forms.PictureBox();
             this.ttDeviceStatus = new System.Windows.Forms.ToolTip(this.components);
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.btnUnregister = new System.Windows.Forms.Button();
-            this.btnActivate = new System.Windows.Forms.Button();
             this.btnRegister = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.btnDisconnect = new System.Windows.Forms.Button();
@@ -75,6 +71,10 @@
             this.Status8 = new System.Windows.Forms.PictureBox();
             this.Status9 = new System.Windows.Forms.PictureBox();
             this.pStatus = new System.Windows.Forms.Panel();
+            this.lblEnrollmentKey = new System.Windows.Forms.Label();
+            this.txtGroupEnrollmentKey = new System.Windows.Forms.TextBox();
+            this.txtIdScope = new System.Windows.Forms.TextBox();
+            this.lblIdScope = new System.Windows.Forms.Label();
             this.pDevices.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
@@ -111,7 +111,7 @@
             this.pDevices.Controls.Add(this.Device1);
             this.pDevices.Controls.Add(this.Device3);
             this.pDevices.Controls.Add(this.Device6);
-            this.pDevices.Location = new System.Drawing.Point(410, 180);
+            this.pDevices.Location = new System.Drawing.Point(410, 219);
             this.pDevices.Name = "pDevices";
             this.pDevices.Size = new System.Drawing.Size(336, 454);
             this.pDevices.TabIndex = 16;
@@ -119,7 +119,6 @@
             // Device0
             // 
             this.Device0.BackColor = System.Drawing.Color.Black;
-            this.Device0.Enabled = false;
             this.Device0.FlatAppearance.BorderSize = 0;
             this.Device0.ForeColor = System.Drawing.SystemColors.ControlText;
             this.Device0.Location = new System.Drawing.Point(53, 43);
@@ -128,11 +127,11 @@
             this.Device0.TabIndex = 0;
             this.Device0.Text = " ";
             this.Device0.UseVisualStyleBackColor = false;
+            this.Device0.Click += new System.EventHandler(this.InstallDevice);
             // 
             // Device5
             // 
             this.Device5.BackColor = System.Drawing.Color.Black;
-            this.Device5.Enabled = false;
             this.Device5.FlatAppearance.BorderSize = 0;
             this.Device5.ForeColor = System.Drawing.SystemColors.ControlText;
             this.Device5.Location = new System.Drawing.Point(110, 325);
@@ -140,11 +139,11 @@
             this.Device5.Size = new System.Drawing.Size(41, 41);
             this.Device5.TabIndex = 5;
             this.Device5.UseVisualStyleBackColor = false;
+            this.Device5.Click += new System.EventHandler(this.InstallDevice);
             // 
             // Device9
             // 
             this.Device9.BackColor = System.Drawing.Color.Black;
-            this.Device9.Enabled = false;
             this.Device9.FlatAppearance.BorderSize = 0;
             this.Device9.ForeColor = System.Drawing.SystemColors.ControlText;
             this.Device9.Location = new System.Drawing.Point(210, 289);
@@ -152,11 +151,11 @@
             this.Device9.Size = new System.Drawing.Size(41, 41);
             this.Device9.TabIndex = 9;
             this.Device9.UseVisualStyleBackColor = false;
+            this.Device9.Click += new System.EventHandler(this.InstallDevice);
             // 
             // Device2
             // 
             this.Device2.BackColor = System.Drawing.Color.Black;
-            this.Device2.Enabled = false;
             this.Device2.FlatAppearance.BorderSize = 0;
             this.Device2.ForeColor = System.Drawing.SystemColors.ControlText;
             this.Device2.Location = new System.Drawing.Point(110, 269);
@@ -164,11 +163,11 @@
             this.Device2.Size = new System.Drawing.Size(41, 41);
             this.Device2.TabIndex = 4;
             this.Device2.UseVisualStyleBackColor = false;
+            this.Device2.Click += new System.EventHandler(this.InstallDevice);
             // 
             // Device8
             // 
             this.Device8.BackColor = System.Drawing.Color.Black;
-            this.Device8.Enabled = false;
             this.Device8.FlatAppearance.BorderSize = 0;
             this.Device8.ForeColor = System.Drawing.SystemColors.ControlText;
             this.Device8.Location = new System.Drawing.Point(254, 232);
@@ -176,11 +175,11 @@
             this.Device8.Size = new System.Drawing.Size(41, 41);
             this.Device8.TabIndex = 8;
             this.Device8.UseVisualStyleBackColor = false;
+            this.Device8.Click += new System.EventHandler(this.InstallDevice);
             // 
             // Device4
             // 
             this.Device4.BackColor = System.Drawing.Color.Black;
-            this.Device4.Enabled = false;
             this.Device4.FlatAppearance.BorderSize = 0;
             this.Device4.ForeColor = System.Drawing.SystemColors.ControlText;
             this.Device4.Location = new System.Drawing.Point(54, 212);
@@ -188,11 +187,11 @@
             this.Device4.Size = new System.Drawing.Size(41, 41);
             this.Device4.TabIndex = 3;
             this.Device4.UseVisualStyleBackColor = false;
+            this.Device4.Click += new System.EventHandler(this.InstallDevice);
             // 
             // Device7
             // 
             this.Device7.BackColor = System.Drawing.Color.Black;
-            this.Device7.Enabled = false;
             this.Device7.FlatAppearance.BorderSize = 0;
             this.Device7.ForeColor = System.Drawing.SystemColors.ControlText;
             this.Device7.Location = new System.Drawing.Point(210, 175);
@@ -200,11 +199,11 @@
             this.Device7.Size = new System.Drawing.Size(41, 41);
             this.Device7.TabIndex = 7;
             this.Device7.UseVisualStyleBackColor = false;
+            this.Device7.Click += new System.EventHandler(this.InstallDevice);
             // 
             // Device1
             // 
             this.Device1.BackColor = System.Drawing.Color.Black;
-            this.Device1.Enabled = false;
             this.Device1.FlatAppearance.BorderSize = 0;
             this.Device1.ForeColor = System.Drawing.SystemColors.ControlText;
             this.Device1.Location = new System.Drawing.Point(53, 99);
@@ -212,11 +211,11 @@
             this.Device1.Size = new System.Drawing.Size(41, 41);
             this.Device1.TabIndex = 1;
             this.Device1.UseVisualStyleBackColor = false;
+            this.Device1.Click += new System.EventHandler(this.InstallDevice);
             // 
             // Device3
             // 
             this.Device3.BackColor = System.Drawing.Color.Black;
-            this.Device3.Enabled = false;
             this.Device3.FlatAppearance.BorderSize = 0;
             this.Device3.ForeColor = System.Drawing.SystemColors.ControlText;
             this.Device3.Location = new System.Drawing.Point(110, 155);
@@ -224,11 +223,11 @@
             this.Device3.Size = new System.Drawing.Size(41, 41);
             this.Device3.TabIndex = 2;
             this.Device3.UseVisualStyleBackColor = false;
+            this.Device3.Click += new System.EventHandler(this.InstallDevice);
             // 
             // Device6
             // 
             this.Device6.BackColor = System.Drawing.Color.Black;
-            this.Device6.Enabled = false;
             this.Device6.FlatAppearance.BorderSize = 0;
             this.Device6.ForeColor = System.Drawing.SystemColors.ControlText;
             this.Device6.Location = new System.Drawing.Point(53, 373);
@@ -236,27 +235,7 @@
             this.Device6.Size = new System.Drawing.Size(41, 41);
             this.Device6.TabIndex = 6;
             this.Device6.UseVisualStyleBackColor = false;
-            // 
-            // lblIotHubCnString
-            // 
-            this.lblIotHubCnString.AutoSize = true;
-            this.lblIotHubCnString.Font = new System.Drawing.Font("Segoe UI Light", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblIotHubCnString.Location = new System.Drawing.Point(28, 9);
-            this.lblIotHubCnString.Name = "lblIotHubCnString";
-            this.lblIotHubCnString.Size = new System.Drawing.Size(463, 54);
-            this.lblIotHubCnString.TabIndex = 23;
-            this.lblIotHubCnString.Text = "IoT Hub Connection String";
-            // 
-            // txtIotHubCnString
-            // 
-            this.txtIotHubCnString.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtIotHubCnString.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.txtIotHubCnString.Location = new System.Drawing.Point(35, 33);
-            this.txtIotHubCnString.Multiline = true;
-            this.txtIotHubCnString.Name = "txtIotHubCnString";
-            this.txtIotHubCnString.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtIotHubCnString.Size = new System.Drawing.Size(530, 40);
-            this.txtIotHubCnString.TabIndex = 0;
+            this.Device6.Click += new System.EventHandler(this.InstallDevice);
             // 
             // lvSensorData
             // 
@@ -264,7 +243,8 @@
             this.colDeviceID,
             this.colSensorData,
             this.colDateTime});
-            this.lvSensorData.Location = new System.Drawing.Point(35, 279);
+            this.lvSensorData.HideSelection = false;
+            this.lvSensorData.Location = new System.Drawing.Point(35, 318);
             this.lvSensorData.Name = "lvSensorData";
             this.lvSensorData.ShowGroups = false;
             this.lvSensorData.Size = new System.Drawing.Size(354, 396);
@@ -292,9 +272,9 @@
             // 
             this.lblSensorInfo.AutoSize = true;
             this.lblSensorInfo.Font = new System.Drawing.Font("Segoe UI Light", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblSensorInfo.Location = new System.Drawing.Point(47, 636);
+            this.lblSensorInfo.Location = new System.Drawing.Point(47, 615);
             this.lblSensorInfo.Name = "lblSensorInfo";
-            this.lblSensorInfo.Size = new System.Drawing.Size(0, 54);
+            this.lblSensorInfo.Size = new System.Drawing.Size(0, 21);
             this.lblSensorInfo.TabIndex = 30;
             // 
             // groupBox1
@@ -305,7 +285,7 @@
             this.groupBox1.Controls.Add(this.pictureBox2);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.pictureBox1);
-            this.groupBox1.Location = new System.Drawing.Point(409, 636);
+            this.groupBox1.Location = new System.Drawing.Point(409, 675);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(336, 39);
             this.groupBox1.TabIndex = 31;
@@ -317,7 +297,7 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(251, 19);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(172, 38);
+            this.label3.Size = new System.Drawing.Size(70, 13);
             this.label3.TabIndex = 36;
             this.label3.Text = "< 68 degrees";
             // 
@@ -337,7 +317,7 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(145, 18);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(185, 38);
+            this.label2.Size = new System.Drawing.Size(75, 13);
             this.label2.TabIndex = 34;
             this.label2.Text = "68-72 degrees";
             // 
@@ -357,7 +337,7 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(39, 19);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(172, 38);
+            this.label1.Size = new System.Drawing.Size(69, 13);
             this.label1.TabIndex = 32;
             this.label1.Text = "> 72 degrees";
             // 
@@ -384,38 +364,13 @@
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.btnUnregister);
-            this.groupBox2.Controls.Add(this.btnActivate);
             this.groupBox2.Controls.Add(this.btnRegister);
-            this.groupBox2.Location = new System.Drawing.Point(26, 85);
+            this.groupBox2.Location = new System.Drawing.Point(26, 124);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(418, 82);
             this.groupBox2.TabIndex = 36;
             this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Device Registry";
-            // 
-            // btnUnregister
-            // 
-            this.btnUnregister.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnUnregister.BackgroundImage")));
-            this.btnUnregister.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.btnUnregister.Location = new System.Drawing.Point(284, 28);
-            this.btnUnregister.Name = "btnUnregister";
-            this.btnUnregister.Size = new System.Drawing.Size(128, 34);
-            this.btnUnregister.TabIndex = 38;
-            this.btnUnregister.UseVisualStyleBackColor = true;
-            this.btnUnregister.Click += new System.EventHandler(this.btnUnregister_Click);
-            // 
-            // btnActivate
-            // 
-            this.btnActivate.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnActivate.BackgroundImage")));
-            this.btnActivate.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.btnActivate.Enabled = false;
-            this.btnActivate.Location = new System.Drawing.Point(147, 28);
-            this.btnActivate.Name = "btnActivate";
-            this.btnActivate.Size = new System.Drawing.Size(128, 34);
-            this.btnActivate.TabIndex = 37;
-            this.btnActivate.UseVisualStyleBackColor = true;
-            this.btnActivate.Click += new System.EventHandler(this.btnActivate_Click);
+            this.groupBox2.Text = "Runtime Device Registration";
             // 
             // btnRegister
             // 
@@ -432,7 +387,7 @@
             // 
             this.groupBox3.Controls.Add(this.btnDisconnect);
             this.groupBox3.Controls.Add(this.btnConnect);
-            this.groupBox3.Location = new System.Drawing.Point(450, 85);
+            this.groupBox3.Location = new System.Drawing.Point(450, 124);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(295, 82);
             this.groupBox3.TabIndex = 37;
@@ -607,33 +562,75 @@
             this.pStatus.Controls.Add(this.Status2);
             this.pStatus.Controls.Add(this.Status1);
             this.pStatus.Controls.Add(this.Status0);
-            this.pStatus.Location = new System.Drawing.Point(35, 185);
+            this.pStatus.Location = new System.Drawing.Point(35, 224);
             this.pStatus.Name = "pStatus";
             this.pStatus.Size = new System.Drawing.Size(360, 86);
             this.pStatus.TabIndex = 28;
             // 
+            // lblEnrollmentKey
+            // 
+            this.lblEnrollmentKey.AutoSize = true;
+            this.lblEnrollmentKey.Font = new System.Drawing.Font("Segoe UI Light", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblEnrollmentKey.Location = new System.Drawing.Point(22, 9);
+            this.lblEnrollmentKey.Name = "lblEnrollmentKey";
+            this.lblEnrollmentKey.Size = new System.Drawing.Size(243, 21);
+            this.lblEnrollmentKey.TabIndex = 39;
+            this.lblEnrollmentKey.Text = "DPS Group Enrollment Primary Key";
+            // 
+            // txtGroupEnrollmentKey
+            // 
+            this.txtGroupEnrollmentKey.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtGroupEnrollmentKey.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.txtGroupEnrollmentKey.Location = new System.Drawing.Point(26, 33);
+            this.txtGroupEnrollmentKey.Name = "txtGroupEnrollmentKey";
+            this.txtGroupEnrollmentKey.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtGroupEnrollmentKey.Size = new System.Drawing.Size(470, 25);
+            this.txtGroupEnrollmentKey.TabIndex = 38;
+            // 
+            // txtIdScope
+            // 
+            this.txtIdScope.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtIdScope.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.txtIdScope.Location = new System.Drawing.Point(26, 88);
+            this.txtIdScope.Name = "txtIdScope";
+            this.txtIdScope.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtIdScope.Size = new System.Drawing.Size(470, 25);
+            this.txtIdScope.TabIndex = 40;
+            // 
+            // lblIdScope
+            // 
+            this.lblIdScope.AutoSize = true;
+            this.lblIdScope.Font = new System.Drawing.Font("Segoe UI Light", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblIdScope.Location = new System.Drawing.Point(22, 64);
+            this.lblIdScope.Name = "lblIdScope";
+            this.lblIdScope.Size = new System.Drawing.Size(102, 21);
+            this.lblIdScope.TabIndex = 41;
+            this.lblIdScope.Text = "DPS ID Scope";
+            // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(14F, 37F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.ClientSize = new System.Drawing.Size(766, 692);
+            this.ClientSize = new System.Drawing.Size(766, 751);
+            this.Controls.Add(this.txtIdScope);
+            this.Controls.Add(this.lblIdScope);
+            this.Controls.Add(this.txtGroupEnrollmentKey);
+            this.Controls.Add(this.lblEnrollmentKey);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.pictureBox4);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.lvSensorData);
             this.Controls.Add(this.pStatus);
-            this.Controls.Add(this.txtIotHubCnString);
             this.Controls.Add(this.lblSensorInfo);
-            this.Controls.Add(this.lblIotHubCnString);
             this.Controls.Add(this.pDevices);
             this.DoubleBuffered = true;
             this.Font = new System.Drawing.Font("Segoe UI Light", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "MainForm";
-            this.Text = "Fabrikam Smart Meter Simulator";
+            this.Text = "Fabrikam Smart Meter Simulator";            
             this.pDevices.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
@@ -669,8 +666,6 @@
         private System.Windows.Forms.Button Device4;
         private System.Windows.Forms.Button Device5;
         private System.Windows.Forms.Button Device6;
-        private System.Windows.Forms.Label lblIotHubCnString;
-        private System.Windows.Forms.TextBox txtIotHubCnString;
         private System.Windows.Forms.Button Device9;
         private System.Windows.Forms.Button Device8;
         private System.Windows.Forms.Button Device7;
@@ -689,8 +684,6 @@
         private System.Windows.Forms.ColumnHeader colDateTime;
         private System.Windows.Forms.ToolTip ttDeviceStatus;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.Button btnUnregister;
-        private System.Windows.Forms.Button btnActivate;
         private System.Windows.Forms.Button btnRegister;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.Button btnDisconnect;
@@ -706,6 +699,10 @@
         private System.Windows.Forms.PictureBox Status8;
         private System.Windows.Forms.PictureBox Status9;
         private System.Windows.Forms.Panel pStatus;
+        private System.Windows.Forms.Label lblEnrollmentKey;
+        private System.Windows.Forms.TextBox txtGroupEnrollmentKey;
+        private System.Windows.Forms.TextBox txtIdScope;
+        private System.Windows.Forms.Label lblIdScope;
     }
 }
 

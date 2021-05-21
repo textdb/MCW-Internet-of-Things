@@ -37,6 +37,7 @@ At the end of this hands-on lab, you will be better able to build an IoT solutio
 - Azure Databricks
 - Azure SQL Database
 - Azure Stream Analytics
+- Device Provisioning Service
 - IoT Hub
 - Power BI Desktop
 - Visual Studio

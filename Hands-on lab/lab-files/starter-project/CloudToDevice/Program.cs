@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Azure.Devices;
@@ -12,7 +10,7 @@ namespace CloudToDevice
         static ServiceClient serviceClient;
         static double temperature = 0;
         static int device = 0;
-        static string connectionString = "YOUR-CONNECTION-STRING";
+        static string connectionString = "IOT_HUB_CONNECTION_STRING";
 
         static void Main(string[] args)
         {
