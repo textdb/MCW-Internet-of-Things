@@ -429,7 +429,7 @@ _High-level architecture_
 
    ![Diagram of preferred solution, displaying smart meter telemetry being ingested into IoT Hub, then processed via Stream Analytics into hot and cold paths. More about the diagram is described in the text following this diagram.](./media/preferred-solution-architecture.png 'Preferred solution architecture')
 
-   Messages are ingested from the Smart Meters via IoT Hub and temporarily stored there. A Stream Analytics job pulls telemetry messages from IoT Hub and sends the messages to two different destinations. There are two Stream Analytics jobs, one that retrieves all messages and sends them to Blob Storage (the cold path), and another that selects out only the important events needed for reporting in real time (the hot path) from the website hosted in Azure Web Apps. Data entering the hot path will be reported on using Power BI visualizations and reports. For the cold path, Azure Databricks can be used to apply the batch computation needed for the reports at scale. The entire cold-path processing pipeline could be coordinated with Azure Data Factory or Azure Synapse Analytics.
+   Smart Meters are installed in buildings. They will register with a Device Provisioning Service using an attestation method through an enrollment group. Once registered and connected, messages are ingested from the Smart Meters via IoT Hub and temporarily stored there. A Stream Analytics job pulls telemetry messages from IoT Hub and sends the messages to two different destinations. There are two Stream Analytics jobs, one that retrieves all messages and sends them to Blob Storage (the cold path), and another that selects out only the important events needed for reporting in real time (the hot path) from the website hosted in Azure Web Apps. Data entering the hot path will be reported on using Power BI visualizations and reports. For the cold path, Azure Databricks can be used to apply the batch computation needed for the reports at scale. The entire cold-path processing pipeline could be coordinated with Azure Data Factory or Azure Synapse Analytics.
 
    Other alternatives for processing of the ingested telemetry would be to use an HDInsight Storm cluster, a WebJob or Azure function running the EventProcessorHost in place of Stream Analytics, or Azure Databricks running with Spark streaming. Depending on the type of message filtering being conducted for hot and cold stream separation, IoT Hub Message Routing might also be used. A couple things to consider are that adding additional routing endpoints could add some minor end-to-end latency to device-to-cloud telemetry messages (usually less than 500ms), and that you are restricted to outputting in either Apache Avro or JSON formats when writing to Blob storage. An important limitation to keep in mind for Stream Analytics is that it is very restrictive on the format of the input data it can process: the payload must be UTF8 encoded JSON, UTF8 encoded CSV (fields delimited by commas, spaces, tabs, or vertical pipes), or AVRO, and it must be well formed. If any devices transmitting telemetry cannot generate output in these formats (e.g., because they are legacy devices), or their output can be not well formed at times, then alternatives that can better deal with these situations should be investigated. Additionally, any custom code or logic cannot be embedded with Stream Analytics---if greater extensibility is required, the alternatives should be considered.
 
@@ -457,7 +457,7 @@ _Device to cloud communication_
 
    - What service endpoints do the devices talk to?
 
-     To an endpoint of the form `http(s)://{IoTHubHostName}.azure-devices.net/devices/{deviceId}/events`
+     To an endpoint of the form `http(s)://{IoTHubHostName}.azure-devices.net/devices/{deviceId}/events`. This endpoint is provided to the device through the Device Provisioning Service upon registration of the device.
 
    ![the Device to cloud communication diagram starts with Smart meters. Messages are sent to an IoT Hub via: HTTPS, POST, AMQP, AMQP over WebSockets, MQTT, and MQTT over WebSockets.](./media/device-to-cloud-communication.png 'Device to cloud communication diagram')
 
@@ -465,7 +465,27 @@ _Device provisioning_
 
 1. Fabrikam is planning a large rollout of smart meters in batches of 1000. They desire a simplified provisioning process that does not involve having a device administrator manually creating each device in the backend and then manually configuring the hardware. They want the device to identify and register itself automatically once installed. What Azure service should they use to accomplish this?
 
-   ![IoT device provisioning flow. Devices are registered with IoT Hub identity registry, then they are installed and connected to the network. Activation of devices enables the flow of telemetry data to begin. The IoT Device Provisioning Flow is broken into three steps: Create Device Identity, Install Device, and Activate Device. The Create Device Identity workflow begins with an Admin user who sets the pre-shared key on the Smart Meter Device, and registers the device identity at the Fabrikam Device Admin Website. The Device is registered in the IoT Hub identity registry, but the deviceStatus is set to disabled. The Install Device workflow has the device powered up and connected to the network. The Activate Device workflow has the Device Admin activating the device on the Fabrikam Device Admin Website. Using HTTP PUT, and IoT Hub, activation enables set deviceStatus to enabled, to allow connection. Device metadata is updated to reflect the customer who owns it, and the installation location.](./media/iot-device-provisioning-flow.png 'IoT Device Provisioning Flow')
+      In order to avoid lengthy and complicated enrollment, Fabrikam should use an IoT Hub Device Provisioning Service. They can setup an enrollment group and provide an attestation method for devices to authenticate and identify themselves, thus automating registration.
+
+      ![The IoT device provisioning flow described as follows.](./media/iot-device-provisioning-flow.png 'IoT Device Provisioning Flow')
+
+      The IoT device provisioning flow is as follows:
+
+      1. Device manufacturer adds the device registration information to the enrollment list in the Azure portal. Alternatively, an enrollment group can be created that will group registrations for devices that are not yet known.
+
+      2. Device contacts the DPS endpoint set at the factory. The device passes the identifying information to DPS to prove its identity.
+
+      3. DPS validates the identity of the device by validating the registration ID and key against the enrollment list entry using either a nonce challenge (Trusted Platform Module) or standard X.509 verification (X.509). It can also use symmetric keys for non-production scenarios.
+
+      4. DPS registers the device with an IoT hub and populates the device's desired twin state.
+
+      5. The IoT hub returns device ID information to DPS.
+
+      6. DPS returns the IoT hub connection information to the device. The device can now start sending data directly to the IoT hub.
+
+      7. The device connects to IoT hub.
+
+      8. The device gets the desired state from its device twin in IoT hub.
 
 _"Hot" path processing_
 
