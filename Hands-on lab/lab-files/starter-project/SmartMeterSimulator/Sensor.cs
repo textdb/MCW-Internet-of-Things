@@ -68,8 +68,8 @@ namespace SmartMeterSimulator
         /// </summary>
         public void ConnectDevice()
         {
-            //TODO: 5. Connect the Device to Iot Hub by creating an instance of DeviceClient
-            DeviceClient = DeviceClient.Create(IotHubUri, new DeviceAuthenticationWithRegistrySymmetricKey(DeviceId, DeviceKey));
+            //TODO: 6. Connect the Device to Iot Hub by creating an instance of DeviceClient
+            //DeviceClient = ...
 
             //Set the Device State to Ready
             State = DeviceState.Connected;
@@ -96,15 +96,15 @@ namespace SmartMeterSimulator
                 temp = CurrentTemperature
             };
 
-            //TODO: 6.Serialize the telemetryDataPoint to JSON
-            var messageString = JsonConvert.SerializeObject(telemetryDataPoint);
+            //TODO: 7.Serialize the telemetryDataPoint to JSON
+            //var messageString = ...
 
-            //TODO: 7.Encode the JSON string to ASCII as bytes and create new Message with the bytes
-            var message = new Message(Encoding.ASCII.GetBytes(messageString));
+            //TODO: 8.Encode the JSON string to ASCII as bytes and create new Message with the bytes
+            //var message = ...
 
-            //TODO: 8.Send the message to the IoT Hub
-            var sendEventAsync = DeviceClient?.SendEventAsync(message);
-            if (sendEventAsync != null) await sendEventAsync;
+            //TODO: 9.Send the message to the IoT Hub
+            //var sendEventAsync = ...
+            //if (sendEventAsync != null) ...
         }
 
         /// <summary>
@@ -124,8 +124,8 @@ namespace SmartMeterSimulator
                     return;
                 }
 
-                //TODO: 9.Set the received message for this sensor to the string value of the message byte array
-                ReceivedMessage = Encoding.ASCII.GetString(receivedMessage.GetBytes());
+                //TODO: 10.Set the received message for this sensor to the string value of the message byte array
+                //ReceivedMessage = ...
                 if (double.TryParse(ReceivedMessage, out var requestedTemperature))
                 {
                     ReceivedTemperatureSetting = requestedTemperature;
@@ -140,8 +140,8 @@ namespace SmartMeterSimulator
                 // that prevented the device app from completing the processing of the message,
                 // IoT Hub delivers it again.
 
-                //TODO: 10.Send acknowledgement to IoT hub that the message was processed
-                await DeviceClient?.CompleteAsync(receivedMessage);
+                //TODO: 11.Send acknowledgement to IoT hub that the message was processed
+                //await DeviceClient?...
             }
             catch (Exception)
             {

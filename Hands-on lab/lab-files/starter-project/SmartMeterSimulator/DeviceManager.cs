@@ -23,24 +23,20 @@ namespace SmartMeterSimulator
             SmartMeterDevice device = null;
             
             //TODO: 1. Derive a device key from a combination of the group enrollment key and the device id
-            var primaryKey = ComputeDerivedSymmetricKey(enrollmentKey, deviceId);
+            //var primaryKey = ...
 
-            using (var security = new SecurityProviderSymmetricKey(deviceId, primaryKey, null))
+            //TODO: 2. Create symmetric key with the generated primary key
+            //using (var security = ...
             using (var transportHandler = new ProvisioningTransportHandlerMqtt())
             {
-                //TODO: 2. Create a Provisioning Device Client
-                var client = ProvisioningDeviceClient.Create(globalEndpoint, idScope, security, transportHandler);
+                //TODO: 3. Create a Provisioning Device Client
+                //var client = ...
 
-                //TODO: 3. Register the device using the symmetric key and MQTT
-                DeviceRegistrationResult result = await client.RegisterAsync();
+                //TODO: 4. Register the device using the symmetric key and MQTT
+                //DeviceRegistrationResult result = ...
 
-                //TODO: 4. Populate the device provisioning details
-                device = new SmartMeterDevice()
-                {
-                    AuthenticationKey = primaryKey,
-                    DeviceId = deviceId,
-                    IoTHubHostName = result.AssignedHub
-                };
+                //TODO: 5. Populate the device provisioning details
+                //device = new SmartMeterDevice()...              
             }
             
             //return the device

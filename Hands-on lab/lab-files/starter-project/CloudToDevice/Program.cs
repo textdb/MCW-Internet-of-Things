@@ -10,7 +10,7 @@ namespace CloudToDevice
         static ServiceClient serviceClient;
         static double temperature = 0;
         static int device = 0;
-        static string connectionString = "IOT_HUB_CONNECTION_STRING";
+        static string connectionString = "YOUR-CONNECTION-STRING";
 
         static void Main(string[] args)
         {

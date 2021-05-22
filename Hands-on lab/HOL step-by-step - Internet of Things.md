@@ -162,190 +162,83 @@ Fabrikam has left you a partially completed sample in the form of the Smart Mete
 4. The following code represents the completed tasks in **DeviceManager.cs**:
 
    ```csharp
-   class DeviceManager
-   {
-       static string connectionString;
-       static RegistryManager registryManager;
+    using System;
+    using System.Security.Cryptography;
+    using System.Text;
+    using System.Threading.Tasks;
+    using Microsoft.Azure.Devices.Provisioning.Client;
+    using Microsoft.Azure.Devices.Provisioning.Client.Transport;
+    using Microsoft.Azure.Devices.Shared;
 
-       public static string HostName { get; set; }
+    namespace SmartMeterSimulator
+    {
+        class DeviceManager
+        {            
+            /// <summary>
+            /// Register a single device with the device provisioning service.
+            /// </summary>
+            /// <param name="enrollmentKey">Group Enrollment Key</param>
+            /// <param name="idScope">DPS Service ID Scope</param>
+            /// <param name="deviceId">Device Id of the device being registered</param>
+            /// <returns></returns>
+            public async static Task<SmartMeterDevice> RegisterDeviceAsync(string enrollmentKey, string idScope, string deviceId)
+            {
+                var globalEndpoint = "global.azure-devices-provisioning.net";
+                SmartMeterDevice device = null;
+                
+                //TODO: 1. Derive a device key from a combination of the group enrollment key and the device id
+                var primaryKey = ComputeDerivedSymmetricKey(enrollmentKey, deviceId);
 
-       public static void IotHubConnect(string cnString)
-       {
-           connectionString = cnString;
+                //TODO: 2. Create symmetric key with the generated primary key
+                using (var security = new SecurityProviderSymmetricKey(deviceId, primaryKey, null))
+                using (var transportHandler = new ProvisioningTransportHandlerMqtt())
+                {
+                    //TODO: 3. Create a Provisioning Device Client
+                    var client = ProvisioningDeviceClient.Create(globalEndpoint, idScope, security, transportHandler);
 
-           //TODO: 1.Create an instance of RegistryManager from connectionString
-           registryManager = RegistryManager.CreateFromConnectionString(connectionString);
+                    //TODO: 4. Register the device using the symmetric key and MQTT
+                    DeviceRegistrationResult result = await client.RegisterAsync();
 
-           var builder = IotHubConnectionStringBuilder.Create(cnString);
+                    //TODO: 5. Populate the device provisioning details
+                    device = new SmartMeterDevice()
+                    {
+                        AuthenticationKey = primaryKey,
+                        DeviceId = deviceId,
+                        IoTHubHostName = result.AssignedHub
+                    };
+                }
+                
+                //return the device
+                return device;
+            }
 
-           HostName = builder.HostName;
-       }
+            /// <summary>
+            /// Compute a symmetric key for the provisioned device from the enrollment group symmetric key used in attestation.
+            /// </summary>
+            /// <param name="enrollmentKey">Enrollment group symmetric key.</param>
+            /// <param name="deviceId">The device Id of the key to create.</param>
+            /// <returns>The key for the specified device Id registration in the enrollment group.</returns>
+            /// <seealso>
+            /// https://docs.microsoft.com/en-us/azure/iot-edge/how-to-auto-provision-symmetric-keys?view=iotedge-2018-06#derive-a-device-key
+            /// </seealso>
+            private static string ComputeDerivedSymmetricKey(string enrollmentKey, string deviceId)
+            {
+                if (string.IsNullOrWhiteSpace(enrollmentKey))
+                {
+                    return enrollmentKey;
+                }
 
-       /// <summary>
-       /// Register a single device with the IoT hub. The device is initially registered in a
-       /// disabled state.
-       /// </summary>
-       /// <param name="connectionString"></param>
-       /// <param name="deviceId"></param>
-       /// <returns></returns>
-       public async static Task<string> RegisterDevicesAsync(string connectionString, string deviceId)
-       {
-           //Make sure we're connected
-           if (registryManager == null)
-               IotHubConnect(connectionString);
+                var key = "";
+                using (var hmac = new HMACSHA256(Convert.FromBase64String(enrollmentKey)))
+                {
+                    key = Convert.ToBase64String(hmac.ComputeHash(Encoding.UTF8.GetBytes(deviceId)));
+                }
 
-           //TODO: 2.Create new device
-           Device device = new Device(deviceId);
+                return key;
+            }
+        }
 
-           //TODO: 3.Initialize device with a status of Disabled
-           device.Status = DeviceStatus.Disabled;
-
-           try
-           {
-               //TODO: 4.Register the new device
-               device = await registryManager.AddDeviceAsync(device);
-           }
-           catch (Exception ex)
-           {
-               if (ex is DeviceAlreadyExistsException ||
-                   ex.Message.Contains("DeviceAlreadyExists"))
-               {
-                   //TODO: 5.Device already exists, get the registered device
-                   device = await registryManager.GetDeviceAsync(deviceId);
-
-                   //TODO: 6.Ensure the device is disabled until Activated later
-                   device.Status = DeviceStatus.Disabled;
-
-                   //TODO: 7.Update IoT Hubs with the device status change
-                   await registryManager.UpdateDeviceAsync(device);
-               }
-               else
-               {
-                   MessageBox.Show($"An error occurred while registering one or more devices:\r\n{ex.Message}");
-               }
-           }
-
-           //return the device key
-           return device.Authentication.SymmetricKey.PrimaryKey;
-       }
-
-       /// <summary>
-       /// Activate an already registered device by changing its status to Enabled.
-       /// </summary>
-       /// <param name="connectionString"></param>
-       /// <param name="deviceId"></param>
-       /// <param name="deviceKey"></param>
-       /// <returns></returns>
-       public async static Task<bool> ActivateDeviceAsync(string connectionString, string deviceId, string deviceKey)
-       {
-           //Server-side management function to enable the provisioned device
-           //to connect to IoT Hub after it has been installed locally.
-           //If device id and device key are valid, Activate (enable) the device.
-
-           //Make sure we're connected
-           if (registryManager == null)
-               IotHubConnect(connectionString);
-
-           bool success = false;
-           Device device;
-
-           try
-           {
-               //TODO: 8.Fetch the device
-               device = await registryManager.GetDeviceAsync(deviceId);
-
-               //TODO: 9.Verify the device keys match
-               if (deviceKey == device.Authentication.SymmetricKey.PrimaryKey)
-               {
-                   //TODO: 10.Enable the device
-                   device.Status = DeviceStatus.Enabled;
-
-                   //TODO: 11.Update IoT Hubs
-                   await registryManager.UpdateDeviceAsync(device);
-
-                   success = true;
-               }
-           }
-           catch(Exception)
-           {
-               success = false;
-           }
-
-           return success;
-       }
-
-       /// <summary>
-       /// Deactivate a single device in the IoT Hub registry.
-       /// </summary>
-       /// <param name="connectionString"></param>
-       /// <param name="deviceId"></param>
-       /// <returns></returns>
-       public async static Task<bool> DeactivateDeviceAsync(string connectionString, string deviceId)
-       {
-           //Make sure we're connected
-           if (registryManager == null)
-               IotHubConnect(connectionString);
-
-           bool success = false;
-           Device device;
-
-           try
-           {
-               //TODO: 12.Lookup the device from the registry by deviceId
-               device = await registryManager.GetDeviceAsync(deviceId);
-
-               //TODO: 13.Disable the device
-               device.Status = DeviceStatus.Disabled;
-
-               //TODO: 14.Update the registry
-               await registryManager.UpdateDeviceAsync(device);
-
-               success = true;
-           }
-           catch (Exception)
-           {
-               success = false;
-           }
-
-           return success;
-       }
-
-       /// <summary>
-       /// Unregister a single device from the IoT Hub Registry
-       /// </summary>
-       /// <param name="connectionString"></param>
-       /// <param name="deviceId"></param>
-       /// <returns></returns>
-       public async static Task UnregisterDevicesAsync(string connectionString, string deviceId)
-       {
-           //Make sure we're connected
-           if (registryManager == null)
-               IotHubConnect(connectionString);
-
-               //TODO: 15.Remove the device from the Registry
-               await registryManager.RemoveDeviceAsync(deviceId);
-       }
-
-       /// <summary>
-       /// Unregister all the devices managed by the Smart Meter Simulator
-       /// </summary>
-       /// <param name="connectionString"></param>
-       /// <returns></returns>
-       public async static Task UnregisterAllDevicesAsync(string connectionString)
-       {
-           //Make sure we're connected
-           if (registryManager == null)
-              IotHubConnect(connectionString);
-
-           for(int i = 0; i <= 9; i++)
-           {
-               string deviceId = "Device" + i.ToString();
-
-               //TODO: 16.Remove the device from the Registry
-               await registryManager.RemoveDeviceAsync(deviceId);
-           }
-       }
-   }
+    }
    ```
 
    >**Note**:  Be sure you only replace code in the **DeviceManager** class and not any other code in the file.
@@ -397,138 +290,176 @@ You will want to avoid entering the IoT Hub connection string every time the pro
 2. The following code shows the completed result:
 
    ```csharp
-   class Sensor
+    using System;
+    using System.Text;
+    using Microsoft.Azure.Devices.Client;
+    using Newtonsoft.Json;
+
+
+    namespace SmartMeterSimulator
     {
-        private DeviceClient _DeviceClient;
-        private string _IotHubUri { get; set; }
-        public string DeviceId { get; set; }
-        public string DeviceKey { get; set; }
-        public DeviceState State { get; set; }
-        public string StatusWindow { get; set; }
-        public string ReceivedMessage { get; set; }
-        public double? ReceivedTemperatureSetting { get; set; }
-        public double CurrentTemperature
+        /// <summary>
+        /// A sensor represents a Smart Meter in the simulator.
+        /// </summary>
+        class Sensor
         {
-            get
+            private DeviceClient DeviceClient;
+            private string IotHubUri { get; set; }
+            public string DeviceId { get; set; }
+            public string DeviceKey { get; set; }
+            public DeviceState State { get; set; }
+            public string StatusWindow { get; set; }
+            public string ReceivedMessage { get; set; }
+            public double? ReceivedTemperatureSetting { get; set; }
+            public double CurrentTemperature
             {
-                double avgTemperature = 70;
-                Random rand = new Random();
-                double currentTemperature = avgTemperature + rand.Next(-6, 6);
-
-                if (ReceivedTemperatureSetting.HasValue)
+                get
                 {
-                    // If we received a cloud-to-device message that sets the temperature, override with the received value.
-                    currentTemperature = ReceivedTemperatureSetting.Value;
+                    double avgTemperature = 70;
+                    Random rand = new Random();
+                    double currentTemperature = avgTemperature + rand.Next(-6, 6);
+
+                    if (ReceivedTemperatureSetting.HasValue)
+                    {
+                        // If we received a cloud-to-device message that sets the temperature, override with the received value.
+                        currentTemperature = ReceivedTemperatureSetting.Value;
+                    }
+
+                    if (currentTemperature <= 68)
+                        TemperatureIndicator = SensorState.Cold;
+                    else if (currentTemperature > 68 && currentTemperature < 72)
+                        TemperatureIndicator = SensorState.Normal;
+                    else if (currentTemperature >= 72)
+                        TemperatureIndicator = SensorState.Hot;
+
+                    return currentTemperature;
                 }
-
-                if(currentTemperature <= 68)
-                    TemperatureIndicator = SensorState.Cold;
-                else if(currentTemperature > 68 && currentTemperature < 72)
-                    TemperatureIndicator = SensorState.Normal;
-                else if(currentTemperature >= 72)
-                    TemperatureIndicator = SensorState.Hot;
-
-                return currentTemperature;
             }
-        }
-        public SensorState TemperatureIndicator { get; set; }
+            public SensorState TemperatureIndicator { get; set; }
 
-        public Sensor(string iotHubUri, string deviceId, string deviceKey)
-        {
-            _IotHubUri = iotHubUri;
-            DeviceId = deviceId;
-            DeviceKey = deviceKey;
-            State = DeviceState.Registered;
-        }
-        public void InstallDevice(string statusWindow)
-        {
-            StatusWindow = statusWindow;
-            State = DeviceState.Installed;
-        }
-
-        /// <summary>
-        /// Connect a device to the IoT Hub by instantiating a DeviceClient for that Device by Id and Key.
-        /// </summary>
-        public void ConnectDevice()
-        {
-            //TODO: 17. Connect the Device to Iot Hub by creating an instance of DeviceClient
-            _DeviceClient = DeviceClient.Create(_IotHubUri, new DeviceAuthenticationWithRegistrySymmetricKey(DeviceId, DeviceKey));
-
-            //Set the Device State to Ready
-            State = DeviceState.Ready;
-        }
-        public void DisconnectDevice()
-        {
-            //Delete the local device client
-            _DeviceClient = null;
-
-            //Set the Device State to Activate
-            State = DeviceState.Activated;
-        }
-
-        /// <summary>
-        /// Send a message to the IoT Hub from the Smart Meter device
-        /// </summary>
-        public async void SendMessageAsync()
-        {
-            var telemetryDataPoint = new
+            public Sensor(string deviceId)
             {
-                id = DeviceId,
-                time = DateTime.UtcNow.ToString("o"),
-                temp = CurrentTemperature
-            };
+                DeviceId = deviceId;
 
-            //TODO: 18.Serialize the telemetryDataPoint to JSON
-            var messageString = JsonConvert.SerializeObject(telemetryDataPoint);
+            }
 
-            //TODO: 19.Encode the JSON string to ASCII as bytes and create new Message with the bytes
-            var message = new Message(Encoding.ASCII.GetBytes(messageString));
-
-            //TODO: 20.Send the message to the IoT Hub
-            var sendEventAsync = _DeviceClient?.SendEventAsync(message);
-            if (sendEventAsync != null) await sendEventAsync;
-        }
-
-        /// <summary>
-        /// Check for new messages sent to this device through IoT Hub.
-        /// </summary>
-        public async void ReceiveMessageAsync()
-        {
-            try
+            public void SetRegistrationInformation(string iotHubUri, string deviceKey)
             {
-                Message receivedMessage = await _DeviceClient?.ReceiveAsync();
-                if (receivedMessage == null)
+                IotHubUri = iotHubUri;
+                DeviceKey = deviceKey;
+                State = DeviceState.Registered;
+            }
+            public void InstallDevice(string statusWindow)
+            {
+                StatusWindow = statusWindow;
+                State = DeviceState.Installed;
+            }
+
+            /// <summary>
+            /// Connect a device to the IoT Hub by instantiating a DeviceClient for that Device by Id and Key.
+            /// </summary>
+            public void ConnectDevice()
+            {
+                //TODO: 6. Connect the Device to Iot Hub by creating an instance of DeviceClient
+                DeviceClient = DeviceClient.Create(IotHubUri, new DeviceAuthenticationWithRegistrySymmetricKey(DeviceId, DeviceKey));
+
+                //Set the Device State to Ready
+                State = DeviceState.Connected;
+            }
+
+            public void DisconnectDevice()
+            {
+                //Delete the local device client            
+                DeviceClient = null;
+
+                //Set the Device State to Activate
+                State = DeviceState.Registered;
+            }
+
+            /// <summary>
+            /// Send a message to the IoT Hub from the Smart Meter device
+            /// </summary>
+            public async void SendMessageAsync()
+            {
+                var telemetryDataPoint = new
                 {
-                    ReceivedMessage = null;
+                    id = DeviceId,
+                    time = DateTime.UtcNow.ToString("o"),
+                    temp = CurrentTemperature
+                };
+
+                //TODO: 7.Serialize the telemetryDataPoint to JSON
+                var messageString = JsonConvert.SerializeObject(telemetryDataPoint);
+
+                //TODO: 8.Encode the JSON string to ASCII as bytes and create new Message with the bytes
+                var message = new Message(Encoding.ASCII.GetBytes(messageString));
+
+                //TODO: 9.Send the message to the IoT Hub
+                var sendEventAsync = DeviceClient?.SendEventAsync(message);
+                if (sendEventAsync != null) await sendEventAsync;
+            }
+
+            /// <summary>
+            /// Check for new messages sent to this device through IoT Hub.
+            /// </summary>
+            public async void ReceiveMessageAsync()
+            {
+                if (DeviceClient == null)
                     return;
-                }
 
-                //TODO: 21.Set the received message for this sensor to the string value of the message byte array
-                ReceivedMessage = Encoding.ASCII.GetString(receivedMessage.GetBytes());
-                if(double.TryParse(ReceivedMessage, out var requestedTemperature))
+                try
                 {
-                    ReceivedTemperatureSetting = requestedTemperature;
+                    Message receivedMessage = await DeviceClient?.ReceiveAsync();
+                    if (receivedMessage == null)
+                    {
+                        ReceivedMessage = null;
+                        return;
+                    }
+
+                    //TODO: 10.Set the received message for this sensor to the string value of the message byte array
+                    ReceivedMessage = Encoding.ASCII.GetString(receivedMessage.GetBytes());
+                    if (double.TryParse(ReceivedMessage, out var requestedTemperature))
+                    {
+                        ReceivedTemperatureSetting = requestedTemperature;
+                    }
+                    else
+                    {
+                        ReceivedTemperatureSetting = null;
+                    }
+
+                    // Send acknowledgement to IoT Hub that the has been successfully processed.
+                    // The message can be safely removed from the device queue. If something happened
+                    // that prevented the device app from completing the processing of the message,
+                    // IoT Hub delivers it again.
+
+                    //TODO: 11.Send acknowledgement to IoT hub that the message was processed
+                    await DeviceClient?.CompleteAsync(receivedMessage);
                 }
-                else
+                catch (Exception)
                 {
-                    ReceivedTemperatureSetting = null;
+                    // The device client is null, likely due to it being disconnected since this method was called.
+                    System.Diagnostics.Debug.WriteLine("The DeviceClient is null. This is likely due to it being disconnected since the ReceiveMessageAsync message was called.");
                 }
-
-                // Send acknowledgement to IoT Hub that the has been successfully processed.
-                // The message can be safely removed from the device queue. If something happened
-                // that prevented the device app from completing the processing of the message,
-                // IoT Hub delivers it again.
-
-                //TODO: 22.Send acknowledgement to IoT hub that the message was processed
-                await _DeviceClient?.CompleteAsync(receivedMessage);
             }
-            catch (NullReferenceException ex)
-            {
-                // The device client is null, likely due to it being disconnected since this method was called.
-                System.Diagnostics.Debug.WriteLine("The DeviceClient is null. This is likely due to it being disconnected since the ReceiveMessageAsync message was called.");
-            }
+        }
+
+
+        public enum DeviceState
+        { 
+            New,    
+            Installed,
+            Registered,         
+            Connected,
+            Transmit
+        }
+        public enum SensorState
+        {
+            Cold,
+            Normal,
+            Hot
         }
     }
+
    ```
 
     > **Note**:  Be sure you only replace the **Sensor** class and not any other code in the file.
