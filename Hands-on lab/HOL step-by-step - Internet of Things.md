@@ -91,7 +91,7 @@ Other alternatives for processing of the ingested telemetry would be to use an H
 
 ## Exercise 1: IoT Hub and Device Provisioning Service deployment
 
-Duration: 15 minutes
+Duration: 30 minutes
 
 In your architecture design session with Fabrikam, it was agreed upon to use Azure Device Provisioning Service (DPS) to manage automatic device registration. The DPS would then assign an IoT Hub to the device that ingests telemetry from the Smart Meter Simulator. In this exercise, you will deploy an IoT Hub and DPS to enable device registration and connectivity.
 
@@ -135,13 +135,79 @@ In these steps, you will provision an instance of IoT Hub.
 
    ![The Azure portal is shown with the iothubowner selected.](./media/iot-hub-shared-access-policies-iothubowner.png 'IoT Hub Owner shared access policy')
 
-9. In the **iothubowner** blade, select the **Copy** button to the right of the **Connection string - primary key** field. You will need this connection string value in the next exercise.
+9. In the **iothubowner** blade, select the **Copy** button to the right of the **Connection string - primary key** field. Record this value for a future task.
 
    ![Screenshot of the iothubowner blade. The connection string - primary key field is highlighted.](./media/iot-hub-shared-access-policies-iothubowner-blade.png 'iothubowner blade')
 
 ### Task 2: Deploy the Device Provisioning Service
+
+In these steps, you will deploy an instance of the Device Provisioning Service (DPS).
+
+1. In your browser, navigate to the [Azure portal](https://portal.azure.com), select **+Create a resource** in the navigation pane, enter `IOT Hub Device Provisioning Service` into the **Search the Marketplace** box, and select **IoT Hub** from the results.
+
+    ![The Search the Marketplace textbox is shown with IoT Hub Device Provisioning Service entered as the search criteria and is selected from the search results.](media/dps_marketplace_search.png "Search the Marketplace")
+
+2. On the resource overview page, select **Create**.
+
+3. On the IoT Hub device provisioning service **Basics** tab, complete the form as follows:
+
+   - **Subscription**: Select the subscription you are using for this hands-on lab.
+
+   - **Resource group**: Choose Use existing and select the **hands-on-lab-SUFFIX** resource group.
+
+   - **Name**: Enter a unique name, such as `smartmeter-dps-SUFFIX`.
+
+   - **Region**: Select the location you are using for this hands-on lab.
+
+    ![The DPS creation form Basics tab is shown populated with the above values.](media/dps_basics_form.png "DPS Basics Tab")
+
+4. Select **Review + create**, then once validation has passed, select **Create** once more to deploy the service.
+
+5. When the DPS deployment is completed, select **Go to resource** on the deployment screen.
+
+6. On the Overview screen of the Device Provisioning Service, copy and record the value for **ID Scope** for a future task.
+
+    ![The DPS Overview screen displays with the ID Scope field highlighted.](media/dps_overview_essentials.png "DPS Overview screen.")
+
 ### Task 3: Link the IoT Hub to the Device Provisioning Service
+
+1. Remaining in the DPS resource, select **Linked IoT hubs** from the left menu, located beneath the **Settings** heading. Then select **+Add** from the toolbar.
+
+    ![The DPS Linked IoT hubs screen is shown with Linked IoT hubs selected in the left menu and the +Add button highlighted in the toolbar.](media/dps_linkediothubs_add_menu.png "DPS Linked IoT hubs")
+
+2. In the Add link to IoT hub blade, populate the form as follows, then select **Save**:
+
+   - **Subscription**: Select the subscription you are using for this hands-on lab.
+   - **IoT Hub**: Select the `smartmeter-hub-{SUFFIX}` IoT Hub.
+   - **Access Policy**: Select `iothubowner`.
+
+    ![The Add link to IoT hub blade is shown populated with the preceding values.](media/dps_addlinktoiothub_form.png "Add link to IoT hub blade")
+
 ### Task 4: Create an enrollment group
+
+1. Remaining in the DPS resource, select **Manage enrollments** from the left menu, then select **+Add enrollment group** from the toolbar menu.
+
+    ![The DPS Manage enrollments screen displays with the Manage enrollments item selected from the left menu and the +Add enrollment group button highlighted on the toolbar.](media/dps_manageenrollments_menu.png "DPS Add enrollment group")
+
+2. In the Add Enrollment Group form, populate it as follows, then select the **Save** button.
+
+    - **Group name**: Enter `smartmeter-device-group`.
+    - **Attestation Type**: Select `Symmetric Key`.
+    - **Auto-generate keys**: Checked.
+    - **IoT Edge device**: Select `False`.
+    - **Select how you want to assign devices to hubs**: Select `Evenly weighted distribution`.
+    - **Select the IoT hubs this group can be assigned to**: Select `smartmeter-hub-{SUFFIX}`.
+    - **Select how you want the device data to be handled on re-provisioning**: Select `Re-provision and migrate data`.
+    - **Initial Device Twin State**: Retain the default value.
+    - **Enable entry**: Select `Enable`.
+  
+   ![The Add Enrollment Group form is shown populated with the preceding values.](media/dps_addenrollmentgroup_form.png "Add Enrollment Group form")
+
+3. Select the newly created enrollment group from the **Enrollment Groups** list.
+
+4. On the Enrollment Group Details screen, copy the **Primary Key** value and record it for a future task.
+
+    ![The Enrollment Group Details screen is shown with the copy button highlighted next to the Primary Key field.](media/dps_enrollmentgroup_primarykey.png "Enrollment Group Details")
 
 ## Exercise 2: Completing the Smart Meter Simulator
 
