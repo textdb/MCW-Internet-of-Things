@@ -586,6 +586,8 @@
             this.txtGroupEnrollmentKey.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.txtGroupEnrollmentKey.Size = new System.Drawing.Size(470, 25);
             this.txtGroupEnrollmentKey.TabIndex = 38;
+            this.txtGroupEnrollmentKey.Text = "y049uC8uXA3lFOajcti3+EVUdbYECLjQ4pmJdna6sylPIvitW5Lsf2s1WNUenBUixvqGdK6E/Stv/9jl1" +
+    "cvjRg==";
             // 
             // txtIdScope
             // 
@@ -596,6 +598,7 @@
             this.txtIdScope.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.txtIdScope.Size = new System.Drawing.Size(470, 25);
             this.txtIdScope.TabIndex = 40;
+            this.txtIdScope.Text = "0ne002CBFCE";
             // 
             // lblIdScope
             // 
@@ -630,7 +633,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "MainForm";
-            this.Text = "Fabrikam Smart Meter Simulator";            
+            this.Text = "Fabrikam Smart Meter Simulator";
             this.pDevices.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();

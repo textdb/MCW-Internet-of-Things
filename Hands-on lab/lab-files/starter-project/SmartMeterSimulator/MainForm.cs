@@ -303,6 +303,5 @@ namespace SmartMeterSimulator
                 ttDeviceStatus.Show(sb.ToString(), button);
             }
         }
-
     }
 }

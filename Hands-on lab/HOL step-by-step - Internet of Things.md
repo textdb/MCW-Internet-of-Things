@@ -36,7 +36,7 @@ Microsoft and the trademarks listed at <https://www.microsoft.com/en-us/legal/in
     - [Task 4: Create an enrollment group](#task-4-create-an-enrollment-group)
   - [Exercise 2: Completing the Smart Meter Simulator](#exercise-2-completing-the-smart-meter-simulator)
     - [Task 1: Implement device management with the IoT Hub](#task-1-implement-device-management-with-the-iot-hub)
-    - [Task 2: Configure the IoT Hub connection string](#task-2-configure-the-iot-hub-connection-string)
+    - [Task 2: Configure the DPS Group Enrollment Key and ID Scope](#task-2-configure-the-dps-group-enrollment-key-and-id-scope)
     - [Task 3: Implement the communication of telemetry with IoT Hub](#task-3-implement-the-communication-of-telemetry-with-iot-hub)
     - [Task 4: Verify device registration and telemetry](#task-4-verify-device-registration-and-telemetry)
   - [Exercise 3: Hot path data processing with Stream Analytics](#exercise-3-hot-path-data-processing-with-stream-analytics)
@@ -49,8 +49,7 @@ Microsoft and the trademarks listed at <https://www.microsoft.com/en-us/legal/in
     - [Task 4: Process with Spark SQL](#task-4-process-with-spark-sql)
   - [Exercise 5: Sending commands to the IoT devices](#exercise-5-sending-commands-to-the-iot-devices)
     - [Task 1: Add your IoT Hub connection string to the CloudToDevice console app](#task-1-add-your-iot-hub-connection-string-to-the-cloudtodevice-console-app)
-    - [Task 2: Run the device simulator](#task-2-run-the-device-simulator)
-    - [Task 3: Run the console app and send cloud-to-device messages](#task-3-run-the-console-app-and-send-cloud-to-device-messages)
+    - [Task 2: Send cloud-to-device messages](#task-2-send-cloud-to-device-messages)
   - [After the hands-on lab](#after-the-hands-on-lab)
     - [Task 1: Delete the resource group](#task-1-delete-the-resource-group)
 
@@ -185,6 +184,8 @@ In these steps, you will deploy an instance of the Device Provisioning Service (
 
 ### Task 4: Create an enrollment group
 
+Creating an enrollment group enables Fabrikam to allow devices to self-register. This avoids the need to register each device manually. Group enrollments are made possible via secure Attestations, these could be via certificates or symmetric keys. In this example, we will use the symmetric key approach.
+
 1. Remaining in the DPS resource, select **Manage enrollments** from the left menu, then select **+Add enrollment group** from the toolbar menu.
 
     ![The DPS Manage enrollments screen displays with the Manage enrollments item selected from the left menu and the +Add enrollment group button highlighted on the toolbar.](media/dps_manageenrollments_menu.png "DPS Add enrollment group")
@@ -223,7 +224,7 @@ Fabrikam has left you a partially completed sample in the form of the Smart Mete
 
    ![On the Visual Studio View menu, Task List is selected.](media/visual-studio-view-menu-task-list.png 'Visual Studio View menu')
 
-3. In the **Task List**, you will see a list of **TODO** tasks, where each task represents one line of code that needs to be completed. Complete the line of code below each **TODO** using the code below as a reference. If your task list is blank, complete TODO steps 1-16 as indicated in the code in the next step.
+3. In the **Task List**, you will see a list of **TODO** tasks, where each task represents one line of code that needs to be completed. Complete the line of code below each **TODO** using the code below as a reference. If your task list is blank, complete TODO steps 1-5 as indicated in the code in the next step.
 
 4. The following code represents the completed tasks in **DeviceManager.cs**:
 
@@ -311,9 +312,9 @@ Fabrikam has left you a partially completed sample in the form of the Smart Mete
 
 5. Save **DeviceManager.cs**.
 
-### Task 2: Configure the IoT Hub connection string
+### Task 2: Configure the DPS Group Enrollment Key and ID Scope
 
-You will want to avoid entering the IoT Hub connection string every time the project is run. To do this, you can set this value as the default text for the connection string text box in the application. Follow these steps to configure the connection string:
+You will want to avoid entering the DPS Group Enrollment Key and ID Scope every time the project is run. To do this, you can set this value as the default text for the `DPS Group Enrollment Primary Key` and `DPS ID Scope` text boxes in the application. Follow these steps to configure the connection string:
 
 1. Return to the **SmartMeterSimulator** solution in **Visual Studio** on your **Lab VM**.
 
@@ -330,28 +331,30 @@ You will want to avoid entering the IoT Hub connection string every time the pro
    ![Right-click MainForm.resx, go to Properties, then check the box next to Unblock](media/unblock-file.png 'Unblock file')
 
    - Close and reopen **Visual Studio**. Re-open the **MainForm.cs** file.
+
+    >**Note**: If you are still unable to see the Windows Forms designer, close it, then right-click the project and select **Clean**. Then, right-click the project again and select **Build**. Now, you should be able to open the form without a problem.
+    >
+    >    ![Building and cleaning the solution to ensure that the Windows Forms editor shows up.](./media/build-and-clean-solution.png "Building and cleaning solution")
   
-3. In the **Windows Forms designer surface**, select the **IoT Hub Connection String TextBox**.
+3. In the **Windows Forms designer surface**, select the **DPS Group Enrollment Primary Key** textbox.
 
-   ![The Windows Form designer surface is opened to the MainForm.cs tab. The IoT Hub Connection String is highlighted, but is empty.](./media/smart-meter-simulator-iot-hub-connection-string.png 'Windows Form designer surface')
+   ![The Windows Form designer surface is opened to the MainForm.cs tab. The DPS Group Enrollment Primary Key textbox is highlighted, but is empty.](./media/smart-meter-simulator-iot-hub-connection-string.png 'Windows Form designer surface')
 
-   >**Note**: If you are still unable to see the Windows Forms designer, close it, then right-click the project and select **Clean**. Then, right-click the project again and select **Build**. Now, you should be able to open the form without a problem.
-   >
-   >    ![Building and cleaning the solution to ensure that the Windows Forms editor shows up.](./media/build-and-clean-solution.png "Building and cleaning solution")
+4. In the **Properties** panel, scroll until you see the **Text** property. Paste your **DPS Enrollment Group Primary Key** value copied from Exercise 1, Task 4, Step 4 into the value for the **Text** property. (If the properties window is not visible below the Solution Explorer, right-click the TextBox, and select **Properties**.)
 
-4. In the **Properties** panel, scroll until you see the **Text** property. Paste your **IoT Hub connection string** value copied from Exercise 1, Task 1, Step 7 of the previous exercise into the value for the **Text** property. (If the properties window is not visible below the Solution Explorer, right-click the TextBox, and select **Properties**.)
+   ![In the Properties panel, the Text property is highlighted, and is populated.](./media/smart-meter-simulator-iot-hub-connection-string-text-property.png 'Textbox properties')
 
-   ![In the Properties panel, the Text property is highlighted, and is set to HostName=smartmeter-hub.](./media/smart-meter-simulator-iot-hub-connection-string-text-property.png 'Solution Explorer')
+5. Repeat steps 3 and 4 to populate the **DPS ID Scope** textbox with the value you recorded in Exercise 1, Task 2, Step 6.
 
-5. Your connection string should now be present every time you run the **Smart Meter Simulator**.
+6. Your DPS Group Enrollment Primary Key and ID Scope should now be present every time you run the **Smart Meter Simulator**.
 
    ![The Windows Form designer surface is opened to the MainForm.cs tab. The IoT Hub Connection String now displays.](./media/smart-meter-simulator-iot-hub-connection-string-populated.png 'IoT Hub Connection String dialog')
 
-6. Save **MainForm.cs**.
+7. Save **MainForm.cs**.
 
 ### Task 3: Implement the communication of telemetry with IoT Hub
 
-1. Open **Sensor.cs** from the **Solution Explorer**, and complete the **TODO** items 17 to 22 as indicated within the code that are responsible for transmitting telemetry data to the IoT Hub, as well as receiving data from IoT Hub.
+1. Open **Sensor.cs** from the **Solution Explorer**, and complete the **TODO** items 6 to 11 as indicated within the code that are responsible for transmitting telemetry data to the IoT Hub, as well as receiving data from IoT Hub.
 
 2. The following code shows the completed result:
 
@@ -542,35 +545,39 @@ In this task, you will build and run the Smart Meter Simulator project.
 
    ![The green Start button is highlighted on the Visual Studio toolbar.](media/visual-studio-toolbar-start.png 'Visual Studio toolbar')
 
-3. Select **Register** on the **Smart Meter Simulator** dialog, which should cause the windows within the building to change from black to gray.
+3. Select one or more of the windows within the building to simulate the installation of a smart meter device. Once selected, the window will turn yellow.
 
-   ![In addition to the IoT Hub Connection String, the Smart Meter Simulator has two buildings with 10 windows. The color of the windows indicating the status of the devices. Currently, all windows are gray.](media/smart-meter-simulator-register.png 'Fabrikam Smart Meter Simulator')
+    ![The smart meter simulator displays with three windows in yellow.](media/smart-meter-simulator-install-windows.png "The smart meter simulator")
 
-4. Select a few of the windows. Each represents a device for which you want to simulate device installation. The selected windows should turn pale yellow.
+4. Select **Register** on the **Smart Meter Simulator** window, this triggers the smart meter automatic registration through the enrollment group. It will take a few seconds for each of the yellow (installed) windows to turn to cyan, indicating the device is registered.
 
-   ![The Smart Meter Simulator now has three pale yellow windows, with the other seven remaining gray.](media/smart-meter-simulator-window-select.png 'Fabrikam Smart Meter Simulator')
+   ![The smart meter simulator window is shown with the previously yellow windows now displaying as cyan.](media/smart-meter-simulator-register.png 'Fabrikam Smart Meter Simulator')
 
-5. Select **Activate** to simulate changing the device status from disabled to enabled in the IoT Hub Registry. The selected windows should turn green.
+5. At this point, you have installed and registered one or more devices (in cyan). To view this list of devices, you will switch over to the **Azure Portal**, and open the **IoT Hub** you provisioned.
 
-   ![On the Smart Meter Simulator, the Activate button is highlighted, and the three white windows have now turned to green.](media/smart-meter-simulator-activate.png 'Fabrikam Smart Meter Simulator')
-
-6. At this point, you have registered 10 devices (the gray windows) but activated only the ones you selected (in green). To view this list of devices, you will switch over to the **Azure Portal**, and open the **IoT Hub** you provisioned.
-
-7. From the **IoT Hub** blade, select **IoT Devices** under **Explorers** on the left-hand menu.
+6. From the **IoT Hub** blade, select **IoT Devices** under **Explorers** on the left-hand menu.
 
    ![On the IoT Hub blade, in the Explorers section, under Explorers, IoT Devices is highlighted.](media/iot-hub-explorers-iot-devices.png 'IoT Hub blade, Explorers section')
 
-8. You should see all 10 devices listed, with the ones that you activated having a status of **enabled**.
+7. You should see all your registered devices listed having a status of **enabled**.
 
    ![Devices in the Device ID list have a status of either enabled or disabled.](media/iot-hub-iot-devices-list.png 'Device ID list')
 
-9. Return to the **Smart Meter Simulator** window.
+8. In the **Azure Portal**, open the Device Provisioning Service resource, then select **Manage enrollments** from the left menu. Select the **smartmeter-device-group** enrollment group.
 
-10. Select **Connect**. Within a few moments, you should begin to see activity as the windows change color, indicating the smart meters are transmitting telemetry. The grid on the left will list each telemetry message transmitted and the simulated temperature value.
+    ![The DPS Manage enrollments screen is shown with Manage enrollments selected in the left menu and the smartmeter-device-group highlighted in the enrollment groups listing.](media/dps_select_enrollmentgroup.png "Enrollment Groups Listing")
+
+9. In the Enrollment Group Details screen, select the **Registration Records** tab and notice the devices selected for registration in the simulator application are listed.
+
+    ![The DPS Enrollment Group Details screen displays with the Registration Records tab highlighted and a list of registered devices.](media/dps_enrollmentgroup_registrationrecords.png "Enrollment Group Registration Records")
+
+10. Return to the **Smart Meter Simulator** window.
+
+11. Select **Connect**. Within a few moments, you should begin to see activity as the windows change color, indicating the smart meters are transmitting telemetry. The grid on the left will list each telemetry message transmitted and the simulated temperature value.
 
     ![On the Smart Meter Simulator, the Connect button is highlighted, and one of the green windows has now turned to blue. The current windows count is now seven gray, two green, and one blue.](media/smart-meter-simulator-connect.png 'Fabrikam Smart Meter Simulator')
 
-11. Allow the smart meter to continue to run. (Whenever you want to stop the transmission of telemetry, select the **Disconnect** button.)
+12. Allow the smart meter to continue to run for the duration of the lab.
 
 ## Exercise 3: Hot path data processing with Stream Analytics
 
@@ -1063,11 +1070,11 @@ This console app is configured to connect to IoT Hub using the same connection s
 
 1. Return to the **SmartMeterSimulator** solution in **Visual Studio** on your **Lab VM**.
 
-2. In the **Solution Explorer**, expand the **CloudToDevice** project and double-click **Program.cs** to open it. (If the Solution Explorer is not in the upper-right corner of your Visual Studio instance, you can find it under the View menu in Visual Studio.)
+2. In the **Solution Explorer**, expand the **CloudToDevice** project and open **Program.cs**. (If the Solution Explorer is not in the upper-right corner of your Visual Studio instance, you can find it under the View menu in Visual Studio.)
 
     ![In the Visual Studio Solution Explorer window, CloudToDevice is expanded, and under it, Program.cs is highlighted.](media/visual-studio-solution-explorer-program-cs.png 'Visual Studio Solution Explorer')
 
-3. Replace **YOUR-CONNECTION-STRING** on line 15 with your IoT Hub connection string. This is the same string you added to the Main form in the SmartMeterSimulator earlier. The line you need to update looks like this:
+3. Replace **YOUR-CONNECTION-STRING** on line 13 with your IoT Hub connection string. This is the same string you added to the Main form in the SmartMeterSimulator earlier. The line you need to update looks like this:
 
     ```csharp
     static string connectionString = "YOUR-CONNECTION-STRING";
@@ -1079,57 +1086,31 @@ This console app is configured to connect to IoT Hub using the same connection s
 
 4. Save the file.
 
-### Task 2: Run the device simulator
+### Task 2: Send cloud-to-device messages
 
-In this task, you will register, activate, and connect all devices. You will then leave the simulator running so that you can launch the console app and start sending cloud-to-device messages. If you currently have the device simulator running from an earlier task, you may stop it and perform the following steps. Alternatively, you could skip to step 6 and interact with your currently active devices.
+In this task, you will leave the simulator running and separately launch the console app to start sending cloud-to-device messages.
 
-1. Within the **SmartMeterSimulator** Visual Studio solution, right-click the **SmartMeterSimulator** project, select **Debug**, then select **Start new instance** to run the device simulator.
-
-    ![Screenshot displays the debug context menu after right-clicking the SmartMeterSimulator project in Visual Studio.](media/visual-studio-debug-simulator.png 'Debug simulator')
-
-2. Select **Register** on the **Smart Meter Simulator** dialog, which should cause the windows within the building to change from black to gray.
-
-    ![In addition to the IoT Hub Connection String, the Smart Meter Simulator has two buildings with 10 windows. The color of the windows indicating the status of the devices. Currently, all windows are gray.](media/smart-meter-simulator-register.png 'Fabrikam Smart Meter Simulator')
-
-3. Select **all** of the windows. Each represents a device for which you want to simulate device installation. The selected windows should turn pale yellow.
-
-    ![The Smart Meter Simulator now has all pale yellow windows.](media/smart-meter-simulator-window-select-all.png 'Fabrikam Smart Meter Simulator')
-
-4. Select **Activate** to simulate changing the device status from disabled to enabled in the IoT Hub Registry. The selected windows should turn green.
-
-    ![On the Smart Meter Simulator, the Activate button is highlighted, and all the windows have now turned to green.](media/smart-meter-simulator-activate-all.png 'Fabrikam Smart Meter Simulator')
-
-5. Select **Connect**. Within a few moments, you should begin to see activity and the windows change color, indicating the smart meters are transmitting telemetry. The grid on the left will list each telemetry message transmitted and the simulated temperature value.
-
-    ![On the Smart Meter Simulator, the Connect button is highlighted, the windows have turned different colors to signify the temperature.](media/smart-meter-simulator-connect-all.png 'Fabrikam Smart Meter Simulator')
-
-6. Hover over one of the windows. You will see a dialog display information about the associated device, including the Device ID (in this case, **Device1**), Device Key, Temperature, and Indicator. The legend on the bottom shows the indicator displayed for each temperature range. The Device ID is important when sending cloud-to-device messages, as this is how we will target a specific device when we remotely set the desired temperature. Keep the Device ID values in mind when sending the messages in the next task.
+1. If you hover over one of the windows, you will see a dialog display information about the associated device, including the Device ID (in this case, **Device1**), Device Key, Temperature, and Indicator. The legend on the bottom shows the indicator displayed for each temperature range. The Device ID is important when sending cloud-to-device messages, as this is how we will target a specific device when we remotely set the desired temperature. Keep the Device ID values in mind when sending the messages in the next task.
 
     ![A dialog containing device information is displayed after hovering over a window.](media/smart-meter-simulator-device-info.png 'Fabrikam Smart Meter Simulator')
 
-7. Allow the smart meter to continue to run.
+2. Within the **SmartMeterSimulator** Visual Studio solution, right-click the **CloudToDevice** project, select **Debug**, then select **Start new instance** to run the console app.
 
-### Task 3: Run the console app and send cloud-to-device messages
+3. In the **console window**, enter a **device number** when prompted. Accepted values are 0-9, since there are 10 devices whose IDs begin with 0. You can hover over the windows in the **Smart Meter Simulator** to view the Device IDs. When you enter a number, such as `0`, then a message will be sent to **Device0**. Be certain to select the device number of a registered window!
 
-In this task, you will run the console app to send desired temperature settings to specific devices and observe the simulated device receiving and reacting to the message.
+    ![The value of 0 is entered when prompted for the device number in the console window.](media/console-device-number.png 'Console App')
 
-1. Within the **SmartMeterSimulator** Visual Studio solution, right-click the **CloudToDevice** project, select **Debug**, then select **Start new instance** to run the console app.
+4. Now enter a **temperature value** between 65 and 85 degrees (F) when prompted. If you set a value above 72 degrees, the window will turn red. If the value is set between 68 and 72 degrees, it will turn green. Values below 68 degrees will turn the window blue. Once you set a value, the device will remain at that value until you set a new value, rather than randomly changing.
 
-2. In the **console window**, enter a **device number** when prompted. Accepted values are 0-9, since there are 10 devices whose IDs begin with 0. You can hover over the windows in the **Smart Meter Simulator** to view the Device IDs. When you enter a number, such as `1`, then a message will be sent to **Device1**.
+    ![A value of 70 has been entered for the temperature. A new log entry in the Smart Meter Simulator appears in yellow showing the message value of 70 sent to Device0.](media/console-temperature.png 'Console App and Smart Meter Simulator')
 
-    ![The value of 1 is entered when prompted for the device number in the console window.](media/console-device-number.png 'Console App')
+    If you run the **Smart Meter Simulator** side-by-side with the **console app**, you can observe the message logged by the Smart Meter Simulator within seconds. This message appears with a yellow background and displays the temperature request value sent to the device. In our case, we sent a request of 70 degrees to Device0. The console app indicates that it is sending the temperature request to the indicated device.
 
-3. Now enter a **temperature value** between 65 and 85 degrees (F) when prompted. If you set a value above 72 degrees, the window will turn red. If the value is set between 68 and 72 degrees, it will turn green. Values below 68 degrees will turn the window blue. Once you set a value, the device will remain at that value until you set a new value, rather than randomly changing.
+5. Hover over the device to which you sent the message. You will see that its temperature is set to the value you requested through the console app.
 
-    ![A value of 75 has been entered for the temperature. A new log entry in the Smart Meter Simulator appears in yellow showing the message value of 75 sent to Device1.](media/console-temperature.png 'Console App and Smart Meter Simulator')
+    ![Device0 is hovered over and the dialog appears showing the temperature set to the requested temperature.](media/smart-meter-simulator-set-temp.png 'Fabrikam Smart Meter Simulator')
 
-    If you run the **Smart Meter Simulator** side-by-side with the **console app**, you can observe the message logged by the Smart Meter Simulator within seconds. This message appears with a yellow background and displays the temperature request value sent to the device. In our case, we sent a request of 75 degrees to Device1. The console app indicates that it is sending the temperature request to the indicated device.
-
-4. Hover over the device to which you sent the message. You will see that its temperature is set to the value you requested through the console app.
-
-    ![Device1 is hovered over and the dialog appears showing the temperature set to the requested temperature.](media/smart-meter-simulator-set-temp.png 'Fabrikam Smart Meter Simulator')
-
-5. In the console window, you can enter `Y` to send another message. Experiment with setting the temperature on other devices and observe the results.
+6. In the console window, you can enter `Y` to send another message. Experiment with setting the temperature on other devices and observe the results.
 
 ## After the hands-on lab
 
