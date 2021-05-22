@@ -10,7 +10,7 @@ namespace CloudToDevice
         static ServiceClient serviceClient;
         static double temperature = 0;
         static int device = 0;
-        static string connectionString = "HostName=smartmeter-hub-cep.azure-devices.net;SharedAccessKeyName=iothubowner;SharedAccessKey=bG6UUDPZEz0QV0pzRnskDNA2H+gQrZmVWuKFI3dE4nk=";
+        static string connectionString = "YOUR-CONNECTION-STRING";
 
         static void Main(string[] args)
         {
