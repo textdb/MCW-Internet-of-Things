@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -13,7 +10,6 @@ namespace SmartMeterSimulator
 {
     public partial class MainForm : Form
     {
-
         //milliseconds to delay device transmit
         private int delay = 1000;
 
@@ -41,171 +37,140 @@ namespace SmartMeterSimulator
             lvSensorData.ListViewItemSorter = lvwColumnSorter;
             lvwColumnSorter.SortColumn = 2; //TimeStamp column
             lvwColumnSorter.Order = SortOrder.Descending;
-            lvSensorData.Sort();
+            lvSensorData.Sort();          
         }
 
         private void btnRegister_Click(object sender, EventArgs e)
         {
             //There are 10 devices (Sensors) in this sample, Device0 - Device9
-            //Provision 10 devices with a Device Key
+            //Provision installed devices with a Device Key
             //Use buttons as a container for each device
-
             try
-            { 
+            {
                 //Loop through the building windows (Buttons)
-                foreach(Button button in pDevices.Controls)
+                foreach (Button button in pDevices.Controls)
                 {
-                    string deviceId = button.Name;
+                    if (button.Tag == null)
+                        continue;
 
-                    //Register device, return device key
-                    Task<string> taskResult = Task.Run(() => DeviceManager.RegisterDevicesAsync(txtIotHubCnString.Text, deviceId));
-                    string deviceKey = taskResult.Result;
+                    var sensor = (Sensor)button.Tag;
+                    if(sensor.State == DeviceState.Installed)
+                    {
+                        string deviceId = button.Name;
 
-                    //Create a new device (Sensor) object, embed its unique device key
-                    Sensor sensor = new Sensor(DeviceManager.HostName, deviceId, deviceKey);
+                        Task<SmartMeterDevice> taskResult = Task.Run(() => DeviceManager.RegisterDeviceAsync(txtGroupEnrollmentKey.Text, txtIdScope.Text, deviceId));
+                        var device = taskResult.Result;
 
-                    //Use the button's tag property as a container for the device instance
-                    button.Tag = sensor;
+                        //Create a new device (Sensor) object, embed its unique device key
+                        sensor.SetRegistrationInformation(device.IoTHubHostName, device.AuthenticationKey);
 
-
-                    //Change each button color from black to gray
-                    button.BackColor = Color.Gray;
-                    //Enable Click event so user can click it
-                    button.Enabled = true;
-                    //Clicking the Window calls InstallDevice()
-                    button.Click += InstallDevice;
+                        //Change each button color from Yellow to Cyan
+                        button.BackColor = Color.Cyan;                
+                    }
+                    else
+                    {
+                        //disable uninstalled devices
+                        button.Enabled = false;
+                    }                   
                 }
+                btnRegister.Enabled = false;
             }
             catch(Exception ex)
             {
                 MessageBox.Show(ex.Message);
-            }
-            //Disable Register button to prevent reprovisioning of devices
-            btnRegister.Enabled = false;
+            }           
         }
+
         private void InstallDevice(object sender, EventArgs e)
         {
             //Clicking on a button window represents installing the device locally
             //by marrying the device to its matching Transmit Status Window
 
             //Get the button control which is the container for this device
-            Button button = (Button)sender;
-
-            //Get the Sensor from the button
-            Sensor sensor = (Sensor)button.Tag;
+            Button button = (Button)sender;            
 
             //Set matching Transmit Status Window name, this window shows
             //when a device is transmitting temperature data to IoT Hubs
             string statusId = "Status" + button.Name.Last();
+            var sensor = new Sensor(button.Name);
+            button.Tag = sensor;
 
             //Install the device
             sensor.InstallDevice(statusId);
 
-            //Change the color to LightYellow to indicate the device has been installed
-            button.BackColor = Color.LightYellow;
-
-            //Enable Activate button to allow user to contact Iot Hub
-            btnActivate.Enabled = true;
+            //Change the color to Yellow to indicate the device has been installed
+            button.BackColor = Color.Yellow;
+            button.Click -= InstallDevice;
         }
-        private void btnActivate_Click(object sender, EventArgs e)
-        {
-            //This function enables the device to connect and transmit to the Iot Hub. 
-            //Activate the devices that have been installed locally. 
-
-            foreach(Button button in pDevices.Controls)
-            {
-                //Only activate devices which have been installed
-                if (button.Tag != null && ((Sensor)button.Tag).State == DeviceState.Installed)
-                {
-                    Sensor sensor = (Sensor)button.Tag;
-
-                    //Activate and enable device in Iot Hubs
-                    var task = Task.Run(() => DeviceManager.ActivateDeviceAsync(txtIotHubCnString.Text, sensor.DeviceId, sensor.DeviceKey));
-                    bool isActive = task.Result;
-
-                    if(isActive)
-                    { 
-                        //Set the local device state to Activated
-                        sensor.State = DeviceState.Activated;
-
-                        //Change device color to LightGreen to indicate it is activated
-                        button.BackColor = Color.LightGreen;
-                    }
-                    else
-                    {
-                        MessageBox.Show("Device not activated: " + button.Name);
-                    }
-                }
-            }
-        }
+       
         private void btnConnect_Click(object sender, EventArgs e)
-        {
+        {        
             //Connect all of the activated devices and initiate an event loop 
             // for each connected device to transmit data on regular interval
-
             stopQueue = false;
 
             foreach (Button button in pDevices.Controls)
             {
-                //Select devices which have been registered
-                if(button.Tag != null)
-                {
-                    //Get the sensor object from the button container
-                    Sensor sensor = (Sensor)button.Tag;
+                if (button.Tag == null)
+                    continue;
+
+                //Get the sensor object from the button container
+                Sensor sensor = (Sensor)button.Tag;
                     
-                    //Select devices which have been installed and activated
-                    if (sensor.State == DeviceState.Activated)
-                    { 
-                        //Connect the device, puts into Ready State
-                        sensor.ConnectDevice();
+                //Select devices which have been installed and activated
+                if (sensor.State == DeviceState.Registered || button.BackColor == Color.Cyan)
+                { 
+                    //Connect the device, puts into Ready State
+                    sensor.ConnectDevice();
 
-                        //add hover event for tool tip for device info
-                        button.MouseHover += Device_Hover;
+                    //add hover event for tool tip for device info
+                    button.MouseHover += Device_Hover;                        
 
-                        //Add Sensor to loop
-                        if (!stopQueue)
-                            queue.QueueTask(() => DoWork(sensor));
-                    }
-                }
-            }
+                    //Add Sensor to loop
+                    if (!stopQueue)
+                        queue.QueueTask(() => DoWork(sensor));
+                }              
+            }            
         }
         private void btnDisconnect_Click(object sender, EventArgs e)
         {
             //Stop Loop
             stopQueue = true;
-
+            
             foreach(Button button in pDevices.Controls)
             {
-                //Only select devices which have been installed & activated
-                if (button.Tag != null)
-                {
-                    //Retrieve the sensor
-                    Sensor sensor = (Sensor)button.Tag;
+                //Only select devices which have been installed
+                if (button.Tag == null)
+                    continue;
 
-                    //Select devices which have been Connected
-                    if(sensor.State == DeviceState.Ready || sensor.State == DeviceState.Transmit)
-                    { 
-                        //Disconnect the device, revert to Activated State
-                        sensor.DisconnectDevice();
+                button.MouseHover -= Device_Hover;
 
-                        //Set color back to LightGreen
-                        button.BackColor = Color.LightGreen;
+                //Retrieve the sensor
+                Sensor sensor = (Sensor)button.Tag;
 
-                        //Set the status window off
-                        if(!string.IsNullOrEmpty(sensor.StatusWindow))
-                            pStatus.Controls[sensor.StatusWindow].Visible = false;
-                    }
-                }
-            }
+                //Select devices that are connected and communicating
+                if(sensor.State == DeviceState.Connected || sensor.State == DeviceState.Transmit)
+                { 
+                    //Disconnect the device, revert to Registered State
+                    sensor.DisconnectDevice();
+
+                    //Set color back to Cyan
+                    button.BackColor = Color.Cyan;
+
+                    //Set the status window off
+                    if (!string.IsNullOrEmpty(sensor.StatusWindow))
+                        pStatus.Controls[sensor.StatusWindow].Visible = false;
+                }               
+            }                      
         }
-        private void DoWork(Sensor sensor)
-        {           
 
+        private void DoWork(Sensor sensor)
+        {            
             switch (sensor.State)
             {
-                case DeviceState.Ready:
+                case DeviceState.Connected:
                     //add some delay
-                    Thread.Sleep(delay/2);
+                    Thread.Sleep(delay / 2);
 
                     //Set device to transmit
                     sensor.State = DeviceState.Transmit;
@@ -218,17 +183,20 @@ namespace SmartMeterSimulator
                     Thread.Sleep(delay / 2);
 
                     //set device to ready
-                    sensor.State = DeviceState.Ready;
+                    sensor.State = DeviceState.Connected;
                     break;
             }
 
             //Check for any cloud-to-device messages sent through IoT Hub:
-            sensor.ReceiveMessageAsync();
-            
-            //Update the Device
-            if(!stopQueue)
-                WorkComplete(sensor);
+            if (sensor.State == DeviceState.Connected || sensor.State == DeviceState.Transmit)
+            {
+                sensor.ReceiveMessageAsync();
+            }
+
+            //Update the Device              
+            WorkComplete(sensor);           
         }
+
         private void WorkComplete(Sensor sensor)
         {
             try
@@ -236,12 +204,14 @@ namespace SmartMeterSimulator
                 Button button = (Button)pDevices.Controls[sensor.DeviceId];
 
                 if (button.InvokeRequired)
-                {   //Use the delegate to get this back onto the main thread
+                {   
+                    //Use the delegate to get this back onto the main thread
                     UpdateDisplayCallback d = new UpdateDisplayCallback(WorkComplete);
                     Invoke(d, new object[] { sensor });
                 }
                 else
-                {   //On same thread, pass device data back
+                {                  
+                    //On same thread, pass device data back
                     switch (sensor.State)
                     {
                         case DeviceState.Transmit:
@@ -272,7 +242,7 @@ namespace SmartMeterSimulator
                             lvSensorData.Items.Add(item1);
                             break;
 
-                        case DeviceState.Ready:
+                        case DeviceState.Connected:
                             //Yellow Ball visible
                             pStatus.Controls[sensor.StatusWindow].Visible = false;
                             break;
@@ -292,7 +262,8 @@ namespace SmartMeterSimulator
                     //Loop
                     if(!stopQueue)
                         queue.QueueTask(() => DoWork(sensor));
-                }
+                }                    
+               
             }
             catch (Exception ex)
             {
@@ -331,47 +302,6 @@ namespace SmartMeterSimulator
                 sb.AppendLine("Indicator: " + tempIndicator);
                 ttDeviceStatus.Show(sb.ToString(), button);
             }
-        }
-        private void btnUnregister_Click(object sender, EventArgs e)
-        {
-            //This function stops all device transmissions
-            //unregisters all devices from Iot Hub and puts
-            //the application in a state where it first started
-            
-            //Stop processing data
-            stopQueue = true;
-
-            //Clean up each device container
-            foreach (Button button in pDevices.Controls)
-            {
-                if(button.Tag != null)
-                {
-                    //Retrieve the sensor
-                    Sensor sensor = (Sensor)button.Tag;
-
-                    //Set the status window off
-                    if (!string.IsNullOrEmpty(sensor.StatusWindow))
-                        pStatus.Controls[sensor.StatusWindow].Visible = false;
-
-                    //Deprovision the device
-                    Task.Run(() => DeviceManager.UnregisterDevicesAsync(txtIotHubCnString.Text, sensor.DeviceId));
-
-                    //Delete the device instance
-                    button.Tag = null;
-                }
-
-                //Set color back to default
-                button.BackColor = Color.Black;
-
-                //Disable the control so you can't click/install the device
-                button.Enabled = false;
-            }
-
-            //Force all devices unregistered
-            Task.Run(() => DeviceManager.UnregisterAllDevicesAsync(txtIotHubCnString.Text));
-
-            //Enable Register button again
-            btnRegister.Enabled = true;
         }
     }
 }

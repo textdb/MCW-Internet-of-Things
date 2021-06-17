@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Text;
-using System.Threading.Tasks;
 using Microsoft.Azure.Devices.Client;
 using Newtonsoft.Json;
 
@@ -12,8 +11,8 @@ namespace SmartMeterSimulator
     /// </summary>
     class Sensor
     {
-        private DeviceClient _DeviceClient;
-        private string _IotHubUri { get; set; }
+        private DeviceClient DeviceClient;
+        private string IotHubUri { get; set; }
         public string DeviceId { get; set; }
         public string DeviceKey { get; set; }
         public DeviceState State { get; set; }
@@ -33,12 +32,12 @@ namespace SmartMeterSimulator
                     // If we received a cloud-to-device message that sets the temperature, override with the received value.
                     currentTemperature = ReceivedTemperatureSetting.Value;
                 }
-                
-                if(currentTemperature <= 68)
+
+                if (currentTemperature <= 68)
                     TemperatureIndicator = SensorState.Cold;
-                else if(currentTemperature > 68 && currentTemperature < 72)
+                else if (currentTemperature > 68 && currentTemperature < 72)
                     TemperatureIndicator = SensorState.Normal;
-                else if(currentTemperature >= 72)
+                else if (currentTemperature >= 72)
                     TemperatureIndicator = SensorState.Hot;
 
                 return currentTemperature;
@@ -46,10 +45,15 @@ namespace SmartMeterSimulator
         }
         public SensorState TemperatureIndicator { get; set; }
 
-        public Sensor(string iotHubUri, string deviceId, string deviceKey)
+        public Sensor(string deviceId)
         {
-            _IotHubUri = iotHubUri;
             DeviceId = deviceId;
+
+        }
+
+        public void SetRegistrationInformation(string iotHubUri, string deviceKey)
+        {
+            IotHubUri = iotHubUri;
             DeviceKey = deviceKey;
             State = DeviceState.Registered;
         }
@@ -64,19 +68,20 @@ namespace SmartMeterSimulator
         /// </summary>
         public void ConnectDevice()
         {
-            //TODO: 17. Connect the Device to Iot Hub by creating an instance of DeviceClient
-            //_DeviceClient = DeviceClient.Create(_IotHubUri, new DeviceAuthenticationWithRegistrySymmetricKey(..., ...));
+            //TODO: 6. Connect the Device to Iot Hub by creating an instance of DeviceClient
+            //DeviceClient = ...
 
             //Set the Device State to Ready
-            State = DeviceState.Ready;
+            State = DeviceState.Connected;
         }
+
         public void DisconnectDevice()
         {
-            //Delete the local device client
-            _DeviceClient = null;
+            //Delete the local device client            
+            DeviceClient = null;
 
             //Set the Device State to Activate
-            State = DeviceState.Activated;
+            State = DeviceState.Registered;
         }
 
         /// <summary>
@@ -91,15 +96,15 @@ namespace SmartMeterSimulator
                 temp = CurrentTemperature
             };
 
-            //TODO: 18.Serialize the telemetryDataPoint to JSON
-            //var messageString = JsonConvert...;
+            //TODO: 7.Serialize the telemetryDataPoint to JSON
+            //var messageString = ...
 
-            //TODO: 19.Encode the JSON string to ASCII as bytes and create new Message with the bytes
-            //var message = new Message(...);
+            //TODO: 8.Encode the JSON string to ASCII as bytes and create new Message with the bytes
+            //var message = ...
 
-            //TODO: 20.Send the message to the IoT Hub
-            //var sendEventAsync = _DeviceClient?.SendEventAsync(...);
-            //if (sendEventAsync != null) await...;
+            //TODO: 9.Send the message to the IoT Hub
+            //var sendEventAsync = ...
+            //if (sendEventAsync != null) ...
         }
 
         /// <summary>
@@ -107,19 +112,21 @@ namespace SmartMeterSimulator
         /// </summary>
         public async void ReceiveMessageAsync()
         {
+            if (DeviceClient == null)
+                return;
+
             try
             {
-                // Receive a message from IoT Hub
-                var receivedMessage = await _DeviceClient?.ReceiveAsync();
+                Message receivedMessage = await DeviceClient?.ReceiveAsync();
                 if (receivedMessage == null)
                 {
                     ReceivedMessage = null;
                     return;
                 }
 
-                //TODO: 21.Set the received message for this sensor to the string value of the message byte array
-                //ReceivedMessage = Encoding.ASCII.GetString(...);
-                if(double.TryParse(ReceivedMessage, out var requestedTemperature))
+                //TODO: 10.Set the received message for this sensor to the string value of the message byte array
+                //ReceivedMessage = ...
+                if (double.TryParse(ReceivedMessage, out var requestedTemperature))
                 {
                     ReceivedTemperatureSetting = requestedTemperature;
                 }
@@ -133,10 +140,10 @@ namespace SmartMeterSimulator
                 // that prevented the device app from completing the processing of the message,
                 // IoT Hub delivers it again.
 
-                //TODO: 22.Send acknowledgement to IoT hub that the message was processed
-                //await _DeviceClient?.CompleteAsync(...);
+                //TODO: 11.Send acknowledgement to IoT hub that the message was processed
+                //await DeviceClient?...
             }
-            catch (NullReferenceException ex)
+            catch (Exception)
             {
                 // The device client is null, likely due to it being disconnected since this method was called.
                 System.Diagnostics.Debug.WriteLine("The DeviceClient is null. This is likely due to it being disconnected since the ReceiveMessageAsync message was called.");
@@ -144,12 +151,13 @@ namespace SmartMeterSimulator
         }
     }
 
+
     public enum DeviceState
-    { 
-        Registered,
+    {
+        New,
         Installed,
-        Activated,
-        Ready,
+        Registered,
+        Connected,
         Transmit
     }
     public enum SensorState
@@ -159,3 +167,4 @@ namespace SmartMeterSimulator
         Hot
     }
 }
+

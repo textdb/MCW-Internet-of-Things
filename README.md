@@ -2,7 +2,7 @@
 
 Fabrikam provides services and smart meters for enterprise energy (electrical power) management. Their **You-Left-The-Light-On** service enables the enterprise to understand their energy consumption. Fabrikam would like to become an authorized energy management solution provider. According to their Director of Analytics, Sam George, "We are investigating a move to the cloud to help our customers not only to meet data collection and reporting requirements, but also become the number one energy management solution provider." They are intending to enable their enterprise customers with a web-based dashboard where they can see historical trends of power consumption.
 
-March 2021
+June 2021
 
 ## Target audience
 
@@ -37,6 +37,7 @@ At the end of this hands-on lab, you will be better able to build an IoT solutio
 - Azure Databricks
 - Azure SQL Database
 - Azure Stream Analytics
+- Device Provisioning Service
 - IoT Hub
 - Power BI Desktop
 - Visual Studio
