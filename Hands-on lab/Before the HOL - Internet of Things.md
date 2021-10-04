@@ -45,8 +45,6 @@ Microsoft and the trademarks listed at <https://www.microsoft.com/en-us/legal/in
 - A virtual machine configured with:
   - Visual Studio Community 2019 or later
   - Azure SDK 2.9 or later (Included with Visual Studio)
-- A running Azure Databricks cluster.
-- A work email address that has Power BI enabled, allowing you to create a Power BI account if one does not exist.
 
 ## Before the hands-on lab
 
