@@ -176,13 +176,11 @@ Fabrikam has provided a Smart Meter Simulator that they use to simulate device r
 
 1. From your **LabVM**, download the starter project by downloading a .zip copy of the Internet of Things MCW GitHub repo.
 
-2. In your newly installed Chrome web browser, navigate to the Internet of Things MCW repo: <https://github.com/Microsoft/MCW-Internet-of-Things>.
+2. Go to Windows PowerShell
 
-3. On the repo page, expand the **Code** button, then select **Download ZIP**.
+3. ```cd \```
 
-   ![Download .zip containing the Internet of Things MCW repository](media/git-hub-download-repo.png 'Download ZIP')
-
-4. Unzip the contents to the folder **C:\SmartMeter**.
+4. ```git clone https://github.com/vitoc/MCW-Internet-of-Things```
 
 5. Navigate to the `SmartMeterSimulator.sln` file within the `Hands-on lab\lab-files\starter-project` folder and open it with **Visual Studio 2019**.
 
