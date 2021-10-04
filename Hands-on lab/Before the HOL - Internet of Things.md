@@ -112,8 +112,6 @@ In this task, you will provision a virtual machine running Visual Studio Communi
 
    - **Selected inbound ports**: Select **RDP (3389)** from the drop down.
 
-   - **License type**: Select **Windows client**.
-
    - Check the confirmation checkbox.
 
      ![The Create virtual machine form is shown with fields set to the previously mentioned settings.](media/virtual-machine.png 'Create virtual machine form')
